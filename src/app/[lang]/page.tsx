@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { BentoGrid } from "@/components/home/bento-grid";
 import { Faq } from "@/components/home/faq";
+import { FinalCta } from "@/components/home/final-cta";
 import { Hero } from "@/components/home/hero";
 import { Problem } from "@/components/home/problem";
 import { PrivacyTrust } from "@/components/home/privacy-trust";
@@ -23,6 +24,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       <BentoGrid dict={home.bento} />
       <PrivacyTrust dict={home.privacy} />
       <Faq dict={home.faq} />
+      <FinalCta dict={home.cta} hero={home.hero} />
     </>
   );
 }

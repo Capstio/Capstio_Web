@@ -267,6 +267,12 @@
           "answer": "From the Download page, as a DMG for macOS 15 or later. Homebrew and the Mac App Store come later."
         }
       ]
+    },
+    "cta": {
+      "overline": "AVAILABLE FOR macOS",
+      "subtitle": "Docker, PM2, systemd, config files and terminal in one native app. Just SSH, no agent.",
+      "requirement": "macOS 15 or later · No agent to install",
+      "releaseNotes": "Release notes"
     }
   }
 }

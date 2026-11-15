@@ -267,6 +267,12 @@
           "answer": "Từ trang Tải về, dạng file DMG cho macOS 15 trở lên. Homebrew và Mac App Store sẽ có sau."
         }
       ]
+    },
+    "cta": {
+      "overline": "DÀNH CHO macOS",
+      "subtitle": "Docker, PM2, systemd, file config và terminal trong một app native. Chỉ cần SSH, không cài agent.",
+      "requirement": "macOS 15 trở lên · Không cần cài agent",
+      "releaseNotes": "Release notes"
     }
   }
 }
