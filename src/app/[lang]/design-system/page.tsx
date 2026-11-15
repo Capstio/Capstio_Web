@@ -122,7 +122,7 @@ export default async function DesignSystemPage({
   if (!hasLocale(lang)) notFound();
 
   return (
-    <Section surface="light" className="py-12 lg:py-16">
+    <Section surface="light" spacing="py-12 lg:py-16">
       <Container>
         <Overline>Foundations</Overline>
         <h1 className="type-h1 mt-3 text-heading">Capstio design system</h1>

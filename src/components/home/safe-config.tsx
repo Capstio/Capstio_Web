@@ -38,7 +38,7 @@ export function SafeConfig({ dict }: { dict: SafeConfigDict }) {
     <Section
       surface="light"
       aria-labelledby={headingId}
-      className="py-10 md:py-10 lg:py-25"
+      spacing="py-10 lg:py-25"
     >
       <Container className="grid gap-8 lg:grid-cols-[minmax(0,656px)_480px] lg:items-center lg:justify-between lg:gap-16">
         <FeatureCopy

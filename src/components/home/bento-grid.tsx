@@ -1,6 +1,5 @@
 import {
   ArrowLeftRight,
-  ArrowRight,
   Bell,
   List,
   ShieldCheck,
@@ -15,6 +14,7 @@ import type { Dictionary } from "@/lib/dictionaries";
 import { allFeaturesHref, featureHref } from "@/lib/site-nav";
 import fleetDark from "../../../public/features/fleet-dark.png";
 import fleetLight from "../../../public/features/fleet-light.png";
+import { withArrow } from "./with-arrow";
 
 type BentoDict = Dictionary["home"]["bento"];
 type StripKey = keyof BentoDict["strip"];
@@ -51,21 +51,6 @@ const bigNumber =
 const cardText =
   "mt-5 block text-sm leading-5 font-medium text-soft lg:mt-7 lg:text-[0.9375rem] lg:leading-[1.375rem]";
 
-// Link text followed by an arrow. The last word and the arrow never break
-// apart, so the arrow does not wrap onto a line of its own.
-function withArrow(text: string, arrowClassName = "size-3.5") {
-  const split = text.lastIndexOf(" ") + 1;
-  return (
-    <>
-      {text.slice(0, split)}
-      <span className="whitespace-nowrap">
-        {text.slice(split)}
-        <ArrowRight aria-hidden="true" className={cn("ml-1 inline align-[-0.15em]", arrowClassName)} />
-      </span>
-    </>
-  );
-}
-
 function CardLink({ href, children }: { href: string; children: string }) {
   return (
     <Link
@@ -87,7 +72,7 @@ export function BentoGrid({ dict }: { dict: BentoDict }) {
     <Section
       surface="light"
       aria-labelledby={headingId}
-      className="py-10 md:py-10 lg:py-30"
+      spacing="py-10 lg:py-30"
     >
       <Container className="flex flex-col gap-8 lg:gap-16">
         <div className="flex flex-col gap-4 lg:items-center lg:text-center">

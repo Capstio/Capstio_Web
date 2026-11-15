@@ -179,6 +179,68 @@
         "tunnels": { "title": "Tunnel", "body": "Local, Remote, SOCKS." },
         "ai": { "title": "AI trong terminal", "body": "Lệnh chỉ đọc, bạn duyệt từng lệnh." }
       }
+    },
+    "privacy": {
+      "overline": "Bảo mật & quyền riêng tư",
+      "title": "Dữ liệu nào rời máy bạn, và đi đâu.",
+      "subtitle": "Terminal, log, số liệu và nội dung file không bao giờ gửi tới máy chủ Capstio. Những gì app gửi ra ngoài được liệt kê bên dưới, kèm nơi nhận và thời điểm.",
+      "local": {
+        "label": "Không bao giờ tới máy chủ Capstio",
+        "title": "Terminal, file và khóa của bạn",
+        "rows": [
+          {
+            "title": "SSH key và mật khẩu",
+            "body": "Lưu trong Keychain của macOS. Hỗ trợ key Secure Enclave và SSH agent/1Password. Key chia sẻ cho nhóm chỉ đi qua vault dưới dạng bản mã."
+          },
+          {
+            "title": "Terminal và lệnh",
+            "body": "Đi thẳng từ Mac tới VPS qua SSH chuẩn, không qua server trung gian."
+          },
+          {
+            "title": "Log, số liệu và nội dung file",
+            "body": "Không bao giờ gửi tới máy chủ Capstio. Giá trị trong file .env được che ngay trong editor."
+          },
+          {
+            "title": "Phân tích và theo dõi",
+            "body": "App không nhúng SDK phân tích hay theo dõi."
+          }
+        ]
+      },
+      "outbound": {
+        "label": "Gửi ra ngoài, có điều kiện",
+        "title": "Những gì app gửi ra ngoài",
+        "rows": [
+          {
+            "title": "Kiểm tra bản cập nhật",
+            "body": "App chỉ đọc tệp /appcast.xml công khai để so sánh số phiên bản, không gửi kèm bất kỳ định danh hay thông tin thiết bị nào.",
+            "meta": "Đọc: tệp /appcast.xml công khai · Khi nào: lúc app kiểm tra cập nhật"
+          },
+          {
+            "title": "Ngữ cảnh cho AI",
+            "body": "Dùng key hoặc tài khoản của bạn, không qua máy chủ Capstio. Secret được che trước khi gửi; muốn tuyệt đối thì dùng model cục bộ.",
+            "meta": "Gửi tới: nhà cung cấp AI bạn chọn · Khi nào: chỉ khi bạn bật AI"
+          },
+          {
+            "title": "Vault nhóm",
+            "body": "Host, SSH key và recipe dùng chung được mã hóa đầu‑cuối, máy chủ chỉ lưu bản mã. Metadata như số host, ai sửa lúc nào vẫn ở dạng rõ.",
+            "meta": "Gửi tới: máy chủ Capstio · Khi nào: chỉ khi bạn đăng nhập để làm việc nhóm hoặc đồng bộ"
+          },
+          {
+            "title": "Cảnh báo qua Slack/webhook",
+            "body": "Nội dung cảnh báo gửi tới địa chỉ bạn cấu hình.",
+            "meta": "Gửi tới: Slack/webhook của bạn · Khi nào: chỉ khi bạn bật"
+          },
+          {
+            "title": "Đồng bộ recipe qua Git",
+            "body": "Recipe bạn tự tạo được đẩy lên kho Git bạn cấu hình.",
+            "meta": "Gửi tới: kho Git của bạn · Khi nào: chỉ khi bạn bật đồng bộ"
+          }
+        ]
+      },
+      "footnote": {
+        "note": "Bạn có thể kiểm chứng mọi kết nối mạng của Capstio bằng Little Snitch.",
+        "link": "Xem chi tiết kiến trúc bảo mật"
+      }
     }
   }
 }
