@@ -220,6 +220,7 @@
   --color-privacy-meta: var(--sp-privacy-meta);
   --color-privacy-local-line: var(--sp-privacy-local-line);
   --color-privacy-line: var(--sp-privacy-line);
+  --color-faq-line: var(--sp-faq-line);
   --color-good: var(--sp-good);
   --color-good-bg: var(--sp-good-bg);
   --color-bad: var(--sp-bad);
@@ -372,6 +373,8 @@
   --sp-privacy-meta: var(--color-ink-500);
   --sp-privacy-local-line: rgb(14 159 126 / 0.16);
   --sp-privacy-line: rgb(15 23 42 / 0.1);
+  /* FAQ: hairline between questions. */
+  --sp-faq-line: rgb(15 23 42 / 0.07);
 }
 
 /* Dark theme, and the Dark context block which keeps dark values in both themes. */
@@ -488,6 +491,7 @@
   --sp-privacy-meta: #7c8ba8;
   --sp-privacy-local-line: rgb(46 196 160 / 0.1);
   --sp-privacy-line: rgb(255 255 255 / 0.08);
+  --sp-faq-line: rgb(255 255 255 / 0.06);
 }
 
 /* ----------------------------------------------------------------- 3. Contexts */
@@ -640,6 +644,27 @@
   font-size: 0.75rem;
   line-height: 1.125rem;
   font-weight: 400;
+}
+
+/* A <details> whose content slides open and shut. Browsers without
+   ::details-content support just open instantly. */
+@utility details-reveal {
+  interpolate-size: allow-keywords;
+  &::details-content {
+    block-size: 0;
+    overflow-y: clip;
+    transition:
+      block-size 250ms cubic-bezier(0.2, 0, 0, 1),
+      content-visibility 250ms allow-discrete;
+  }
+  &[open]::details-content {
+    block-size: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &::details-content {
+      transition: none;
+    }
+  }
 }
 
 /* ---------------------------------------------------------------------- Layout */

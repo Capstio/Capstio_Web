@@ -22,6 +22,7 @@ export function Hero({
     <Section
       surface="light"
       aria-labelledby={headingId}
+      spacing="pt-16 pb-10 md:pt-20 lg:pt-24 lg:pb-20"
       className="relative overflow-hidden"
     >
       <div

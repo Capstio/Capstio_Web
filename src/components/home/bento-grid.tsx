@@ -72,7 +72,7 @@ export function BentoGrid({ dict }: { dict: BentoDict }) {
     <Section
       surface="light"
       aria-labelledby={headingId}
-      spacing="py-10 lg:py-30"
+      spacing="py-10 lg:py-20"
     >
       <Container className="flex flex-col gap-8 lg:gap-16">
         <div className="flex flex-col gap-4 lg:items-center lg:text-center">

@@ -241,6 +241,32 @@
         "note": "Bạn có thể kiểm chứng mọi kết nối mạng của Capstio bằng Little Snitch.",
         "link": "Xem chi tiết kiến trúc bảo mật"
       }
+    },
+    "faq": {
+      "overline": "FAQ",
+      "title": "Câu hỏi thường gặp",
+      "items": [
+        {
+          "question": "Capstio có cài gì lên VPS của tôi không?",
+          "answer": "Không. Capstio kết nối qua SSH chuẩn và không cài agent lên VPS. Một số tính năng cần Docker, PM2 hoặc systemd có sẵn trên server."
+        },
+        {
+          "question": "SSH key và dữ liệu của tôi được lưu ở đâu?",
+          "answer": "Trên máy Mac của bạn. Mật khẩu và private key nằm trong Keychain của macOS; terminal, log, số liệu và nội dung file không bao giờ gửi tới máy chủ Capstio. Nếu dùng tính năng nhóm, vault chung được mã hóa đầu‑cuối và máy chủ chỉ lưu bản mã."
+        },
+        {
+          "question": "Tôi có cần tài khoản không?",
+          "answer": "Không. Mọi tính năng cục bộ đều dùng được mà không cần tài khoản. Tài khoản chỉ cần cho làm việc nhóm và đồng bộ, đăng nhập bằng Google hoặc mã gửi qua email."
+        },
+        {
+          "question": "Capstio hỗ trợ những bản Linux nào?",
+          "answer": "Ưu tiên Ubuntu 22.04/24.04 và Debian 12, tiếp theo là Rocky Linux 9 và AlmaLinux 9. CentOS 7 và Alpine chỉ được hỗ trợ ở mức giới hạn, các tính năng không áp dụng sẽ được ẩn."
+        },
+        {
+          "question": "Tải Capstio ở đâu?",
+          "answer": "Từ trang Tải về, dạng file DMG cho macOS 15 trở lên. Homebrew và Mac App Store sẽ có sau."
+        }
+      ]
     }
   }
 }

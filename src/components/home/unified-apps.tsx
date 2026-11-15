@@ -37,7 +37,7 @@ export function UnifiedApps({ dict }: { dict: UnifiedAppsDict }) {
     <Section
       surface="light"
       aria-labelledby={headingId}
-      spacing="pt-10 lg:pt-25"
+      spacing="pt-10 lg:pt-20"
       className="overflow-hidden"
     >
       <Container className="grid gap-8 lg:grid-cols-[480px_minmax(0,1fr)] lg:items-center lg:gap-16">

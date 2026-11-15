@@ -84,7 +84,7 @@ function MatrixColumn({
 // stacked below. The copy follows the brief's list of claims we may make.
 export function PrivacyTrust({ dict }: { dict: PrivacyDict }) {
   return (
-    <Section surface="light" aria-labelledby={headingId} spacing="py-10 lg:py-25">
+    <Section surface="light" aria-labelledby={headingId} spacing="py-10 lg:py-20">
       <Container className="flex flex-col gap-8 lg:gap-12">
         <div className="flex flex-col gap-4 lg:items-center lg:text-center">
           <p className="text-[0.8125rem] leading-4 font-semibold text-kicker uppercase">

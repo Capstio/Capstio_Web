@@ -241,6 +241,32 @@
         "note": "You can verify every network connection Capstio makes with Little Snitch.",
         "link": "Read the security architecture"
       }
+    },
+    "faq": {
+      "overline": "FAQ",
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "question": "Does Capstio install anything on my VPS?",
+          "answer": "No. Capstio connects over standard SSH and installs no agent on your VPS. Some features rely on Docker, PM2 or systemd already being on the server."
+        },
+        {
+          "question": "Where are my SSH keys and data stored?",
+          "answer": "On your Mac. Passwords and private keys stay in the macOS Keychain, and terminal, logs, metrics and file contents are never sent to Capstio servers. If you use team features, the shared vault is end‑to‑end encrypted and the server stores only ciphertext."
+        },
+        {
+          "question": "Do I need an account?",
+          "answer": "No. Every local feature works without one. An account is only needed for team features and sync, and you sign in with Google or a code sent by email."
+        },
+        {
+          "question": "Which Linux distributions are supported?",
+          "answer": "Ubuntu 22.04 and 24.04 and Debian 12 come first, followed by Rocky Linux 9 and AlmaLinux 9. CentOS 7 and Alpine have limited support, and features that don't apply there are hidden."
+        },
+        {
+          "question": "Where can I download Capstio?",
+          "answer": "From the Download page, as a DMG for macOS 15 or later. Homebrew and the Mac App Store come later."
+        }
+      ]
     }
   }
 }
