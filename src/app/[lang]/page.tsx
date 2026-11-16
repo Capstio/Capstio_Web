@@ -1,6 +1,10 @@
 import { notFound } from "next/navigation";
+import { BentoGrid } from "@/components/home/bento-grid";
+import { Faq } from "@/components/home/faq";
+import { FinalCta } from "@/components/home/final-cta";
 import { Hero } from "@/components/home/hero";
 import { Problem } from "@/components/home/problem";
+import { PrivacyTrust } from "@/components/home/privacy-trust";
 import { SafeConfig } from "@/components/home/safe-config";
 import { UnifiedApps } from "@/components/home/unified-apps";
 import { getDictionary } from "@/lib/dictionaries";
@@ -17,6 +21,10 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       <Problem dict={home.problem} />
       <UnifiedApps dict={home.unifiedApps} />
       <SafeConfig dict={home.safeConfig} />
+      <BentoGrid dict={home.bento} />
+      <PrivacyTrust dict={home.privacy} />
+      <Faq dict={home.faq} />
+      <FinalCta dict={home.cta} hero={home.hero} />
     </>
   );
 }

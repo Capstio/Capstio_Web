@@ -157,6 +157,122 @@
       "backupMeta": ".env · 13:52 · 3 versions",
       "restore": "Restore",
       "imageAlt": "Editing a .env file in Capstio: secret values are hidden and the syntax check passes"
+    },
+    "bento": {
+      "overline": "All in one Mac app",
+      "title": "Every tool you need. In one Mac app.",
+      "subtitle": "Terminal, recipes, logs, alerts, SSH security and tunnels in one native app. Just SSH, no agent on your VPS.",
+      "fleet": {
+        "overline": "Fleet",
+        "title": "Every server, one window.",
+        "body": "CPU, RAM, disk and containers for every host.",
+        "link": "See all features",
+        "imageAlt": "The Capstio All VPS view: six servers with their CPU, RAM and disk use, and totals for containers, apps and alerts"
+      },
+      "recipes": { "body": "built-in recipes with risk labels, run across many hosts.", "link": "Learn more about Recipes" },
+      "agentless": { "body": "agents installed on your VPS. Plain SSH only." },
+      "terminal": { "body": "Tabs and split panes. Shortcuts aren't swallowed by the terminal, so ⌘1 to ⌘0 switch tabs.", "link": "Learn more about Terminal" },
+      "strip": {
+        "logs": { "title": "Logs", "body": "Filter errors, highlight keywords." },
+        "alerts": { "title": "Alerts", "body": "Disk and RAM thresholds while the app is open." },
+        "sshSecurity": { "title": "SSH security", "body": "Block an IP in one click." },
+        "tunnels": { "title": "Tunnels", "body": "Local, Remote, SOCKS." },
+        "ai": { "title": "AI in the terminal", "body": "Read-only commands, you approve each one." }
+      }
+    },
+    "privacy": {
+      "overline": "Security & privacy",
+      "title": "What leaves your Mac, and where it goes.",
+      "subtitle": "Terminal, logs, metrics and file contents are never sent to Capstio servers. Everything the app does send out is listed below, with where it goes and when.",
+      "local": {
+        "label": "Never sent to Capstio servers",
+        "title": "Your terminal, files and keys",
+        "rows": [
+          {
+            "title": "SSH keys and passwords",
+            "body": "Stored in the macOS Keychain. Supports Secure Enclave keys and SSH agent/1Password. Keys shared with a team leave only as ciphertext in the vault."
+          },
+          {
+            "title": "Terminal and commands",
+            "body": "Go straight from your Mac to your VPS over standard SSH, with no relay server in between."
+          },
+          {
+            "title": "Logs, metrics and file contents",
+            "body": "Never sent to Capstio servers. Values in .env files are masked right in the editor."
+          },
+          {
+            "title": "Analytics and tracking",
+            "body": "The app embeds no analytics or tracking SDK."
+          }
+        ]
+      },
+      "outbound": {
+        "label": "Sent out, only under conditions",
+        "title": "What the app sends out",
+        "rows": [
+          {
+            "title": "Update checks",
+            "body": "The app only reads the public /appcast.xml file to compare version numbers. No identifiers or device information are sent.",
+            "meta": "Reads: the public /appcast.xml file · When: when the app checks for updates"
+          },
+          {
+            "title": "Context for AI",
+            "body": "Uses your own key or account, never routed through Capstio servers. Secrets are masked before sending; for full certainty, use a local model.",
+            "meta": "Sent to: the AI provider you choose · When: only if you turn on AI"
+          },
+          {
+            "title": "Team vault",
+            "body": "Shared hosts, SSH keys and recipes are end‑to‑end encrypted; the server stores only ciphertext. Metadata such as host count and who edited what, when, stays in plain text.",
+            "meta": "Sent to: Capstio servers · When: only if you sign in for team features or sync"
+          },
+          {
+            "title": "Slack/webhook alerts",
+            "body": "Alert content is sent to the address you configure.",
+            "meta": "Sent to: your Slack/webhook · When: only if you turn it on"
+          },
+          {
+            "title": "Recipe sync via Git",
+            "body": "Recipes you create are pushed to the Git repository you configure.",
+            "meta": "Sent to: your Git repository · When: only if you turn on sync"
+          }
+        ]
+      },
+      "footnote": {
+        "note": "You can verify every network connection Capstio makes with Little Snitch.",
+        "link": "Read the security architecture"
+      }
+    },
+    "faq": {
+      "overline": "FAQ",
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "question": "Does Capstio install anything on my VPS?",
+          "answer": "No. Capstio connects over standard SSH and installs no agent on your VPS. Some features rely on Docker, PM2 or systemd already being on the server."
+        },
+        {
+          "question": "Where are my SSH keys and data stored?",
+          "answer": "On your Mac. Passwords and private keys stay in the macOS Keychain, and terminal, logs, metrics and file contents are never sent to Capstio servers. If you use team features, the shared vault is end‑to‑end encrypted and the server stores only ciphertext."
+        },
+        {
+          "question": "Do I need an account?",
+          "answer": "No. Every local feature works without one. An account is only needed for team features and sync, and you sign in with Google or a code sent by email."
+        },
+        {
+          "question": "Which Linux distributions are supported?",
+          "answer": "Ubuntu 22.04 and 24.04 and Debian 12 come first, followed by Rocky Linux 9 and AlmaLinux 9. CentOS 7 and Alpine have limited support, and features that don't apply there are hidden."
+        },
+        {
+          "question": "Where can I download Capstio?",
+          "answer": "From the Download page, as a DMG for macOS 15 or later. Homebrew and the Mac App Store come later."
+        }
+      ]
+    },
+    "cta": {
+      "overline": "AVAILABLE FOR macOS",
+      "subtitle": "Docker, PM2, systemd, config files and terminal in one native app. Just SSH, no agent.",
+      "requirement": "macOS 15 or later · No agent to install",
+      "releaseNotes": "Release notes"
     }
   }
 }

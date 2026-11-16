@@ -47,6 +47,8 @@ export const downloadHref = "/download";
 
 export const allFeaturesHref = "/features";
 
+export const securityHref = "/security";
+
 // Footer columns. Column titles come from `footer.columns.<id>` and link labels
 // from `footer.links.<id>` in the dictionaries.
 export type FooterColumn = {
@@ -90,7 +92,7 @@ export const footerColumns: FooterColumn[] = [
     links: [
       { id: "about", href: "/about" },
       { id: "brand", href: "/brand" },
-      { id: "security", href: "/security" },
+      { id: "security", href: securityHref },
       { id: "privacy", href: "/privacy" },
       { id: "terms", href: "/terms" },
     ],

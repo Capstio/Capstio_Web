@@ -157,6 +157,122 @@
       "backupMeta": ".env · 13:52 · 3 phiên bản",
       "restore": "Khôi phục",
       "imageAlt": "Sửa file .env trong Capstio: giá trị bí mật được che và kiểm tra cú pháp hợp lệ"
+    },
+    "bento": {
+      "overline": "Tất cả trong một app Mac",
+      "title": "Mọi công cụ bạn cần. Trong một app Mac duy nhất.",
+      "subtitle": "Terminal, recipe, log, cảnh báo, bảo mật SSH và tunnel trong một app native. Chỉ cần SSH, không cài agent lên VPS.",
+      "fleet": {
+        "overline": "Toàn bộ VPS",
+        "title": "Mọi server, một cửa sổ.",
+        "body": "CPU, RAM, disk và container của từng host.",
+        "link": "Xem tất cả tính năng",
+        "imageAlt": "Màn hình Toàn bộ VPS của Capstio: sáu server với mức dùng CPU, RAM, disk cùng tổng số container, app và cảnh báo"
+      },
+      "recipes": { "body": "recipe dựng sẵn, có nhãn rủi ro, chạy trên nhiều host.", "link": "Xem thêm về Recipes" },
+      "agentless": { "body": "agent cài lên VPS. Chỉ dùng SSH chuẩn." },
+      "terminal": { "body": "Terminal nhiều tab, chia đôi. Phím tắt không bị terminal nuốt, chuyển tab bằng ⌘1 đến ⌘0.", "link": "Xem thêm về Terminal" },
+      "strip": {
+        "logs": { "title": "Logs", "body": "Lọc lỗi, tô sáng từ khóa." },
+        "alerts": { "title": "Cảnh báo", "body": "Disk, RAM vượt ngưỡng khi app đang mở." },
+        "sshSecurity": { "title": "Bảo mật SSH", "body": "Chặn IP lạ chỉ một chạm." },
+        "tunnels": { "title": "Tunnel", "body": "Local, Remote, SOCKS." },
+        "ai": { "title": "AI trong terminal", "body": "Lệnh chỉ đọc, bạn duyệt từng lệnh." }
+      }
+    },
+    "privacy": {
+      "overline": "Bảo mật & quyền riêng tư",
+      "title": "Dữ liệu nào rời máy bạn, và đi đâu.",
+      "subtitle": "Terminal, log, số liệu và nội dung file không bao giờ gửi tới máy chủ Capstio. Những gì app gửi ra ngoài được liệt kê bên dưới, kèm nơi nhận và thời điểm.",
+      "local": {
+        "label": "Không bao giờ tới máy chủ Capstio",
+        "title": "Terminal, file và khóa của bạn",
+        "rows": [
+          {
+            "title": "SSH key và mật khẩu",
+            "body": "Lưu trong Keychain của macOS. Hỗ trợ key Secure Enclave và SSH agent/1Password. Key chia sẻ cho nhóm chỉ đi qua vault dưới dạng bản mã."
+          },
+          {
+            "title": "Terminal và lệnh",
+            "body": "Đi thẳng từ Mac tới VPS qua SSH chuẩn, không qua server trung gian."
+          },
+          {
+            "title": "Log, số liệu và nội dung file",
+            "body": "Không bao giờ gửi tới máy chủ Capstio. Giá trị trong file .env được che ngay trong editor."
+          },
+          {
+            "title": "Phân tích và theo dõi",
+            "body": "App không nhúng SDK phân tích hay theo dõi."
+          }
+        ]
+      },
+      "outbound": {
+        "label": "Gửi ra ngoài, có điều kiện",
+        "title": "Những gì app gửi ra ngoài",
+        "rows": [
+          {
+            "title": "Kiểm tra bản cập nhật",
+            "body": "App chỉ đọc tệp /appcast.xml công khai để so sánh số phiên bản, không gửi kèm bất kỳ định danh hay thông tin thiết bị nào.",
+            "meta": "Đọc: tệp /appcast.xml công khai · Khi nào: lúc app kiểm tra cập nhật"
+          },
+          {
+            "title": "Ngữ cảnh cho AI",
+            "body": "Dùng key hoặc tài khoản của bạn, không qua máy chủ Capstio. Secret được che trước khi gửi; muốn tuyệt đối thì dùng model cục bộ.",
+            "meta": "Gửi tới: nhà cung cấp AI bạn chọn · Khi nào: chỉ khi bạn bật AI"
+          },
+          {
+            "title": "Vault nhóm",
+            "body": "Host, SSH key và recipe dùng chung được mã hóa đầu‑cuối, máy chủ chỉ lưu bản mã. Metadata như số host, ai sửa lúc nào vẫn ở dạng rõ.",
+            "meta": "Gửi tới: máy chủ Capstio · Khi nào: chỉ khi bạn đăng nhập để làm việc nhóm hoặc đồng bộ"
+          },
+          {
+            "title": "Cảnh báo qua Slack/webhook",
+            "body": "Nội dung cảnh báo gửi tới địa chỉ bạn cấu hình.",
+            "meta": "Gửi tới: Slack/webhook của bạn · Khi nào: chỉ khi bạn bật"
+          },
+          {
+            "title": "Đồng bộ recipe qua Git",
+            "body": "Recipe bạn tự tạo được đẩy lên kho Git bạn cấu hình.",
+            "meta": "Gửi tới: kho Git của bạn · Khi nào: chỉ khi bạn bật đồng bộ"
+          }
+        ]
+      },
+      "footnote": {
+        "note": "Bạn có thể kiểm chứng mọi kết nối mạng của Capstio bằng Little Snitch.",
+        "link": "Xem chi tiết kiến trúc bảo mật"
+      }
+    },
+    "faq": {
+      "overline": "FAQ",
+      "title": "Câu hỏi thường gặp",
+      "items": [
+        {
+          "question": "Capstio có cài gì lên VPS của tôi không?",
+          "answer": "Không. Capstio kết nối qua SSH chuẩn và không cài agent lên VPS. Một số tính năng cần Docker, PM2 hoặc systemd có sẵn trên server."
+        },
+        {
+          "question": "SSH key và dữ liệu của tôi được lưu ở đâu?",
+          "answer": "Trên máy Mac của bạn. Mật khẩu và private key nằm trong Keychain của macOS; terminal, log, số liệu và nội dung file không bao giờ gửi tới máy chủ Capstio. Nếu dùng tính năng nhóm, vault chung được mã hóa đầu‑cuối và máy chủ chỉ lưu bản mã."
+        },
+        {
+          "question": "Tôi có cần tài khoản không?",
+          "answer": "Không. Mọi tính năng cục bộ đều dùng được mà không cần tài khoản. Tài khoản chỉ cần cho làm việc nhóm và đồng bộ, đăng nhập bằng Google hoặc mã gửi qua email."
+        },
+        {
+          "question": "Capstio hỗ trợ những bản Linux nào?",
+          "answer": "Ưu tiên Ubuntu 22.04/24.04 và Debian 12, tiếp theo là Rocky Linux 9 và AlmaLinux 9. CentOS 7 và Alpine chỉ được hỗ trợ ở mức giới hạn, các tính năng không áp dụng sẽ được ẩn."
+        },
+        {
+          "question": "Tải Capstio ở đâu?",
+          "answer": "Từ trang Tải về, dạng file DMG cho macOS 15 trở lên. Homebrew và Mac App Store sẽ có sau."
+        }
+      ]
+    },
+    "cta": {
+      "overline": "DÀNH CHO macOS",
+      "subtitle": "Docker, PM2, systemd, file config và terminal trong một app native. Chỉ cần SSH, không cài agent.",
+      "requirement": "macOS 15 trở lên · Không cần cài agent",
+      "releaseNotes": "Release notes"
     }
   }
 }

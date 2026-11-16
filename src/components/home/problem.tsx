@@ -34,7 +34,7 @@ export function Problem({ dict }: { dict: ProblemDict }) {
     <Section
       surface="light"
       aria-labelledby={headingId}
-      className="py-10 lg:pt-18 lg:pb-16"
+      spacing="py-10 lg:py-20"
     >
       <Container className="flex flex-col gap-6 lg:gap-10">
         <div className="flex flex-col items-center gap-3 text-center lg:gap-4">
