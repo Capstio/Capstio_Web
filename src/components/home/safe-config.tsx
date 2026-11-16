@@ -50,7 +50,7 @@ export function SafeConfig({ dict }: { dict: SafeConfigDict }) {
           icons={pointIcons}
         />
 
-        <div className="relative mx-auto aspect-[358/260] w-full max-w-164 overflow-hidden rounded-2xl border border-stage-line bg-(image:--sp-stage) md:aspect-[656/460] md:rounded-[20px] lg:order-first lg:mx-0">
+        <div data-reveal-self className="relative mx-auto aspect-[358/260] w-full max-w-164 overflow-hidden rounded-2xl border border-stage-line bg-(image:--sp-stage) md:aspect-[656/460] md:rounded-[20px] lg:order-first lg:mx-0">
           <div className="absolute top-[12.31%] left-[8.94%] h-full w-[100.56%] overflow-hidden rounded-[10px] border border-window-line bg-window shadow-(--sp-window-shadow) md:top-[13.91%] md:left-[10.98%] md:h-[93.48%] md:w-[94.51%] md:rounded-xl">
             <Image
               src={configLight}

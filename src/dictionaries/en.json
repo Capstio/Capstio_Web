@@ -242,6 +242,26 @@
         "link": "Read the security architecture"
       }
     },
+    "pricing": {
+      "overline": "Pricing",
+      "title": "Simple pricing. Free for 14 days.",
+      "subtitle": "Every plan starts with a 14-day free trial with every feature unlocked. Prices in USD.",
+      "cta": "Try free for 14 days",
+      "plans": {
+        "personal": {
+          "name": "Personal",
+          "period": "per year",
+          "description": "One year of use for one person, on their own Mac.",
+          "features": ["Unlimited hosts", "Apps, Docker, terminal and SFTP", "Safe config editing with backups", "24 recipes, alerts and AI", "Commercial use"]
+        },
+        "team": {
+          "name": "Team",
+          "period": "per person / month",
+          "description": "For teams that share servers, keys and recipes.",
+          "features": ["Everything in Personal", "End-to-end encrypted team vault", "Roles: Owner, Admin, Operator, Viewer", "Shared audit log, exportable to CSV", "Slack and webhook alerts", "Recipes shared over Git"]
+        }
+      }
+    },
     "faq": {
       "overline": "FAQ",
       "title": "Frequently asked questions",
@@ -264,7 +284,7 @@
         },
         {
           "question": "Where can I download Capstio?",
-          "answer": "From the Download page, as a DMG for macOS 15 or later. Homebrew and the Mac App Store come later."
+          "answer": "From Capstio's GitHub Releases page, as a DMG for macOS 15 or later. Homebrew and the Mac App Store come later."
         }
       ]
     },

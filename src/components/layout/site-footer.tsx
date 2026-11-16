@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Container, DownloadButton, Logo } from "@/components/ui";
 import type { Dictionary } from "@/lib/dictionaries";
-import type { Locale } from "@/lib/i18n";
+import { localizePath, type Locale } from "@/lib/i18n";
 import { downloadHref, footerColumns } from "@/lib/site-nav";
 import { LanguageSelect } from "./language-select";
 import { ThemeToggle } from "./theme-toggle";
@@ -22,7 +22,7 @@ export function SiteFooter({ lang, dict }: SiteFooterProps) {
       <Container>
         <div className="grid gap-10 lg:grid-cols-[19rem_repeat(5,minmax(0,1fr))] lg:gap-x-6">
           <div>
-            <Link href={"/"} aria-label={dict.common.home}>
+            <Link href={localizePath(lang, "/")} aria-label={dict.common.home}>
               <Logo />
             </Link>
             <p className="type-body mt-4 max-w-72 text-heading">
@@ -43,14 +43,14 @@ export function SiteFooter({ lang, dict }: SiteFooterProps) {
           >
             {footerColumns.map((column) => (
               <div key={column.id}>
-                <h2 className="type-small font-semibold text-heading">
+                <p className="type-small font-semibold text-heading">
                   {footer.columns[column.id]}
-                </h2>
+                </p>
                 <ul className="mt-4 space-y-2">
                   {column.links.map((link) => (
                     <li key={link.id}>
                       <Link
-                        href={link.href}
+                        href={localizePath(lang, link.href)}
                         className="type-small text-muted transition-colors hover:text-heading motion-reduce:transition-none"
                       >
                         {linkLabel(dict, link.id)}

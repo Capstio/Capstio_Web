@@ -13,14 +13,16 @@ Next.js ở đây là phiên bản mới, khác nhiều so với bản cũ. Đ�
 
 ## Cấu trúc
 
-- `src/app/[lang]/`: layout gốc và các trang. Segment `[lang]` chỉ dùng nội bộ, URL công khai không có `/vi` hay `/en`.
-- `src/proxy.ts`: đọc cookie `capstio-lang` (rồi tới `Accept-Language`, mặc định `vi`) và rewrite nội bộ sang `/<locale>/...`. Link cũ dạng `/en/...` được chuyển về đường dẫn không tiền tố và ghi nhớ ngôn ngữ.
-- `src/lib/set-locale.ts`: Server Action đặt cookie khi người dùng đổi ngôn ngữ ở header hoặc footer.
+- `src/app/[lang]/`: layout gốc và các trang. Mỗi ngôn ngữ có URL riêng: tiếng Việt ở gốc (`/`, `/features`), tiếng Anh dưới `/en` (`/en`, `/en/features`).
+- `src/proxy.ts`: rewrite nội bộ đường dẫn không tiền tố sang `/vi/...` và chuyển `/vi/...` (308) về URL gốc. Không tự chuyển hướng theo cookie, `Accept-Language` hay IP; người dùng đổi ngôn ngữ ở header hoặc footer, trang mở lại đúng URL ở ngôn ngữ kia. Link nội bộ dùng `localizePath(lang, path)` trong `src/lib/i18n.ts`.
+- `src/lib/seo.ts`: domain (`https://capstio.app`), canonical và `hreflang` (`pageAlternates`), JSON-LD của trang chủ (Organization, WebSite, SoftwareApplication). `src/app/sitemap.ts` và `src/app/robots.ts` sinh `sitemap.xml` và `robots.txt`; thêm trang vào danh sách `pages` trong `sitemap.ts` khi trang có nội dung thật. `public/llms.txt` là bản tóm tắt sản phẩm cho trợ lý AI, cần sửa khi tính năng, giá hoặc trang chính thay đổi.
+- `src/lib/pricing.ts`: giá các gói (Personal 29 USD/năm, Team 8 USD/người/tháng, dùng thử 14 ngày). Khối Bảng giá trên trang chủ và JSON-LD `offers` cùng đọc từ đây; chữ hiển thị nằm ở `home.pricing` trong từ điển. Đổi giá thì sửa cả `public/llms.txt`.
 - `src/dictionaries/{vi,en}.json`: toàn bộ chữ hiển thị. Tiếng Việt là ngôn ngữ chính, tiếng Anh là bản dịch đầy đủ.
 - `src/lib/site-nav.ts`: cấu trúc điều hướng dùng chung cho header và footer (nhãn nằm trong từ điển).
 - `src/components/ui/`: component cơ bản (Button, StatusBadge, CodeStrip, Card, Section, Container, Logo, Overline).
 - `src/components/layout/`: Header (mega menu, kính khi cuộn, menu mobile), Footer, chọn ngôn ngữ, đổi giao diện.
 - `src/components/home/`: các section của trang chủ, mỗi section một file theo frame Figma tương ứng (Hero có video từ Mux, Problem có bảng so sánh, Unified Apps có ảnh app tràn ra mép phải). Ảnh chụp app của các section tính năng nằm ở `public/features/`.
+- `src/components/motion/page-motion.tsx`: animation của trang bằng anime.js v4. Section chỉ cần gắn thuộc tính: `data-reveal` (các phần tử con lần lượt hiện khi cuộn tới), `data-reveal-self` (chính phần tử đó hiện), `data-split` + `data-word` (headline hiện theo chữ), `code[data-type]` (chip lệnh tự gõ), `data-keys` (phím ⌘ nhấn lần lượt). Đặt `<PageMotion />` ở cuối mỗi page, không đặt trong layout, để animation chỉ chạy khi nội dung đã hydrate. Trạng thái ẩn ban đầu và cơ chế dự phòng khi không có JS nằm ở cuối `globals.css`; người dùng bật reduced motion sẽ không thấy animation.
 - `public/brand/`: logo lấy từ bộ brand của app macOS (`../macos/docs/brand/logo`).
 
 ## Design token

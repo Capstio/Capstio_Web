@@ -11,6 +11,7 @@ import Link from "next/link";
 import { Container, Section } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/lib/dictionaries";
+import { localizePath, type Locale } from "@/lib/i18n";
 import { allFeaturesHref, featureHref } from "@/lib/site-nav";
 import fleetDark from "../../../public/features/fleet-dark.png";
 import fleetLight from "../../../public/features/fleet-light.png";
@@ -67,7 +68,13 @@ function CardLink({ href, children }: { href: string; children: string }) {
 // number cards over the Terminal card on the right, and a strip of five
 // smaller features below. Mobile: the same blocks stacked, the number cards
 // side by side and the strip in two columns.
-export function BentoGrid({ dict }: { dict: BentoDict }) {
+export function BentoGrid({
+  lang,
+  dict,
+}: {
+  lang: Locale;
+  dict: BentoDict;
+}) {
   return (
     <Section
       surface="light"
@@ -75,7 +82,7 @@ export function BentoGrid({ dict }: { dict: BentoDict }) {
       spacing="py-10 lg:py-20"
     >
       <Container className="flex flex-col gap-8 lg:gap-16">
-        <div className="flex flex-col gap-4 lg:items-center lg:text-center">
+        <div data-reveal className="flex flex-col gap-4 lg:items-center lg:text-center">
           <p className="text-[0.8125rem] leading-4 font-semibold text-kicker uppercase">
             {dict.overline}
           </p>
@@ -87,7 +94,7 @@ export function BentoGrid({ dict }: { dict: BentoDict }) {
           </p>
         </div>
 
-        <div className="flex flex-col gap-4 lg:gap-6">
+        <div data-reveal className="flex flex-col gap-4 lg:gap-6">
           <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
             {/* Fleet (Figma "Card / Fleet (hero)"): the All VPS window, shown
                 whole and centred in the image frame below the text. */}
@@ -103,7 +110,7 @@ export function BentoGrid({ dict }: { dict: BentoDict }) {
                   {dict.fleet.body}
                 </p>
                 <Link
-                  href={allFeaturesHref}
+                  href={localizePath(lang, allFeaturesHref)}
                   className="w-fit text-sm font-medium text-kicker underline-offset-4 hover:underline"
                 >
                   {withArrow(dict.fleet.link)}
@@ -134,7 +141,7 @@ export function BentoGrid({ dict }: { dict: BentoDict }) {
                   <span className={cardText}>{dict.recipes.body}</span>
                 </p>
                 <p className="mt-2.5">
-                  <CardLink href={featureHref.recipes}>{dict.recipes.link}</CardLink>
+                  <CardLink href={localizePath(lang, featureHref.recipes)}>{dict.recipes.link}</CardLink>
                 </p>
               </div>
 
@@ -151,7 +158,7 @@ export function BentoGrid({ dict }: { dict: BentoDict }) {
                   "col-span-2 flex flex-col gap-6 p-5.75 lg:min-h-62 lg:justify-between lg:gap-2",
                 )}
               >
-                <div aria-hidden="true" className="flex items-center gap-2.5">
+                <div aria-hidden="true" data-keys className="flex items-center gap-2.5">
                   {keys.map((key, index) =>
                     key === null ? (
                       <span key={index} className="text-[1.375rem] font-medium text-key-sep">
@@ -172,7 +179,7 @@ export function BentoGrid({ dict }: { dict: BentoDict }) {
                     {dict.terminal.body}
                   </p>
                   <p>
-                    <CardLink href={featureHref.terminal}>{dict.terminal.link}</CardLink>
+                    <CardLink href={localizePath(lang, featureHref.terminal)}>{dict.terminal.link}</CardLink>
                   </p>
                 </div>
               </div>
@@ -185,7 +192,7 @@ export function BentoGrid({ dict }: { dict: BentoDict }) {
           <ul className="grid grid-cols-2 gap-x-3.5 gap-y-7 rounded-[20px] border border-bento-line bg-bento-card px-5 py-6 md:grid-cols-3 md:gap-x-6 lg:rounded-3xl lg:px-8 lg:py-7 xl:grid-cols-5 xl:gap-0 xl:divide-x xl:divide-bento-line xl:px-2">
             {stripItems.map(({ id, icon: Icon, tone, href }) => (
               <li key={id} className="xl:px-6">
-                <Link href={href} className="group flex flex-col gap-2.5">
+                <Link href={localizePath(lang, href)} className="group flex flex-col gap-2.5">
                   <span
                     aria-hidden="true"
                     className={cn("inline-flex size-10 items-center justify-center rounded-[10px]", tone)}

@@ -5,23 +5,21 @@ import { useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import {
   hasLocale,
-  localeCookie,
-  localeCookieMaxAge,
+  localizePath,
   locales,
+  stripLocale,
   type Locale,
 } from "@/lib/i18n";
 
 // Custom listbox dropdown (the native <select> popup cannot be styled).
 // Keyboard: Arrow keys, Home, End, Enter, Space, Escape and Tab.
-// The language is stored in a cookie and the URL never changes. The proxy
-// picks the language from the request cookie, so the cookie is written first
-// and the page is then reloaded. A full reload, not router.refresh(): the
-// language is the root layout's [lang] param, so a client refresh would
-// rebuild <html> in React, which re-renders the theme <script> and makes
-// React report it.
+// Each language has its own URL, so switching opens the same page in the
+// other language. A full page load, not a client navigation: the language is
+// the root layout's [lang] param, so a client transition would rebuild <html>
+// in React, which re-renders the theme <script> and makes React report it.
 function switchLocale(locale: Locale) {
-  document.cookie = `${localeCookie}=${locale}; path=/; max-age=${localeCookieMaxAge}; samesite=lax`;
-  window.location.reload();
+  const { pathname, search, hash } = window.location;
+  window.location.assign(localizePath(locale, stripLocale(pathname)) + search + hash);
 }
 
 export function LanguageSelect({

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container, DownloadButton, Section } from "@/components/ui";
 import type { Dictionary } from "@/lib/dictionaries";
+import { localizePath, type Locale } from "@/lib/i18n";
 import { downloadHref, topLinkHref } from "@/lib/site-nav";
 import { withArrow } from "./with-arrow";
 
@@ -13,11 +14,19 @@ const headingId = "final-cta-heading";
 // and button repeat the hero on purpose, so they are read from the hero copy
 // instead of being kept twice. Figma strokes take no space; the 1px border
 // does, so the card paddings are 1px smaller than Figma (44/20, 72/48 from lg).
-export function FinalCta({ dict, hero }: { dict: CtaDict; hero: HeroDict }) {
+export function FinalCta({
+  lang,
+  dict,
+  hero,
+}: {
+  lang: Locale;
+  dict: CtaDict;
+  hero: HeroDict;
+}) {
   return (
     <Section surface="light" aria-labelledby={headingId} spacing="py-10 lg:py-20">
       <Container>
-        <div className="flex flex-col items-center gap-4 rounded-[20px] border border-cta-line bg-(image:--sp-cta-bg) px-4.75 py-10.75 text-center lg:gap-5 lg:rounded-[24px] lg:px-11.75 lg:py-17.75">
+        <div data-reveal className="flex flex-col items-center gap-4 rounded-[20px] border border-cta-line bg-(image:--sp-cta-bg) px-4.75 py-10.75 text-center lg:gap-5 lg:rounded-[24px] lg:px-11.75 lg:py-17.75">
           {/* Written in capitals in the copy: CSS uppercase would turn "macOS" into "MACOS". */}
           <p className="text-[0.8125rem] leading-4 font-semibold text-kicker">
             {dict.overline}
@@ -38,7 +47,7 @@ export function FinalCta({ dict, hero }: { dict: CtaDict; hero: HeroDict }) {
           <p className="text-[0.8125rem] leading-4 text-soft dark:text-muted">
             {dict.requirement} ·{" "}
             <Link
-              href={topLinkHref.releaseNotes}
+              href={localizePath(lang, topLinkHref.releaseNotes)}
               className="whitespace-nowrap underline-offset-4 hover:text-strong hover:underline"
             >
               {withArrow(dict.releaseNotes)}

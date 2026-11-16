@@ -1,41 +1,28 @@
 import { NextResponse, type NextRequest } from "next/server";
-import {
-  hasLocale,
-  localeCookie,
-  localeCookieMaxAge,
-  resolveLocale,
-} from "@/lib/i18n";
+import { defaultLocale, hasLocale, stripLocale } from "@/lib/i18n";
 
-// URLs carry no language. The locale comes from the cookie (or the browser
-// language) and the request is rewritten internally to /<locale>/..., so every
-// page stays statically rendered per language.
+// Each language has its own URLs, so search engines can index both: the
+// default language at the root (/features), the others under their prefix
+// (/en/features). There is no redirect by cookie, browser language or IP;
+// visitors switch with the language selector.
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const [, first = "", ...rest] = pathname.split("/");
+  const [, first = ""] = pathname.split("/");
 
-  // Old links such as /en/features: drop the prefix and remember that language.
-  if (hasLocale(first)) {
+  // /vi/... duplicates the root pages: send it to the canonical URL.
+  if (first === defaultLocale) {
     const url = request.nextUrl.clone();
-    url.pathname = `/${rest.join("/")}`;
-    const response = NextResponse.redirect(url);
-    response.cookies.set(localeCookie, first, {
-      path: "/",
-      maxAge: localeCookieMaxAge,
-      sameSite: "lax",
-    });
-    return response;
+    url.pathname = stripLocale(pathname);
+    return NextResponse.redirect(url, 308);
   }
 
-  const locale = resolveLocale(
-    request.cookies.get(localeCookie)?.value,
-    request.headers.get("accept-language"),
-  );
+  // /en/... maps straight onto the [lang] segment.
+  if (hasLocale(first)) return NextResponse.next();
+
+  // Unprefixed paths are the default language, served from /vi/... internally.
   const url = request.nextUrl.clone();
-  url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
-  const response = NextResponse.rewrite(url);
-  // The same URL serves both languages, so caches must key on the cookie.
-  response.headers.append("Vary", "Cookie, Accept-Language");
-  return response;
+  url.pathname = `/${defaultLocale}${pathname === "/" ? "" : pathname}`;
+  return NextResponse.rewrite(url);
 }
 
 export const config = {

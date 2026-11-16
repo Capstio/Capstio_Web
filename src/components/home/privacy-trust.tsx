@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Container, Section } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/lib/dictionaries";
+import { localizePath, type Locale } from "@/lib/i18n";
 import { securityHref } from "@/lib/site-nav";
 import { withArrow } from "./with-arrow";
 
@@ -82,11 +83,17 @@ function MatrixColumn({
 // Privacy & Trust" desktop and mobile). Two columns from 1024px: what never
 // reaches Capstio servers, and what the app sends out with where and when;
 // stacked below. The copy follows the brief's list of claims we may make.
-export function PrivacyTrust({ dict }: { dict: PrivacyDict }) {
+export function PrivacyTrust({
+  lang,
+  dict,
+}: {
+  lang: Locale;
+  dict: PrivacyDict;
+}) {
   return (
     <Section surface="light" aria-labelledby={headingId} spacing="py-10 lg:py-20">
       <Container className="flex flex-col gap-8 lg:gap-12">
-        <div className="flex flex-col gap-4 lg:items-center lg:text-center">
+        <div data-reveal className="flex flex-col gap-4 lg:items-center lg:text-center">
           <p className="text-[0.8125rem] leading-4 font-semibold text-kicker uppercase">
             {dict.overline}
           </p>
@@ -96,7 +103,7 @@ export function PrivacyTrust({ dict }: { dict: PrivacyDict }) {
           <p className="max-w-180 text-base leading-6 text-soft">{dict.subtitle}</p>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
+        <div data-reveal className="grid gap-4 lg:grid-cols-2 lg:gap-6">
           <MatrixColumn
             icon={LockKeyhole}
             tone="bg-tile-success/14 text-tile-success"
@@ -123,10 +130,10 @@ export function PrivacyTrust({ dict }: { dict: PrivacyDict }) {
           </MatrixColumn>
         </div>
 
-        <div className="flex flex-col items-center gap-2.5 text-center text-[0.9375rem] leading-[1.125rem]">
+        <div data-reveal-self className="flex flex-col items-center gap-2.5 text-center text-[0.9375rem] leading-[1.125rem]">
           <p className="text-soft">{dict.footnote.note}</p>
           <Link
-            href={securityHref}
+            href={localizePath(lang, securityHref)}
             className="font-medium text-kicker underline-offset-4 hover:underline"
           >
             {withArrow(dict.footnote.link, "size-4")}

@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Container, DownloadButton, Section } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/lib/dictionaries";
@@ -5,6 +6,20 @@ import type { Locale } from "@/lib/i18n";
 import { downloadHref } from "@/lib/site-nav";
 import { HeroModes } from "./hero-modes";
 import { HeroPoster } from "./hero-poster";
+
+// Wraps each word of the headline in its own span, rendered by the server, so
+// the page motion can bring the words in one by one without touching the text
+// React hydrates.
+function words(text: string) {
+  return text.split(" ").map((word, index) => (
+    <Fragment key={index}>
+      {index > 0 && " "}
+      <span data-word className="inline-block">
+        {word}
+      </span>
+    </Fragment>
+  ));
+}
 
 const headingId = "hero-heading";
 
@@ -37,13 +52,14 @@ export function Hero({
             screen is too narrow for it at full size. */}
         <h1
           id={headingId}
+          data-split
           className={cn(
             "type-display text-center text-balance text-heading max-md:-mb-2",
             lang === "vi" && "max-md:type-h1",
           )}
         >
-          <span className="md:block">{dict.title}</span>{" "}
-          <span className="block text-link">{dict.titleAccent}</span>
+          <span className="md:block">{words(dict.title)}</span>{" "}
+          <span className="block text-link">{words(dict.titleAccent)}</span>
         </h1>
 
         <HeroModes dict={dict} poster={<HeroPoster alt={dict.videoAlt} />}>

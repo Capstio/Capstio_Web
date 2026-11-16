@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button, DownloadButton, Logo } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/lib/dictionaries";
-import type { Locale } from "@/lib/i18n";
+import { localizePath, type Locale } from "@/lib/i18n";
 import {
   allFeaturesHref,
   downloadHref,
@@ -162,7 +162,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
               : "top-0 right-0 left-0 h-16 rounded-none border-line bg-page px-[max(1rem,calc((100%-1200px)/2))] shadow-none md:px-[max(2rem,calc((100%-1200px)/2))] lg:h-18",
           )}
         >
-          <Link href="/" aria-label={dict.common.home} onClick={closeAll}>
+          <Link href={localizePath(lang, "/")} aria-label={dict.common.home} onClick={closeAll}>
             <Logo />
           </Link>
 
@@ -193,16 +193,16 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
                 </button>
                 {openMenu === id &&
                   (id === "features" ? (
-                    <FeaturesMenu dict={dict} onNavigate={closeAll} />
+                    <FeaturesMenu lang={lang} dict={dict} onNavigate={closeAll} />
                   ) : (
-                    <SolutionsMenu dict={dict} onNavigate={closeAll} />
+                    <SolutionsMenu lang={lang} dict={dict} onNavigate={closeAll} />
                   ))}
               </div>
             ))}
             {(["compare", "insights", "releaseNotes"] as const).map((id) => (
               <Link
                 key={id}
-                href={topLinkHref[id]}
+                href={localizePath(lang, topLinkHref[id])}
                 className={navTrigger}
               >
                 {dict.header.nav[id]}
@@ -255,7 +255,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
                 {featureKeys.map((key) => (
                   <li key={key}>
                     <Link
-                      href={featureHref[key]}
+                      href={localizePath(lang, featureHref[key])}
                       onClick={closeAll}
                       className="type-small block py-2 text-body hover:text-heading"
                     >
@@ -265,7 +265,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
                 ))}
                 <li className="col-span-2 pt-1">
                   <Link
-                    href={allFeaturesHref}
+                    href={localizePath(lang, allFeaturesHref)}
                     onClick={closeAll}
                     className="type-small font-medium text-link"
                   >
@@ -287,7 +287,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
                 {solutionKeys.map((key) => (
                   <li key={key}>
                     <Link
-                      href={solutionHref[key]}
+                      href={localizePath(lang, solutionHref[key])}
                       onClick={closeAll}
                       className="type-small block py-2 text-body hover:text-heading"
                     >
@@ -301,7 +301,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
             {(["compare", "insights", "releaseNotes"] as const).map((id) => (
               <Link
                 key={id}
-                href={topLinkHref[id]}
+                href={localizePath(lang, topLinkHref[id])}
                 onClick={closeAll}
                 className="type-body flex h-12 items-center border-b border-line font-medium text-heading"
               >

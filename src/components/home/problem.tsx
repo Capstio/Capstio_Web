@@ -2,6 +2,7 @@ import { Box, FileText, TriangleAlert, type LucideIcon } from "lucide-react";
 import { Container, Overline, Section } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 import { withCode } from "./inline-code";
 import { ProblemComparison } from "./problem-comparison";
 
@@ -29,7 +30,13 @@ const chip =
 // plain terminal, a web dashboard and Capstio. Block and text colors come
 // from the section palette in globals.css (exact Figma values per theme); the
 // background matches the hero.
-export function Problem({ dict }: { dict: ProblemDict }) {
+export function Problem({
+  lang,
+  dict,
+}: {
+  lang: Locale;
+  dict: ProblemDict;
+}) {
   return (
     <Section
       surface="light"
@@ -37,7 +44,7 @@ export function Problem({ dict }: { dict: ProblemDict }) {
       spacing="py-10 lg:py-20"
     >
       <Container className="flex flex-col gap-6 lg:gap-10">
-        <div className="flex flex-col items-center gap-3 text-center lg:gap-4">
+        <div data-reveal className="flex flex-col items-center gap-3 text-center lg:gap-4">
           <Overline tone="muted" className="text-[0.8125rem] tracking-[0.138em]">
             {dict.overline}
           </Overline>
@@ -54,7 +61,7 @@ export function Problem({ dict }: { dict: ProblemDict }) {
           </p>
         </div>
 
-        <div className="grid gap-3 lg:grid-cols-3 lg:gap-6">
+        <div data-reveal className="grid gap-3 lg:grid-cols-3 lg:gap-6">
           {cards.map(({ id, icon: Icon, tone }) => (
             <div
               key={id}
@@ -79,7 +86,7 @@ export function Problem({ dict }: { dict: ProblemDict }) {
           ))}
         </div>
 
-        <ProblemComparison dict={dict.comparison} />
+        <ProblemComparison lang={lang} dict={dict.comparison} />
       </Container>
     </Section>
   );

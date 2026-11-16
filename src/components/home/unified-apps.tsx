@@ -55,7 +55,7 @@ export function UnifiedApps({ dict }: { dict: UnifiedAppsDict }) {
             leaves free) and is a size container: the window's width and
             height follow its real width, and the fade only applies once the
             window is narrower than that box. */}
-        <div className="@container -mr-4 md:-mr-8 lg:mr-[calc(-1*(max(0px,(100vw-1264px)/2)+2rem))] lg:self-end">
+        <div data-reveal-self className="@container -mr-4 md:-mr-8 lg:mr-[calc(-1*(max(0px,(100vw-1264px)/2)+2rem))] lg:self-end">
           <div className="relative h-[min(117.6cqw,30rem)] max-w-250 overflow-hidden rounded-tl-2xl lg:h-[min(82cqw,39.75rem)] lg:rounded-tl-3xl @min-[62.5625rem]:[mask-image:linear-gradient(to_right,#000_75%,transparent)]">
             <Image
               src={appsLight}

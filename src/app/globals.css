@@ -778,3 +778,38 @@
     }
   }
 }
+
+/*
+ * Page motion (components/motion/page-motion.tsx). The head script adds
+ * .motion to <html> before first paint when the visitor allows motion, so the
+ * elements below start hidden instead of flashing in and then animating.
+ * Once the motion script runs it adds .motion-ready and takes over; if it never
+ * runs (blocked or failed JS), the fallback animation shows everything after
+ * 2.5s so no content stays hidden.
+ *   [data-reveal]       its children fade and rise in, one after another
+ *   [data-reveal-self]  the element itself fades and rises in
+ *   [data-split]        the hero headline; its [data-word] spans come in one by one
+ *   code[data-type]     a command chip, typed out character by character
+ */
+@layer base {
+  html.motion :is([data-reveal] > *, [data-reveal-self], [data-split] [data-word]) {
+    opacity: 0;
+    animation: motion-fallback 0s 2.5s forwards;
+  }
+
+  html.motion code[data-type] {
+    clip-path: inset(0 100% 0 0);
+    animation: motion-fallback 0s 2.5s forwards;
+  }
+
+  html.motion.motion-ready :is([data-reveal] > *, [data-reveal-self], [data-split] [data-word], code[data-type]) {
+    animation: none;
+  }
+
+  @keyframes motion-fallback {
+    to {
+      opacity: 1;
+      clip-path: inset(0 0 0 0);
+    }
+  }
+}

@@ -22,7 +22,7 @@ export function FeatureCopy({
   icons: LucideIcon[];
 }) {
   return (
-    <div className="flex flex-col gap-6">
+    <div data-reveal className="flex flex-col gap-6">
       <p className="text-[0.8125rem] leading-4 font-semibold text-kicker uppercase">
         {overline}
       </p>

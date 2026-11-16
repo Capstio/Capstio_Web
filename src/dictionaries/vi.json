@@ -242,6 +242,26 @@
         "link": "Xem chi tiết kiến trúc bảo mật"
       }
     },
+    "pricing": {
+      "overline": "Bảng giá",
+      "title": "Giá đơn giản. Dùng thử miễn phí 14 ngày.",
+      "subtitle": "Gói nào cũng bắt đầu bằng 14 ngày dùng thử, mở đủ mọi tính năng. Giá tính bằng USD.",
+      "cta": "Dùng thử miễn phí 14 ngày",
+      "plans": {
+        "personal": {
+          "name": "Cá nhân",
+          "period": "mỗi năm",
+          "description": "Một năm sử dụng cho một người, trên Mac của mình.",
+          "features": ["Không giới hạn host", "Apps, Docker, terminal và SFTP", "Sửa config an toàn, có sao lưu", "24 recipe, cảnh báo và AI", "Dùng cho mục đích thương mại"]
+        },
+        "team": {
+          "name": "Nhóm",
+          "period": "mỗi người / tháng",
+          "description": "Cho đội dùng chung server, SSH key và recipe.",
+          "features": ["Mọi tính năng của gói Cá nhân", "Vault nhóm mã hoá đầu-cuối", "Vai trò Owner, Admin, Operator, Viewer", "Nhật ký thao tác chung, xuất CSV", "Cảnh báo qua Slack và webhook", "Recipe dùng chung qua Git"]
+        }
+      }
+    },
     "faq": {
       "overline": "FAQ",
       "title": "Câu hỏi thường gặp",
@@ -264,7 +284,7 @@
         },
         {
           "question": "Tải Capstio ở đâu?",
-          "answer": "Từ trang Tải về, dạng file DMG cho macOS 15 trở lên. Homebrew và Mac App Store sẽ có sau."
+          "answer": "Từ trang GitHub Releases của Capstio, dạng file DMG cho macOS 15 trở lên. Homebrew và Mac App Store sẽ có sau."
         }
       ]
     },

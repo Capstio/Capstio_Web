@@ -1,6 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import { Container, Section } from "@/components/ui";
 import type { Dictionary } from "@/lib/dictionaries";
+import { jsonLd } from "@/lib/seo";
 
 type FaqDict = Dictionary["home"]["faq"];
 
@@ -10,9 +11,9 @@ const headingId = "faq-heading";
 const groupName = "home-faq";
 
 // FAQPage structured data built from the visible items, so the two cannot
-// drift. `<` is escaped so an answer can never close the script tag.
+// drift.
 function faqJsonLd(items: FaqDict["items"]) {
-  const data = {
+  return jsonLd({
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: items.map((item) => ({
@@ -20,8 +21,7 @@ function faqJsonLd(items: FaqDict["items"]) {
       name: item.question,
       acceptedAnswer: { "@type": "Answer", text: item.answer },
     })),
-  };
-  return JSON.stringify(data).replace(/</g, "\\u003c");
+  });
 }
 
 // Home section "Frequently asked questions": a list split by hairlines.
@@ -32,7 +32,7 @@ export function Faq({ dict }: { dict: FaqDict }) {
     <Section surface="light" aria-labelledby={headingId} spacing="py-10 lg:py-20">
       <Container>
         <div className="mx-auto flex max-w-200 flex-col gap-8 lg:gap-14">
-          <div className="flex flex-col gap-4 lg:items-center lg:text-center">
+          <div data-reveal className="flex flex-col gap-4 lg:items-center lg:text-center">
             <p className="text-[0.8125rem] leading-4 font-semibold text-kicker uppercase">
               {dict.overline}
             </p>
@@ -41,7 +41,7 @@ export function Faq({ dict }: { dict: FaqDict }) {
             </h2>
           </div>
 
-          <div>
+          <div data-reveal>
             {dict.items.map((item, index) => (
               <details
                 key={item.question}

@@ -13,6 +13,7 @@ import type { ReactNode } from "react";
 import { LogoMark } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/lib/dictionaries";
+import { localizePath, type Locale } from "@/lib/i18n";
 import { topLinkHref } from "@/lib/site-nav";
 
 type ComparisonDict = Dictionary["home"]["problem"]["comparison"];
@@ -71,7 +72,13 @@ const headerIcons: Record<Column, ReactNode> = {
 // side by side and each cell repeats its row label, so long Vietnamese copy
 // can wrap. Below 1024px: the same cards stack (Figma mobile).
 // The visual grid is hidden from screen readers, which get a real table.
-export function ProblemComparison({ dict }: { dict: ComparisonDict }) {
+export function ProblemComparison({
+  lang,
+  dict,
+}: {
+  lang: Locale;
+  dict: ComparisonDict;
+}) {
   if (dict.rows.length !== statuses.length) {
     throw new Error(
       `Problem comparison has ${dict.rows.length} rows in the dictionary but ${statuses.length} in statuses.`,
@@ -79,7 +86,7 @@ export function ProblemComparison({ dict }: { dict: ComparisonDict }) {
   }
 
   return (
-    <div className="rounded-[20px] border border-panel-line bg-panel p-4 shadow-(--sp-panel-shadow) lg:px-10 lg:pt-7 lg:pb-5">
+    <div data-reveal-self className="rounded-[20px] border border-panel-line bg-panel p-4 shadow-(--sp-panel-shadow) lg:px-10 lg:pt-7 lg:pb-5">
       <div className="flex flex-col items-center gap-3 text-center lg:gap-2.5">
         <p className="type-caption font-semibold text-section-link uppercase">
           {dict.overline}
@@ -206,7 +213,7 @@ export function ProblemComparison({ dict }: { dict: ComparisonDict }) {
 
       <div className="mt-5 text-center lg:mt-7">
         <Link
-          href={topLinkHref.compare}
+          href={localizePath(lang, topLinkHref.compare)}
           className="type-small inline-flex items-center gap-1 font-semibold text-section-link underline-offset-4 hover:underline"
         >
           {dict.link}

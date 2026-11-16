@@ -43,7 +43,9 @@ export const topLinkHref = {
   releaseNotes: "/release-notes",
 } as const;
 
-export const downloadHref = "/download";
+// Builds are published as GitHub releases; this always opens the newest one.
+export const downloadHref =
+  "https://github.com/Capstio/Capstio_Release/releases/latest";
 
 export const allFeaturesHref = "/features";
 
