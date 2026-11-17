@@ -23,6 +23,7 @@ import { cn } from "@/lib/cn";
 import { commandRisk, type RiskLevel } from "@/lib/command-risk";
 import { fill } from "@/lib/i18n";
 import type { FeatureKey } from "@/lib/site-nav";
+import { useBoatTalk, type BoatLines } from "./boat-talk";
 import { LegMark } from "./leg-mark";
 import { VoyageBoat, boatWaterline } from "./voyage-boat";
 import { SeaLayers, frontWave, waveHeight, waveSurface, waveTile } from "./wave-divider";
@@ -72,11 +73,14 @@ type Labels = {
   log: string;
   all: string;
   risk: Record<RiskLevel, string>;
+  // What the boat says to the visitor.
+  boat: BoatLines;
 };
 
 const headingId = "tool-keys-heading";
 const autoplayMs = 3500;
 const pauseAfterPressMs = 6000;
+const holdMs = 800;
 
 // Leg "All in one Mac app": the ten tools as the keys Capstio uses to switch
 // tabs, ⌘1 to ⌘0, in the navigation's order. One key is pressed at a time and
@@ -129,6 +133,10 @@ export function ToolKeys({
   const sea = useRef<HTMLDivElement>(null);
   const mover = useRef<HTMLDivElement>(null);
   const hull = useRef<SVGSVGElement>(null);
+  const [rowW, setRowW] = useState(0);
+  const edge = useRef<"left" | "right" | null>(null);
+  const holdTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const talk = useBoatTalk({ section, boat: mover, lines: labels.boat });
 
   // The boat sails to the middle of the selected key's column (a transform
   // transition). Pressing the selected key again replays a short sail-in
@@ -138,6 +146,7 @@ export function ToolKeys({
       const key = keys.current[active];
       const box = row.current;
       if (!key || !box) return;
+      setRowW(box.clientWidth);
       const middle = key.getBoundingClientRect().left - box.getBoundingClientRect().left + key.offsetWidth / 2;
       setBoat((current) => {
         const distance = current ? Math.abs(current.x - middle) : 0;
@@ -219,8 +228,9 @@ export function ToolKeys({
     };
   }, [hasBoat]);
 
-  const choose = (index: number, focus = false, again = false) => {
+  const choose = (index: number, focus = false, again = false, by?: "click" | "hover" | "keyboard") => {
     setPresses((count) => count + 1);
+    if (by) talk.press(tools[index].key, by);
     if (again && index === active) setTrip((count) => count + 1);
     setActive(index);
     if (focus) keys.current[index]?.focus();
@@ -237,7 +247,7 @@ export function ToolKeys({
     else if (/^[0-9]$/.test(event.key)) next = (Number(event.key) + 9) % 10;
     if (next === null || next > last) return;
     event.preventDefault();
-    choose(next, true);
+    choose(next, true, false, "keyboard");
   };
 
   // Dragging the boat along the keys: the key under it is selected as it goes,
@@ -265,6 +275,12 @@ export function ToolKeys({
     setBoat((current) => current && { ...current, dir: x >= current.x ? 1 : -1 });
     const index = nearestKey(x);
     if (index !== active) choose(index);
+    // Told once each time it is pushed against a shore.
+    const side = x <= 6 ? "left" : x >= box.width - 6 ? "right" : null;
+    if (side !== edge.current) {
+      edge.current = side;
+      if (side) talk.say(side === "left" ? "edgeLeft" : "edgeRight");
+    }
   };
 
   const tool = tools[active];
@@ -305,9 +321,12 @@ export function ToolKeys({
             holding.current = false;
           }}
         >
+          <p role="status" className="sr-only">
+            {talk.line?.text}
+          </p>
           <div ref={row} className="relative flex flex-col gap-0">
           {/* The voyage's boat sails over the keys to the selected one. */}
-          <div ref={sea} aria-hidden="true" className="pointer-events-none relative h-16 sm:h-20">
+          <div ref={sea} aria-hidden="true" className="pointer-events-none relative mt-10 h-16 sm:h-20">
             <SeaLayers part="back" />
             {boat && (
               <div
@@ -324,27 +343,46 @@ export function ToolKeys({
                   transform: `translateX(${dragX ?? boat.x}px)`,
                   transitionDuration: dragX === null && boat.sailing ? `${boat.ms}ms` : "0ms",
                 }}
+                onPointerEnter={(event) => {
+                  if (event.pointerType === "mouse") talk.greet();
+                }}
+                onDoubleClick={() => talk.spin()}
                 onPointerDown={(event) => {
                   event.currentTarget.setPointerCapture(event.pointerId);
                   drag.current = { startX: event.clientX, moved: false, pointer: event.pointerId };
                   holding.current = true;
+                  talk.touch();
+                  // Kept pressed without moving: it complains.
+                  clearTimeout(holdTimer.current);
+                  holdTimer.current = setTimeout(() => {
+                    if (drag.current && !drag.current.moved) talk.say("hold");
+                  }, holdMs);
                 }}
                 onPointerMove={(event) => {
                   const state = drag.current;
                   if (!state || state.pointer !== event.pointerId) return;
                   if (!state.moved && Math.abs(event.clientX - state.startX) < 5) return;
-                  state.moved = true;
+                  if (!state.moved) {
+                    state.moved = true;
+                    clearTimeout(holdTimer.current);
+                    talk.touch();
+                    talk.say("dragStart");
+                  }
                   dragTo(event.clientX);
                 }}
                 onPointerUp={() => {
                   const state = drag.current;
                   drag.current = null;
                   holding.current = false;
+                  clearTimeout(holdTimer.current);
                   setPresses((count) => count + 1);
                   if (!state?.moved) {
                     setHop((count) => count + 1);
+                    talk.poke();
                     return;
                   }
+                  if (!edge.current) talk.say("drop");
+                  edge.current = null;
                   // Sail on from where it was let go, to the selected key.
                   setBoat((current) => current && { ...current, sailing: dragX !== null && Math.abs(dragX - current.x) > 2 });
                   setDragX(null);
@@ -352,6 +390,8 @@ export function ToolKeys({
                 onPointerCancel={() => {
                   drag.current = null;
                   holding.current = false;
+                  clearTimeout(holdTimer.current);
+                  edge.current = null;
                   setDragX(null);
                 }}
                 onTransitionEnd={(event) => {
@@ -359,11 +399,16 @@ export function ToolKeys({
                   if (event.propertyName === "transform") setBoat((current) => current && { ...current, sailing: false });
                 }}
               >
+                {talk.line && (
+                  <BoatBubble key={talk.line.id} text={talk.line.text} x={dragX ?? boat.x} width={rowW} />
+                )}
                 {/* Faces the way it sails. */}
                 <div className="origin-left" style={{ transform: `scaleX(${boat.dir})` }}>
                   <div key={trip} className={cn(trip > 0 && "boat-resail")}>
                     <div key={hop} className={cn(hop > 0 && "boat-hop")}>
-                      <VoyageBoat ref={hull} className="static block w-14 sm:w-16" />
+                      <div key={talk.mood?.id} className={cn(talk.mood && `boat-${talk.mood.kind}`)}>
+                        <VoyageBoat ref={hull} className="static block w-14 sm:w-16" style={{ pointerEvents: "auto" }} />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -392,9 +437,9 @@ export function ToolKeys({
                   aria-selected={selected}
                   aria-controls="tool-key-panel"
                   tabIndex={selected ? 0 : -1}
-                  onClick={() => choose(index, false, true)}
+                  onClick={() => choose(index, false, true, "click")}
                   onPointerEnter={(event) => {
-                    if (event.pointerType === "mouse") choose(index);
+                    if (event.pointerType === "mouse") choose(index, false, false, "hover");
                   }}
                   className={cn(
                     "group relative flex aspect-square flex-col justify-between rounded-lg border p-2 text-left transition-[transform,box-shadow,background-color] duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kicker motion-reduce:transition-none sm:p-3",
@@ -425,7 +470,7 @@ export function ToolKeys({
                 <h3 className="text-xl leading-7 font-bold text-strong lg:text-2xl lg:leading-8">{tool.title}</h3>
                 <p className="text-base leading-6 text-soft">{tool.description}</p>
               </div>
-              <Sample sample={tool.sample} labels={labels} />
+              <Sample sample={tool.sample} labels={labels} onCopied={() => talk.say("copy")} />
               <Link
                 href={tool.href}
                 className="w-fit text-sm font-medium text-kicker underline-offset-4 hover:underline"
@@ -453,7 +498,7 @@ export function ToolKeys({
   );
 }
 
-function Sample({ sample, labels }: { sample: ToolSample; labels: Labels }) {
+function Sample({ sample, labels, onCopied }: { sample: ToolSample; labels: Labels; onCopied: () => void }) {
   if ("line" in sample) {
     return (
       <p className="flex flex-col gap-1 rounded-lg border border-line bg-code px-4 py-3 font-mono text-sm text-body">
@@ -479,24 +524,49 @@ function Sample({ sample, labels }: { sample: ToolSample; labels: Labels }) {
         >
           {"prompt" in sample ? labels.approve : labels.risk[risk]}
         </span>
-        <CopyButton text={sample.command} labels={labels} />
+        <CopyButton text={sample.command} labels={labels} onCopied={onCopied} />
       </div>
     </div>
   );
 }
 
-function CopyButton({ text, labels }: { text: string; labels: Labels }) {
+function CopyButton({ text, labels, onCopied }: { text: string; labels: Labels; onCopied: () => void }) {
   const { state, copy } = useClipboard();
   const label = state === "copied" ? labels.copied : state === "failed" ? labels.copyFailed : labels.copy;
   return (
     <button
       type="button"
-      onClick={() => copy(text)}
+      onClick={() => {
+        copy(text);
+        onCopied();
+      }}
       aria-live="polite"
       className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-md px-2 text-xs font-medium text-body hover:bg-heading/10 hover:text-heading"
     >
       {state === "copied" ? <Check aria-hidden="true" className="size-4" /> : <Copy aria-hidden="true" className="size-4" />}
       <span className="max-sm:sr-only">{label}</span>
     </button>
+  );
+}
+
+// The boat's speech bubble: above it, kept inside the row (it slides sideways
+// near a shore and its tail keeps pointing at the boat).
+function BoatBubble({ text, x, width }: { text: string; x: number; width: number }) {
+  const half = 144;
+  const shift = width > 0 ? Math.max(half - x, 0) - Math.max(x + half - width, 0) : 0;
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute bottom-full left-0 z-30 mb-1 w-max max-w-72 -translate-x-1/2"
+      style={{ marginLeft: shift }}
+    >
+      <div className="boat-say relative rounded-xl border border-bento-line bg-page px-3 py-1.5 text-center text-sm leading-5 font-medium text-strong shadow-md">
+        {text}
+        <span
+          className="absolute top-full size-2.5 -translate-x-1/2 -translate-y-1/2 rotate-45 border-r border-b border-bento-line bg-page"
+          style={{ left: `calc(50% - ${shift}px)` }}
+        />
+      </div>
+    </div>
   );
 }

@@ -52,18 +52,18 @@ export function VoyageBoat({
       {/* Pennant at the masthead, streaming aft. */}
       <path d="M84 5 L66 9 L84 13 Z" className="fill-kicker" />
       {/* Mast. */}
-      <path d="M85 5 V79" className="stroke-heading" strokeWidth="2.4" strokeLinecap="round" />
+      <path d="M85 5 V79" className="stroke-(--boat-hull)" strokeWidth="2.4" strokeLinecap="round" />
       {/* Mainsail aft of the mast, jib forward of it. */}
-      <path d="M82 15 L82 73 L36 73 Q52 46 82 15 Z" className="fill-heading" fillOpacity="0.92" />
-      <path d="M88 19 Q116 46 136 73 L88 73 Z" className="fill-heading" fillOpacity="0.62" />
+      <path d="M82 15 L82 73 L36 73 Q52 46 82 15 Z" className="fill-(--boat-sail)" fillOpacity="0.92" />
+      <path d="M88 19 Q116 46 136 73 L88 73 Z" className="fill-(--boat-sail)" fillOpacity="0.62" />
       {/* Boom under the mainsail. */}
-      <path d="M34 74.5 H84" className="stroke-heading" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M34 74.5 H84" className="stroke-(--boat-hull)" strokeWidth="1.8" strokeLinecap="round" />
       {/* Deckhouse with two windows. */}
-      <rect x="44" y="70" width="28" height="10" rx="2" className="fill-heading" />
+      <rect x="44" y="70" width="28" height="10" rx="2" className="fill-(--boat-hull)" />
       <rect x="49" y="73" width="6" height="4" rx="1" className="fill-page" />
       <rect x="60" y="73" width="6" height="4" rx="1" className="fill-page" />
       {/* Hull, its waterline at y = 96, with the blue stripe under the deck. */}
-      <path d="M12 80 H154 L141 99 Q82 104 24 99 Z" className="fill-heading" />
+      <path d="M12 80 H154 L141 99 Q82 104 24 99 Z" className="fill-(--boat-hull)" />
       <path d="M12 80 H154 L151.3 84 H14.5 Z" className="fill-kicker" />
       <path d="M22 92 H143" className="stroke-kicker" strokeWidth="1.4" strokeOpacity="0.55" />
     </svg>

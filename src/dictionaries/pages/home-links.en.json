@@ -28,7 +28,7 @@
   },
   "keys": {
     "label": "The tools, one key each",
-    "hint": "Click a key or drag the boat. With a key in focus, press 1 to 0.",
+    "hint": "Click a key, drag the boat, or just poke it and see what it says. With a key in focus, press 1 to 0.",
     "copy": "Copy",
     "copied": "Copied",
     "copyFailed": "Select to copy",
@@ -67,6 +67,130 @@
       },
       "teams": {
         "line": "Linh · restarted api on prod-web-1 · 14:02 · OK"
+      }
+    },
+    "boat": {
+      "hello": [
+        "Ahoy! I'm the Capstio skipper.",
+        "Oh, a visitor! Drag me anywhere.",
+        "Hi there! Come to sail with me?"
+      ],
+      "tap": [
+        "That tickles!",
+        "Hey! Don't poke me.",
+        "Hee hee, watch me hop!",
+        "I'm right here!",
+        "Ouch, you got me."
+      ],
+      "annoyed": [
+        "Okay, okay, stop poking me!",
+        "You're testing my patience, you know.",
+        "Alright, alright, now I'm dizzy!"
+      ],
+      "dizzy": [
+        "Whoa, I'm so dizzy!",
+        "Too much mouse shaking, I'm seasick!",
+        "Slow down, the whole sea is spinning!",
+        "Everything is upside down!"
+      ],
+      "dragStart": [
+        "Hey, where are we going?",
+        "Wheee, flying!",
+        "Careful, I'm afraid of heights!"
+      ],
+      "drop": [
+        "Phew, landed safely.",
+        "Thanks for the ride!",
+        "This spot is nice."
+      ],
+      "edgeLeft": [
+        "That's the left shore, no further!",
+        "End of the sea on the left!"
+      ],
+      "edgeRight": [
+        "That's the right shore, no further!",
+        "End of the sea on the right!"
+      ],
+      "spin": [
+        "Spin time, wheee!",
+        "Look at me go round!"
+      ],
+      "hold": [
+        "Holding on to me for long?",
+        "You're holding the boat, you know."
+      ],
+      "fast": [
+        "Slow down! I can't keep up with you.",
+        "Racing me? I can't sail that fast."
+      ],
+      "idle": [
+        "Anyone there? I'm waiting.",
+        "Press a key, or drag me, either works.",
+        "The sea is calm today."
+      ],
+      "sleepy": [
+        "Zzz... just a little nap...",
+        "Yawn... wake me when you're back."
+      ],
+      "near": [
+        "Oh, you're getting close.",
+        "I can see your cursor!",
+        "Come closer, I won't bite."
+      ],
+      "copy": [
+        "Copied! Paste with care.",
+        "Done. Read the command before you run it!",
+        "Neat! It's in your clipboard."
+      ],
+      "keyboard": [
+        "Using the keyboard? Nice, keys 1 to 0!",
+        "Shortcuts, a pro move."
+      ],
+      "leave": [
+        "Where are you going? Come back!",
+        "Safe travels, I'll be here."
+      ],
+      "tools": {
+        "apps": [
+          "Every app in one list. Tidy!",
+          "Docker, PM2, systemd: one place."
+        ],
+        "docker": [
+          "Docker cleanup? I'll show the space first.",
+          "Containers, images, volumes, networks... all here."
+        ],
+        "safeConfig": [
+          "Editing config? A backup is made before every save.",
+          "Bad Nginx syntax? I tell you as you type."
+        ],
+        "terminal": [
+          "Dangerous command? I blow the whistle!",
+          "Tabs, split view, and command history."
+        ],
+        "recipes": [
+          "24 command recipes, each with a risk level.",
+          "Can't remember a command? There's a recipe."
+        ],
+        "alerts": [
+          "Disk full, CPU hot: I warn you while the app is open.",
+          "macOS notifications, only while Capstio is open."
+        ],
+        "sshSecurity": [
+          "Who's knocking on SSH? Block an IP in one click.",
+          "SSH hardening tests a new connection and rolls back."
+        ],
+        "tunnels": [
+          "Local, Remote and SOCKS tunnels. Dive in!",
+          "Connectivity is checked before you go."
+        ],
+        "ai": [
+          "The AI only proposes read-only commands, you approve each.",
+          "Your own key, or Ollama running locally."
+        ],
+        "teams": [
+          "An end-to-end encrypted vault with roles and a log.",
+          "Teams: Owner, Admin, Operator, Viewer."
+        ]
       }
     }
   }
