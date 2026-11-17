@@ -17,13 +17,15 @@ Key facts:
 - Apps: Docker Compose, PM2 and systemd apps in one list, with the same Restart / Stop / Start controls and the equivalent shell command shown with a copy button.
 - Docker: containers, images, volumes and networks; a cleanup shows how much space it reclaims before it runs.
 - Safe config editing: syntax check while typing for YAML, .env, Nginx, JSON and Caddyfile; a backup on the server before every save; diff and one-click restore.
-- Terminal: tabs, split view, command history and a quick command bar; warns before a dangerous command is typed or pasted.
+- Terminal: tabs, split view, command history and a quick command bar; warns before a dangerous command is typed or pasted. Commands are sorted by risk (safe, needs confirmation, dangerous), and the most dangerous ones, such as a Docker cleanup, ask for the host name to be typed back.
 - Recipes: 24 ready-made command recipes for security, Docker, system, network, backup and web, each with a risk level (safe, needs confirmation, dangerous).
 - Logs: per app, container, journald or file, filtered by ERROR / WARN / INFO with keyword highlighting.
 - Alerts: macOS notifications for disk, CPU and RAM thresholds, restarting containers and lost hosts, while Capstio is open.
 - SSH security: 24-hour sign-in analysis, one-click IP blocking, and SSH hardening that tests a new connection and rolls back on failure.
 - Tunnels: Local, Remote and SOCKS tunnels and connectivity checks.
 - AI in the terminal: proposes read-only commands that you approve one by one; uses your own Anthropic or OpenAI key, Claude Code or Codex account, or a local Ollama model.
+- Getting started: imports the hosts already in ~/.ssh/config and reuses existing SSH keys.
+- Native on Mac: Swift and SwiftUI, light and dark from the system, Touch ID, passwords and private keys in the macOS Keychain, Secure Enclave keys and SSH agents including 1Password, full keyboard shortcuts.
 - Teams: an end-to-end encrypted shared vault for hosts, SSH keys and recipes, with roles (Owner, Admin, Operator, Viewer) and an audit log.
 
 ## Pricing
@@ -34,6 +36,13 @@ Key facts:
 
 ## Links
 
-- [Home (English)](https://capstio.app/en): product overview, comparison with a plain terminal and web dashboards, privacy and FAQ.
+- [Home (English)](https://capstio.app/en): product overview with interactive demos and a product tour.
 - [Trang chủ (Tiếng Việt)](https://capstio.app/): the same page in Vietnamese.
+- [Features](https://capstio.app/en/features): overview and one page per feature (Apps, Docker, Safe config, Terminal, Recipes, Alerts, SSH security, Tunnels, AI, Teams) at /en/features/<feature>.
+- [Pricing](https://capstio.app/en/pricing): Personal and Team plans and the 14-day trial.
+- [Security](https://capstio.app/en/security): design principles, what leaves your Mac, and the team vault.
+- [Compare](https://capstio.app/en/compare): Capstio next to a plain terminal and web dashboards.
+- [FAQ](https://capstio.app/en/faq): setup, servers, alerts, AI, privacy and teams.
+- [Release notes](https://capstio.app/en/release-notes): the latest release.
+- [Get started](https://capstio.app/en/download): requirements, supported distributions and first steps.
 - [Download](https://github.com/Capstio/Capstio_Release/releases/latest): the latest DMG on GitHub Releases.
