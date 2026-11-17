@@ -17,6 +17,7 @@ export function LanguageSelect({
   align = "start",
   placement = "bottom",
   className,
+  buttonClassName,
 }: {
   lang: Locale;
   label: string;
@@ -30,6 +31,7 @@ export function LanguageSelect({
   // "top" opens the list upward, for controls near the bottom of the page.
   placement?: "bottom" | "top";
   className?: string;
+  buttonClassName?: string;
 }) {
   const listId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -120,6 +122,7 @@ export function LanguageSelect({
           "type-small inline-flex w-full items-center gap-2 rounded-md px-2.5 font-medium text-heading transition-colors hover:bg-heading/10 motion-reduce:transition-none",
           variant === "outlined" ? "h-10 border border-line" : "h-9",
           open && "bg-heading/10",
+          buttonClassName,
         )}
       >
         <Globe aria-hidden="true" className="size-4 shrink-0 text-body" />

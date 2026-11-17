@@ -424,12 +424,12 @@
   --hero-dot: rgb(255 255 255 / 0.6);
 
   /* Section palette, dark (Figma "Problem & Core Feature / Dark") */
-  --sp-card: var(--color-navy-800);
-  --sp-card-line: rgb(255 255 255 / 0.06);
+  --sp-card: #111628;
+  --sp-card-line: rgb(255 255 255 / 0.07);
   --sp-card-shadow: none;
-  --sp-panel: var(--color-navy-900);
+  --sp-panel: #0c1020;
   --sp-panel-line: rgb(255 255 255 / 0.12);
-  --sp-panel-shadow: 0 8px 40px rgb(47 91 211 / 0.14);
+  --sp-panel-shadow: 0 8px 40px rgb(47 91 211 / 0.06);
   --sp-panel-column: rgb(255 255 255 / 0.03);
   --sp-panel-column-line: rgb(255 255 255 / 0.08);
   /*
@@ -438,8 +438,8 @@
    * #182c5e. CSS never draws a box-shadow under its own box, so 34% over the
    * #0e1322 panel reproduces the rendered colour.
    */
-  --sp-panel-highlight: rgb(47 91 211 / 0.34);
-  --sp-panel-highlight-shadow: 0 8px 32px rgb(47 91 211 / 0.28);
+  --sp-panel-highlight: rgb(47 91 211 / 0.2);
+  --sp-panel-highlight-shadow: 0 8px 32px rgb(47 91 211 / 0.12);
   --sp-panel-divider: rgb(255 255 255 / 0.07);
   --sp-chip: rgb(255 255 255 / 0.08);
   --sp-chip-line: rgb(255 255 255 / 0.1);
@@ -463,14 +463,14 @@
   --sp-logo-ring: var(--color-slate-0);
   --sp-kicker: var(--color-blue-450);
   --sp-point: rgb(255 255 255 / 0.035);
-  --sp-point-tile: rgb(47 91 211 / 0.22);
+  --sp-point-tile: rgb(47 91 211 / 0.14);
   --sp-point-icon: var(--color-blue-450);
   --sp-chip-solid: rgb(255 255 255 / 0.1);
-  --sp-stage: radial-gradient(closest-side, var(--color-blue-600), #15214d 50%, #0a0f1f);
+  --sp-stage: radial-gradient(closest-side, color-mix(in oklab, var(--color-blue-600) 52%, #0a0f1f), #111a3a 52%, #0a0f1f);
   --sp-stage-line: rgb(255 255 255 / 0.08);
   --sp-window: #0b0f19;
   --sp-window-line: rgb(255 255 255 / 0.14);
-  --sp-window-shadow: 0 24px 48px rgb(0 0 0 / 0.55), 0 0 60px rgb(47 91 211 / 0.25);
+  --sp-window-shadow: 0 24px 48px rgb(0 0 0 / 0.55), 0 0 60px rgb(47 91 211 / 0.12);
   --sp-callout: #121a2e;
   --sp-callout-line: rgb(255 255 255 / 0.14);
   --sp-callout-good-line: rgb(46 196 160 / 0.35);
@@ -479,9 +479,9 @@
   --sp-callout-text: var(--color-ink-200);
   --sp-callout-tile: rgb(59 130 246 / 0.18);
   --sp-callout-button: rgb(255 255 255 / 0.08);
-  --sp-bento-card: var(--color-navy-900);
+  --sp-bento-card: #0c1020;
   --sp-bento-line: rgb(255 255 255 / 0.08);
-  --sp-bento-hero: radial-gradient(120% 120% at 0% 0%, #1b2a55, var(--color-navy-900) 60%);
+  --sp-bento-hero: radial-gradient(120% 120% at 0% 0%, #131c3a, #0c1020 60%);
   --sp-fleet-shadow: none;
   --sp-number: linear-gradient(to bottom, var(--color-slate-0), #7c8ba8);
   --sp-number-good: linear-gradient(to bottom, #5eead4, #1e9e82);
@@ -497,8 +497,8 @@
   --sp-privacy-local-line: rgb(46 196 160 / 0.1);
   --sp-privacy-line: rgb(255 255 255 / 0.08);
   --sp-faq-line: rgb(255 255 255 / 0.06);
-  --sp-cta-bg: radial-gradient(50% 31.25% at 50% 50%, #1d3170 0%, #111833 55%, var(--color-navy-900) 100%);
-  --sp-cta-line: rgb(47 91 211 / 0.6);
+  --sp-cta-bg: radial-gradient(50% 31.25% at 50% 50%, #14204a 0%, #0d1326 55%, #0c1020 100%);
+  --sp-cta-line: rgb(47 91 211 / 0.32);
 }
 
 /* ----------------------------------------------------------------- 3. Contexts */

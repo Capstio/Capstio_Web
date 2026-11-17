@@ -54,10 +54,13 @@ export function PaletteTrigger({
   label,
   shortcut,
   className,
+  round = false,
 }: {
   label: string;
   shortcut?: string;
   className?: string;
+  // Round the key hint too, when the trigger itself is round.
+  round?: boolean;
 }) {
   return (
     <button
@@ -67,13 +70,20 @@ export function PaletteTrigger({
       aria-keyshortcuts="Meta+K Control+K"
       className={cn(
         "inline-flex h-9 items-center gap-2 rounded-md text-body transition-colors hover:bg-heading/10 hover:text-heading motion-reduce:transition-none",
-        shortcut ? "px-2.5" : "w-9 justify-center",
+        shortcut ? "w-9 justify-center xl:w-auto xl:px-2.5" : "w-9 justify-center",
         className,
       )}
     >
       <Search aria-hidden="true" className="size-4" />
       {shortcut && (
-        <kbd className="rounded border border-line px-1.5 font-sans text-xs text-muted">{shortcut}</kbd>
+        <kbd
+          className={cn(
+            "hidden border border-line px-1.5 font-sans text-xs text-muted transition-[border-radius] duration-200 motion-reduce:transition-none xl:inline",
+            round ? "rounded-full px-2" : "rounded",
+          )}
+        >
+          {shortcut}
+        </kbd>
       )}
     </button>
   );
