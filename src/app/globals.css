@@ -790,19 +790,43 @@
  *   [data-reveal-self]  the element itself fades and rises in
  *   [data-split]        the hero headline; its [data-word] spans come in one by one
  *   code[data-type]     a command chip, typed out character by character
+ *   [data-pill]         the hero announcement: its command is typed, then
+ *                       its output appears
+ *   [data-page-capstan] the capstan and rope at the page edge, shown only
+ *                       with motion; scrolling winds the rope in
  */
 @layer base {
+  /* Sections opened by #id (palette, links) stay clear of the fixed header. */
+  section[id] {
+    scroll-margin-top: 4rem;
+  }
+
+  @media (width >= 64rem) {
+    section[id] {
+      scroll-margin-top: 4.5rem;
+    }
+  }
+
   html.motion :is([data-reveal] > *, [data-reveal-self], [data-split] [data-word]) {
     opacity: 0;
     animation: motion-fallback 0s 2.5s forwards;
   }
 
-  html.motion code[data-type] {
+  html.motion :is(code[data-type], [data-pill-command]) {
     clip-path: inset(0 100% 0 0);
     animation: motion-fallback 0s 2.5s forwards;
   }
 
-  html.motion.motion-ready :is([data-reveal] > *, [data-reveal-self], [data-split] [data-word], code[data-type]) {
+  html.motion [data-pill-output] {
+    opacity: 0;
+    animation: motion-fallback 0s 2.5s forwards;
+  }
+
+  html:not(.motion) [data-page-capstan] {
+    display: none;
+  }
+
+  html.motion.motion-ready :is([data-reveal] > *, [data-reveal-self], [data-split] [data-word], code[data-type], [data-pill-command], [data-pill-output]) {
     animation: none;
   }
 
@@ -811,5 +835,189 @@
       opacity: 1;
       clip-path: inset(0 0 0 0);
     }
+  }
+}
+
+/*
+ * Hero announcement border: a light sweeps along the 1px border (the pill's
+ * padding shows this background). Still for visitors who prefer less motion.
+ */
+@layer components {
+  .pill-shimmer {
+    background-image: linear-gradient(
+      90deg,
+      var(--color-line) 0%,
+      var(--color-line) 35%,
+      var(--color-kicker) 50%,
+      var(--color-line) 65%,
+      var(--color-line) 100%
+    );
+    background-size: 300% 100%;
+    animation: pill-shimmer 5s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pill-shimmer {
+      animation: none;
+    }
+  }
+
+  @keyframes pill-shimmer {
+    from {
+      background-position: 100% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+}
+
+/*
+ * The voyage's sea (components/home/wave-divider.tsx): each swell layer slides
+ * one 1440px tile sideways (seamless: the tiled layer is one tile wider than
+ * the sea) while its wrapper rises and falls. Durations and directions are set
+ * per layer inline. Page motion reads these live transforms to keep the boat
+ * on the water. Still for visitors who prefer less motion.
+ */
+@layer components {
+  .wave-roll {
+    animation: wave-roll 16s linear infinite;
+  }
+
+  .wave-bob {
+    animation: wave-bob 4s ease-in-out infinite alternate;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wave-roll,
+    .wave-bob {
+      animation: none;
+    }
+  }
+
+  @keyframes wave-roll {
+    to {
+      transform: translateX(-1440px);
+    }
+  }
+
+  @keyframes wave-bob {
+    from {
+      transform: translateY(-7%);
+    }
+    to {
+      transform: translateY(7%);
+    }
+  }
+}
+
+/*
+ * Hero scroll-out (components/home/hero.tsx, hero-video.tsx). Over the first
+ * half viewport of scroll page motion sets --hero-p from 0 to 1 on the hero
+ * section, and measures --hero-lift (how far the window rises, its top staying
+ * under the headline, over the subtitle, button and tabs that fade away), --hero-rise (how far the sea climbs: the window's lift
+ * plus the height its scale gives up) and --hero-rest (how far the sea starts
+ * lower, leaving a thin strip in view when the window fits on the first
+ * screen). Both move linearly with --hero-p, so the gap between the window's
+ * bottom and the water only shrinks to zero at the end and never goes below
+ * it. Without the variables (no JS, reduced motion) every transform is the
+ * identity: the static layout, window full size and the sea below it.
+ * From 1024px the hero's content sticks under the fixed header for the length
+ * of the spacer, which is reserved here before first paint (no layout shift).
+ * The section's negative bottom margin takes back the room the sea leaves
+ * when it rises, so the next section follows the water instead of a blank
+ * band; it is set after load, while the section's end is still off screen.
+ */
+@layer components {
+  html.motion [data-voyage="hero"] [data-hero-window] {
+    transform: translateY(calc(var(--hero-p, 0) * var(--hero-lift, 0px) * -1))
+      scale(calc(1 - 0.16 * var(--hero-p, 0)));
+  }
+
+  html.motion [data-voyage="hero"] > [data-sea] {
+    transform: translateY(
+      calc(var(--hero-rest, 0px) * (1 - var(--hero-p, 0)) - var(--hero-rise, 0px) * var(--hero-p, 0))
+    );
+  }
+
+  [data-hero-pin-spacer] {
+    display: none;
+  }
+
+  @media (width >= 64rem) {
+    html.motion [data-hero-pin] {
+      position: sticky;
+      top: 4.5rem;
+    }
+
+    html.motion [data-hero-pin-spacer] {
+      display: block;
+      height: 50svh;
+    }
+
+    html.motion [data-hero-scroll] {
+      margin-bottom: calc(var(--hero-rise, 0px) * -1);
+    }
+
+    /* While the window rises over them, the subtitle, the download button and
+       the tabs fade out (the headline and the header's button stay), and are
+       taken out of the way once gone so the window gets the clicks. */
+    html.motion [data-hero-fade] {
+      opacity: calc(1 - min(var(--hero-p, 0) * 2.4, 1));
+    }
+
+    html.motion [data-hero-scroll][data-hero-faded] [data-hero-fade] {
+      visibility: hidden;
+    }
+  }
+}
+
+/* A tool card on the keyboard leg fades in when its key is pressed. */
+@keyframes tool-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+/* Pressing the selected key again: the boat backs off and sails in again. */
+@keyframes boat-resail {
+  0% {
+    transform: translateX(-72px) rotate(-3deg);
+    opacity: 0.6;
+  }
+  70% {
+    transform: translateX(4px) rotate(-2deg);
+    opacity: 1;
+  }
+}
+
+.boat-resail {
+  animation: boat-resail 900ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boat-resail {
+    animation: none;
+  }
+}
+
+/* A tap on the boat: it hops over a swell. */
+@keyframes boat-hop {
+  35% {
+    transform: translateY(-14px) rotate(-6deg);
+  }
+  70% {
+    transform: translateY(2px) rotate(2deg);
+  }
+}
+
+.boat-hop {
+  animation: boat-hop 500ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boat-hop {
+    animation: none;
   }
 }

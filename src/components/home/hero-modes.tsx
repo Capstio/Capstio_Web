@@ -86,6 +86,7 @@ export function HeroModes({
       <div
         id={panelId}
         role="tabpanel"
+        data-hero-fade
         aria-labelledby={`${id}-${active}`}
         className="grid max-w-155 text-center"
       >
@@ -107,6 +108,7 @@ export function HeroModes({
 
       <div
         role="tablist"
+        data-hero-fade
         aria-label={dict.modesLabel}
         onKeyDown={onKeyDown}
         className="relative grid w-85 max-w-full grid-cols-3 rounded-full bg-control p-1"

@@ -4,6 +4,7 @@ import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/lib/dictionaries";
 import { planIds, plans } from "@/lib/pricing";
 import { downloadHref } from "@/lib/site-nav";
+import { LegMark } from "./leg-mark";
 
 type PricingDict = Dictionary["home"]["pricing"];
 
@@ -11,27 +12,24 @@ const headingId = "pricing-heading";
 
 // Figma strokes sit inside the frame and take no space; CSS borders do, so
 // the paddings are 1px smaller than Figma (20 / 32).
-const card = "flex flex-col gap-6 rounded-[20px] border p-4.75 lg:rounded-3xl lg:p-7.75";
+const card = "flex flex-col gap-6 rounded-[20px] border p-4.75 lg:rounded-xl lg:p-7.75";
 
 // Home section "Pricing": the Personal and Team plans side by side from
 // 1024px, stacked below. Prices come from lib/pricing, which also feeds the
 // structured data, so the page and search engines show the same numbers. The
-// Team card uses the call-to-action background to stand apart.
-export function Pricing({ dict }: { dict: PricingDict }) {
+// Team card uses the call-to-action background to stand apart. Without `leg`
+// (outside the home voyage) the overline shows no leg number.
+export function Pricing({ leg, dict }: { leg?: string; dict: PricingDict }) {
   return (
     <Section
       id="pricing"
       surface="light"
       aria-labelledby={headingId}
-      spacing="py-10 lg:py-20"
-      // Keeps the heading clear of the fixed header when opened via #pricing.
-      className="scroll-mt-16 lg:scroll-mt-18"
+      spacing="py-10 lg:py-16"
     >
       <Container className="flex flex-col gap-8 lg:gap-12">
         <div data-reveal className="flex flex-col gap-4 lg:items-center lg:text-center">
-          <p className="text-[0.8125rem] leading-4 font-semibold text-kicker uppercase">
-            {dict.overline}
-          </p>
+          <LegMark leg={leg}>{dict.overline}</LegMark>
           <h2 id={headingId} className="type-h2 text-strong">
             {dict.title}
           </h2>

@@ -1,10 +1,13 @@
 import { Box, FileText, TriangleAlert, type LucideIcon } from "lucide-react";
-import { Container, Overline, Section } from "@/components/ui";
+import Link from "next/link";
+import { Container, Section } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/lib/dictionaries";
-import type { Locale } from "@/lib/i18n";
+import { localizePath, type Locale } from "@/lib/i18n";
+import { topLinkHref } from "@/lib/site-nav";
 import { withCode } from "./inline-code";
-import { ProblemComparison } from "./problem-comparison";
+import { LegMark } from "./leg-mark";
+import { withArrow } from "./with-arrow";
 
 type ProblemDict = Dictionary["home"]["problem"];
 
@@ -26,28 +29,30 @@ const chip =
   "type-mono-s rounded-[5px] border border-chip-line bg-chip px-1 py-0.5 whitespace-nowrap text-chip-text";
 
 // Home "The problem" section (Figma "Problem & Core Feature" desktop and
-// "Problem / Mobile"): heading, three problem cards and the comparison of a
-// plain terminal, a web dashboard and Capstio. Block and text colors come
+// "Problem / Mobile"): heading, three problem cards and one line that hands
+// off to the full comparison of a plain terminal, a web dashboard and Capstio
+// on /compare. Block and text colors come
 // from the section palette in globals.css (exact Figma values per theme); the
 // background matches the hero.
 export function Problem({
   lang,
+  leg,
   dict,
 }: {
   lang: Locale;
+  leg: string;
   dict: ProblemDict;
 }) {
   return (
     <Section
+      id="problem"
       surface="light"
       aria-labelledby={headingId}
-      spacing="py-10 lg:py-20"
+      spacing="py-10 lg:py-16"
     >
       <Container className="flex flex-col gap-6 lg:gap-10">
         <div data-reveal className="flex flex-col items-center gap-3 text-center lg:gap-4">
-          <Overline tone="muted" className="text-[0.8125rem] tracking-[0.138em]">
-            {dict.overline}
-          </Overline>
+          <LegMark leg={leg}>{dict.overline}</LegMark>
           {/* Figma lets these wrap naturally in 900px and 760px boxes on
               desktop; balanced wrapping only on small screens. */}
           <h2
@@ -86,7 +91,15 @@ export function Problem({
           ))}
         </div>
 
-        <ProblemComparison lang={lang} dict={dict.comparison} />
+        <p data-reveal className="type-small text-center text-balance text-soft">
+          {dict.comparison.subtitle}{" "}
+          <Link
+            href={localizePath(lang, topLinkHref.compare)}
+            className="font-semibold text-section-link underline-offset-4 hover:underline"
+          >
+            {withArrow(dict.comparison.link)}
+          </Link>
+        </p>
       </Container>
     </Section>
   );

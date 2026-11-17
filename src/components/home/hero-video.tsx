@@ -10,6 +10,8 @@ import {
   type ReactNode,
 } from "react";
 import { cn } from "@/lib/cn";
+import { VoyageBoat } from "./voyage-boat";
+import { SeaLayers } from "./wave-divider";
 
 export type HeroMode = "apps" | "docker" | "terminal";
 
@@ -141,55 +143,119 @@ export function HeroVideo({
   }
 
   return (
-    <div className="relative aspect-[1100/619] w-full max-w-275 overflow-hidden rounded-xl border border-line-media bg-media">
-      {poster}
+    // The window above the hero's sea. The wrapper sizes the window; the sea
+    // box follows it in the flow, full-bleed, so the water never crosses the
+    // film. Its top is pulled up by the transparent band above the highest
+    // crest (the far swell's mean crest is 18/96 down the box and it bobs 7%
+    // of the box each way), so the water starts right at the window's bottom.
+    // Without motion this is the whole layout. With motion, scrolling the
+    // hero scales and lifts the window ([data-hero-window]) and raises the sea
+    // into the space it leaves (globals.css, page-motion.tsx).
+    //
+    // From 1024px the window's width follows the viewport height, so the film
+    // stays the hero's main picture (about 950px wide on a 1440x900 screen)
+    // without pushing the window's top off short screens; on tall screens it
+    // reaches its full 1100px.
+    <div
+      data-voyage="hero"
+      className="relative w-full max-w-[min(100%,1100px)] lg:w-[clamp(45rem,calc((100svh-26rem)*1.975),68.75rem)]"
+    >
+      {/* [data-hero-window]: page motion scales and lifts this wrapper.
+          [data-float] inside it only bobs 2 to 3px with the near swell once
+          the water is under it, so the two transforms never overwrite each
+          other. */}
+      <div data-hero-window className="relative z-10 origin-top">
+        <div
+          data-float
+          className="relative aspect-[1100/619] w-full overflow-hidden rounded-xl border border-line-media bg-media"
+        >
+          {poster}
 
-      {showVideo && (
-        <>
-          <MuxVideo
-            key={theme}
-            ref={(node) => {
-              videoRef.current = node ?? null;
-              setVideo(node ?? null);
-            }}
-            playbackId={playbackIds[theme]}
-            // No Mux Data cookie on visitors; view analytics still work.
-            disableCookies
-            muted={muted}
-            loop
-            playsInline
-            preload="none"
-            aria-hidden="true"
-            // The light and dark films share a timeline: after a theme switch
-            // the new one continues where the old one was.
-            onLoadedMetadata={(event) => {
-              event.currentTarget.currentTime = timeRef.current;
-            }}
-            onTimeUpdate={(event) => {
-              timeRef.current = event.currentTarget.currentTime;
-            }}
-            onLoadedData={() => setReady(true)}
-            className={cn(
-              "absolute inset-0 size-full object-cover transition-opacity duration-500",
-              ready ? "opacity-100" : "opacity-0",
-            )}
-          />
+          {showVideo && (
+            <>
+              <MuxVideo
+                key={theme}
+                ref={(node) => {
+                  videoRef.current = node ?? null;
+                  setVideo(node ?? null);
+                }}
+                playbackId={playbackIds[theme]}
+                // No Mux Data cookie on visitors; view analytics still work.
+                disableCookies
+                muted={muted}
+                loop
+                playsInline
+                preload="none"
+                aria-hidden="true"
+                // The light and dark films share a timeline: after a theme switch
+                // the new one continues where the old one was.
+                onLoadedMetadata={(event) => {
+                  event.currentTarget.currentTime = timeRef.current;
+                }}
+                onTimeUpdate={(event) => {
+                  timeRef.current = event.currentTarget.currentTime;
+                }}
+                onLoadedData={() => setReady(true)}
+                className={cn(
+                  "absolute inset-0 size-full object-cover transition-opacity duration-500",
+                  ready ? "opacity-100" : "opacity-0",
+                )}
+              />
 
-          <button
-            type="button"
-            onClick={toggleSound}
-            aria-pressed={!muted}
-            aria-label={muted ? labels.unmute : labels.mute}
-            className="absolute right-5 bottom-5 inline-flex size-11 items-center justify-center rounded-full border border-white/20 bg-black/55 text-white transition-colors hover:bg-black/70 max-md:right-3 max-md:bottom-3 max-md:size-9"
-          >
-            {muted ? (
-              <VolumeX aria-hidden="true" className="size-5 max-md:size-4" />
-            ) : (
-              <Volume2 aria-hidden="true" className="size-5 max-md:size-4" />
-            )}
-          </button>
-        </>
-      )}
+              {/* Top-right corner of the film. */}
+              <button
+                type="button"
+                onClick={toggleSound}
+                aria-pressed={!muted}
+                aria-label={muted ? labels.unmute : labels.mute}
+                className="absolute top-4 right-4 inline-flex size-11 items-center justify-center rounded-full border border-white/20 bg-black/55 text-white transition-colors hover:bg-black/70 max-md:top-2.5 max-md:right-2.5 max-md:size-9"
+              >
+                {muted ? (
+                  <VolumeX aria-hidden="true" className="size-5 max-md:size-4" />
+                ) : (
+                  <Volume2 aria-hidden="true" className="size-5 max-md:size-4" />
+                )}
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+
+      <div
+        data-sea
+        className="relative left-[calc(50%-50vw)] -mt-[calc(var(--sea-h)*0.1175)] h-(--sea-h) w-screen [--sea-h:140px] sm:[--sea-h:180px] lg:[--sea-h:220px] lg:[@media(max-height:50rem)]:[--sea-h:170px]"
+      >
+        <SeaLayers part="back" />
+        <HeroPier />
+        <SeaLayers part="front" className="z-20" />
+        {/* Without motion the boat rests level by the pier, in the front
+            swell's trough 180px from the left edge (83.3% down the box). */}
+        <VoyageBoat className="top-[83.33%] left-45 z-30 w-20 -translate-x-1/2 -translate-y-[80%] sm:w-28 lg:w-34" />
+      </div>
     </div>
+  );
+}
+
+// The small pier the boat leaves from, at the left edge of the hero's sea:
+// a deck at half the sea box's height (above the swell's crests), its posts
+// fading into the water, and a small capstan on it. Hidden on phones, where
+// the boat has the whole width to sail.
+function HeroPier() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 112 150"
+      className="absolute top-[calc(50%-39px)] left-0 z-20 w-22 max-sm:hidden lg:top-[calc(50%-50px)] lg:w-28"
+      style={{ maskImage: "linear-gradient(to bottom, black 55%, transparent)" }}
+    >
+      {/* Posts, then the deck (its top at y = 50) and a bollard at its end. */}
+      <path d="M10 54 h6 v96 h-6 Z M50 54 h6 v96 h-6 Z M88 54 h6 v96 h-6 Z" className="fill-heading" fillOpacity="0.5" />
+      <rect x="-4" y="46" width="108" height="8" rx="1.5" className="fill-heading" fillOpacity="0.85" />
+      <rect x="92" y="38" width="8" height="8" rx="2" className="fill-heading" />
+      {/* Capstan: drum, cap and one bar seen side on. */}
+      <rect x="30" y="27" width="16" height="19" rx="3" className="fill-heading" />
+      <ellipse cx="38" cy="27" rx="12" ry="4" className="fill-kicker" />
+      <path d="M22 33 H54" className="stroke-heading" strokeWidth="2.4" strokeLinecap="round" />
+    </svg>
   );
 }

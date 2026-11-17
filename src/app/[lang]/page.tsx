@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BentoGrid } from "@/components/home/bento-grid";
 import { Faq } from "@/components/home/faq";
 import { FinalCta } from "@/components/home/final-cta";
+import { PageCapstan } from "@/components/home/page-capstan";
 import { Hero } from "@/components/home/hero";
+import { ToolKeys } from "@/components/home/tool-keys";
 import { Problem } from "@/components/home/problem";
-import { Pricing } from "@/components/home/pricing";
-import { PrivacyTrust } from "@/components/home/privacy-trust";
-import { SafeConfig } from "@/components/home/safe-config";
-import { UnifiedApps } from "@/components/home/unified-apps";
+import { ProductTour } from "@/components/home/product-tour";
+import { Trust } from "@/components/home/trust";
+import { TryIt } from "@/components/home/try-it";
 import { PageMotion } from "@/components/motion/page-motion";
-import { getDictionary } from "@/lib/dictionaries";
-import { hasLocale } from "@/lib/i18n";
-import { homeJsonLd, jsonLd, pageAlternates } from "@/lib/seo";
+import { getDictionary, getPageCopy } from "@/lib/dictionaries";
+import { hasLocale, localizePath } from "@/lib/i18n";
+import { allFeaturesHref, featureHref, featureKeys } from "@/lib/site-nav";
+import { legNumber, voyage, type LegId } from "@/lib/voyage";
+import { absoluteUrl, homeJsonLd, jsonLd, pageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -25,29 +27,81 @@ export async function generateMetadata({
 export default async function HomePage({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const { meta, home } = await getDictionary(lang);
+  const [{ meta, home, voyage: voyageCopy, palette, features }, links] = await Promise.all([
+    getDictionary(lang),
+    getPageCopy(lang, "home-links"),
+  ]);
+  // "Chặng 03" / "Leg 03" for a section's overline (lib/voyage).
+  const leg = (id: LegId) => `${voyageCopy.leg} ${legNumber(id)}`;
 
   return (
     <>
-      <Hero lang={lang} dict={home.hero} />
-      <Problem lang={lang} dict={home.problem} />
-      <UnifiedApps dict={home.unifiedApps} />
-      <SafeConfig dict={home.safeConfig} />
-      <BentoGrid lang={lang} dict={home.bento} />
-      <PrivacyTrust lang={lang} dict={home.privacy} />
-      <Pricing dict={home.pricing} />
-      <Faq dict={home.faq} />
-      <FinalCta lang={lang} dict={home.cta} hero={home.hero} />
+      {/* The home page explains Capstio in a few screens; pricing, getting
+          started, release notes, the comparison and the security details
+          live on their own pages, linked from the sections below. */}
+      <Hero lang={lang} dict={home.hero} guide={links.hero.guide} />
+      <Problem lang={lang} leg={leg("problem")} dict={home.problem} />
+      <TryIt leg={leg("try")} dict={home.try} command={home.command} danger={home.danger} />
+      <ProductTour
+        leg={leg("tour")}
+        dict={home.tour}
+        apps={home.unifiedApps}
+        config={home.safeConfig}
+        links={links.tour}
+      />
+      <ToolKeys
+        leg={leg("features")}
+        tools={featureKeys.map((key) => ({
+          key,
+          title: features[key].title,
+          description: features[key].description,
+          href: localizePath(lang, featureHref[key]),
+          sample: links.keys.items[key],
+        }))}
+        labels={{
+          ...links.keys,
+          overline: home.bento.overline,
+          title: home.bento.title,
+          risk: {
+            safe: home.danger.levels.safe.label,
+            confirm: home.danger.levels.confirm.label,
+            dangerous: home.danger.levels.dangerous.label,
+          },
+        }}
+        native={[...home.native.items.map((item) => item.title), home.native.requirement]}
+        allHref={localizePath(lang, allFeaturesHref)}
+      />
+      <Trust
+        lang={lang}
+        leg={leg("trust")}
+        dict={home.trust}
+        links={links.trust}
+        securityLabel={home.privacy.footnote.link}
+      />
+      <Faq lang={lang} leg={leg("faq")} dict={home.faq} allLabel={links.faq.all} />
+      <FinalCta lang={lang} dict={home.cta} hero={home.hero} capstan={home.capstan} />
+      <PageCapstan
+        legs={voyage.map((stop) => ({ id: stop.id, label: palette.sections[stop.key] }))}
+        legWord={voyageCopy.leg}
+        navLabel={voyageCopy.nav}
+      />
       {/* Last on purpose: its effect runs once the page above has hydrated. */}
       <PageMotion />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLd(
-            homeJsonLd(lang, meta.description, home.hero.videoAlt, {
-              personal: home.pricing.plans.personal.description,
-              team: home.pricing.plans.team.description,
-            }),
+            homeJsonLd(
+              lang,
+              meta.description,
+              home.hero.videoAlt,
+              {
+                personal: home.pricing.plans.personal.description,
+                team: home.pricing.plans.team.description,
+              },
+              // The plans are shown on /pricing, not on the home page.
+              absoluteUrl(lang, "/pricing"),
+            ),
           ),
         }}
       />

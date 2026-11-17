@@ -66,22 +66,28 @@ const headerIcons: Record<Column, ReactNode> = {
   ),
 };
 
-// Comparison card of the problem section (Figma "Comparison / Card").
+// Comparison of a plain terminal, a web dashboard and Capstio (Figma
+// "Comparison / Card"), shown in the home problem section and on /compare.
+// Its colors come from the section palette, so it belongs inside a Section.
 // From 1280px: a label column and three column cards on one grid, rows 64px
 // high (Figma desktop). 1024-1279px: the three column cards sit
 // side by side and each cell repeats its row label, so long Vietnamese copy
 // can wrap. Below 1024px: the same cards stack (Figma mobile).
 // The visual grid is hidden from screen readers, which get a real table.
-export function ProblemComparison({
+// `showLink` adds the link to /compare under the card; /compare itself turns
+// it off.
+export function ComparisonTable({
   lang,
   dict,
+  showLink = true,
 }: {
   lang: Locale;
   dict: ComparisonDict;
+  showLink?: boolean;
 }) {
   if (dict.rows.length !== statuses.length) {
     throw new Error(
-      `Problem comparison has ${dict.rows.length} rows in the dictionary but ${statuses.length} in statuses.`,
+      `Comparison table has ${dict.rows.length} rows in the dictionary but ${statuses.length} in statuses.`,
     );
   }
 
@@ -211,15 +217,17 @@ export function ProblemComparison({
         })}
       </div>
 
-      <div className="mt-5 text-center lg:mt-7">
-        <Link
-          href={localizePath(lang, topLinkHref.compare)}
-          className="type-small inline-flex items-center gap-1 font-semibold text-section-link underline-offset-4 hover:underline"
-        >
-          {dict.link}
-          <ArrowRight aria-hidden="true" className="size-4" />
-        </Link>
-      </div>
+      {showLink && (
+        <div className="mt-5 text-center lg:mt-7">
+          <Link
+            href={localizePath(lang, topLinkHref.compare)}
+            className="type-small inline-flex items-center gap-1 font-semibold text-section-link underline-offset-4 hover:underline"
+          >
+            {dict.link}
+            <ArrowRight aria-hidden="true" className="size-4" />
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
