@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "Release notes: every Capstio release",
+    "description": "Every Capstio release, newest first: version, release date and what changed. The first beta is on its way."
+  },
+  "title": "Release notes",
+  "intro": "Every Capstio release, newest first, with a link to its download on GitHub.",
+  "latest": {
+    "title": "Latest release"
+  },
+  "format": {
+    "title": "What each release lists",
+    "intro": "Only releases that actually shipped are listed; no history is made up.",
+    "items": [
+      "The app version and release date, with a link to that release on this page (for example #0-2-0).",
+      "A title that names the benefit, not just \"November update\".",
+      "One to three highlights.",
+      "The changes, grouped as New, Improved, Fixed and Security.",
+      "Upgrade notes, only when you need to do something."
+    ]
+  },
+  "notes": {
+    "rss": "Not rendered. An RSS feed of releases is planned (brief 8.6) and out of scope for now; link it from this page when it exists."
+  }
+}

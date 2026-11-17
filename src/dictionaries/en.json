@@ -22,7 +22,7 @@
       "features": "Features",
       "solutions": "Solutions",
       "compare": "Compare",
-      "insights": "Insights",
+      "pricing": "Pricing",
       "releaseNotes": "Release notes"
     },
     "allFeatures": "All features"
@@ -65,13 +65,48 @@
       "releaseNotes": "Release notes",
       "compare": "Compare",
       "faq": "FAQ",
-      "rss": "RSS",
+      "download": "Download",
+      "pricing": "Pricing",
       "about": "About",
       "brand": "Brand",
       "security": "Security",
       "privacy": "Privacy",
       "terms": "Terms"
     }
+  },
+  "palette": {
+    "open": "Search",
+    "shortcut": "⌘K",
+    "title": "Command palette",
+    "placeholder": "Search pages, sections, actions and commands…",
+    "empty": "Nothing found.",
+    "groups": { "goTo": "On the home page", "pages": "Pages", "actions": "Actions", "commands": "Copy a command" },
+    "actions": { "download": "Download Capstio", "theme": "Switch light / dark", "language": "Xem bằng tiếng Việt" },
+    "copied": "Copied to the clipboard",
+    "copyFailed": "The browser blocked copying. Select the command on the page instead.",
+    "sections": {
+      "problem": "The problem",
+      "try": "Try it",
+      "tour": "Product tour",
+      "features": "All features",
+      "trust": "Teams, security & privacy",
+      "start": "Get started",
+      "pricing": "Pricing",
+      "faq": "FAQ"
+    },
+    "pages": {
+      "features": "All features",
+      "pricing": "Pricing",
+      "compare": "Compare",
+      "security": "Security",
+      "faq": "FAQ",
+      "releaseNotes": "Release notes",
+      "download": "Download & get started"
+    }
+  },
+  "voyage": {
+    "leg": "Leg",
+    "nav": "Legs of this page"
   },
   "home": {
     "hero": {
@@ -85,12 +120,17 @@
         "docker": { "label": "Docker", "subtitle": "Containers, images, volumes and networks in one native app. See what a cleanup reclaims before you run it." },
         "terminal": { "label": "Terminal", "subtitle": "A terminal with tabs, split view and a quick command bar, right inside the app. It warns you when you type or paste a dangerous command." }
       },
+      "announcement": {
+        "label": "Pricing is out: ${price} a year, with a {days}-day free trial",
+        "command": "capstio pricing",
+        "output": "${price}/yr · {days}-day trial"
+      },
       "videoAlt": "Capstio on a Mac: the Docker Compose, PM2 and systemd apps of a server in one list",
       "unmute": "Turn sound on",
       "mute": "Turn sound off"
     },
     "problem": {
-      "overline": "The problem",
+      "overline": "Rough waters",
       "title": "Managing servers shouldn't feel like walking on eggshells.",
       "subtitle": "Terminal commands are easy to mistype. Web dashboards are bloated to maintain. Capstio fixes both.",
       "cards": {
@@ -132,6 +172,28 @@
         ]
       }
     },
+    "try": {
+      "overline": "Try it",
+      "title": "See what Capstio runs before it runs.",
+      "subtitle": "Every button shows the real shell command, and risky commands always ask first. Try both here, in your browser.",
+      "tabs": {
+        "command": { "label": "Every button shows its command", "body": "Pick how an app runs and an action, then copy the real command." },
+        "danger": { "label": "Risky commands ask first", "body": "Type a command and see how Capstio sorts it by risk." }
+      }
+    },
+    "tour": {
+      "overline": "Product tour",
+      "title": "Your apps, your configs, your whole fleet.",
+      "subtitle": "Real screens from Capstio. Switch views to see each one.",
+      "tabs": { "apps": "Apps", "config": "Safe config", "fleet": "Fleet" },
+      "fleet": {
+        "overline": "Fleet",
+        "title": "Every server, one window.",
+        "body": "CPU, RAM, disk and containers for every host.",
+        "link": "See all features",
+        "imageAlt": "The Capstio All VPS view: six servers with their CPU, RAM and disk use, and totals for containers, apps and alerts"
+      }
+    },
     "unifiedApps": {
       "overline": "Unified apps view",
       "title": "Docker, PM2, systemd and more. Together at last.",
@@ -162,13 +224,7 @@
       "overline": "All in one Mac app",
       "title": "Every tool you need. In one Mac app.",
       "subtitle": "Terminal, recipes, logs, alerts, SSH security and tunnels in one native app. Just SSH, no agent on your VPS.",
-      "fleet": {
-        "overline": "Fleet",
-        "title": "Every server, one window.",
-        "body": "CPU, RAM, disk and containers for every host.",
-        "link": "See all features",
-        "imageAlt": "The Capstio All VPS view: six servers with their CPU, RAM and disk use, and totals for containers, apps and alerts"
-      },
+      "allFeatures": "See all features",
       "recipes": { "body": "built-in recipes with risk labels, run across many hosts.", "link": "Learn more about Recipes" },
       "agentless": { "body": "agents installed on your VPS. Plain SSH only." },
       "terminal": { "body": "Tabs and split panes. Shortcuts aren't swallowed by the terminal, so ⌘1 to ⌘0 switch tabs.", "link": "Learn more about Terminal" },
@@ -242,6 +298,115 @@
         "link": "Read the security architecture"
       }
     },
+    "command": {
+      "overline": "Equivalent command",
+      "title": "Every button shows the command it runs.",
+      "subtitle": "Pick how the app runs and an action. Capstio does the same thing on your server and shows the real shell command, ready to copy. You get the job done now and learn the commands as you go.",
+      "runtimeLabel": "The app runs with",
+      "actionLabel": "Action",
+      "actions": { "restart": "Restart", "stop": "Stop", "logs": "Logs", "status": "Status" },
+      "running": "running",
+      "copy": "Copy",
+      "copied": "Copied",
+      "copyFailed": "Select the command to copy it",
+      "note": "Commands run on the server over standard SSH. Nothing is installed there."
+    },
+    "danger": {
+      "overline": "Dangerous commands",
+      "title": "Risky commands always ask first.",
+      "subtitle": "Type or paste a command the way you would in a terminal. Capstio sorts it by risk, and the most dangerous ones, such as a Docker cleanup, need the host name typed back before they run.",
+      "simulation": "Simulation in your browser. Nothing is sent or run, and the app has its own, more complete rules.",
+      "inputLabel": "Command",
+      "placeholder": "Type a command and press Enter",
+      "tryLabel": "Try:",
+      "levels": {
+        "safe": { "label": "Safe", "body": "Read-only. It runs right away." },
+        "confirm": { "label": "Needs confirmation", "body": "It changes the state of the server, so Capstio asks before it runs." },
+        "dangerous": { "label": "Dangerous", "body": "It can delete data or take the server down. Type the host name to run it." }
+      },
+      "confirmPrompt": "Type {host} to confirm",
+      "run": "Run",
+      "cancel": "Cancel",
+      "ranSafe": "In Capstio this would run right away.",
+      "ranConfirmed": "Confirmed. In Capstio the command would run now; here nothing happens.",
+      "cancelled": "Cancelled. Nothing was run."
+    },
+    "native": {
+      "overline": "Native on Mac",
+      "title": "Built for the Mac, not wrapped for it.",
+      "subtitle": "Swift and SwiftUI, the standard macOS interface and the keys you already know.",
+      "items": [
+        { "title": "Swift and SwiftUI", "body": "A real Mac app, not a web page in a window." },
+        { "title": "Light and dark", "body": "Follows the appearance you set in macOS." },
+        { "title": "Touch ID", "body": "Supported, as in other native Mac apps." },
+        { "title": "Keychain", "body": "Passwords and private keys stay in the macOS Keychain." },
+        { "title": "Secure Enclave and 1Password", "body": "Use Secure Enclave keys or your SSH agent, including 1Password." },
+        { "title": "Keyboard first", "body": "Full shortcuts; ⌘1 to ⌘0 switch tabs even inside the terminal." }
+      ],
+      "requirement": "macOS 15 or later, Apple Silicon first."
+    },
+    "team": {
+      "overline": "Teams",
+      "title": "Share servers with your team, safely.",
+      "subtitle": "Hosts, SSH keys and recipes live in a shared vault that is end-to-end encrypted. The server stores only ciphertext.",
+      "items": [
+        {
+          "title": "End-to-end encrypted vault",
+          "body": "Shared hosts, keys and recipes are encrypted on your devices. Metadata such as the number of hosts and who changed what, and when, stays readable."
+        },
+        { "title": "Device approval", "body": "A new device has to be approved before it can open the vault." },
+        {
+          "title": "Recovery key",
+          "body": "You hold the recovery key. Lose every device and the key, and the team data cannot be recovered."
+        },
+        { "title": "Vault key rotation", "body": "Rotate the vault key whenever you need to." },
+        { "title": "Audit log", "body": "Who did what, on which host, when and with what result. Export it to CSV." }
+      ],
+      "rolesTitle": "Roles",
+      "roles": [
+        "Owner",
+        "Admin",
+        "Operator",
+        "Viewer"
+      ],
+      "rolesNote": "Give each person the access their work needs.",
+      "pricingLink": "Team pricing"
+    },
+    "migrate": {
+      "overline": "Switching is easy",
+      "title": "Bring your hosts from ~/.ssh/config.",
+      "subtitle": "Capstio imports the hosts you already have and reuses your SSH keys. Paste your config to see what it would import.",
+      "inputLabel": "Contents of ~/.ssh/config",
+      "placeholder": "Paste the contents of ~/.ssh/config",
+      "privacy": "Read only in this page. Nothing is uploaded or stored.",
+      "example": "Use the example",
+      "clear": "Clear",
+      "resultTitle": "Hosts to import",
+      "count": "Hosts: {n}",
+      "skipped": "Wildcard patterns such as Host * skipped: {n}",
+      "empty": "No hosts yet. Paste a config or use the example.",
+      "via": "via {host}",
+      "defaultKey": "default key"
+    },
+    "latest": {
+      "overline": "Latest",
+      "title": "What's new",
+      "releaseLabel": "Release",
+      "releasedOn": "Released {date}",
+      "viewRelease": "Release notes",
+      "comingSoonTitle": "The first beta is on its way",
+      "comingSoonBody": "Release notes appear here as soon as the first build is out.",
+      "allReleases": "Releases on GitHub",
+      "insightsLabel": "Insights",
+      "insightsTitle": "Guides are coming",
+      "insightsBody": "Hands-on guides for running VPSs, with commands we have tested, are on the way."
+    },
+    "capstan": {
+      "overline": "The name",
+      "title": "Capstio comes from capstan.",
+      "body": "A capstan is the upright winch on a ship's deck, used to haul in the anchor. One person pushing it can pull a whole ship into port. Capstio does the heavy lifting for your servers the same way.",
+      "artLabel": "A capstan on a dock winding a rope that pulls a ship into port"
+    },
     "pricing": {
       "overline": "Pricing",
       "title": "Simple pricing. Free for 14 days.",
@@ -289,10 +454,20 @@
       ]
     },
     "cta": {
-      "overline": "AVAILABLE FOR macOS",
+      "overline": "HARBOR · AVAILABLE FOR macOS",
       "subtitle": "Docker, PM2, systemd, config files and terminal in one native app. Just SSH, no agent.",
       "requirement": "macOS 15 or later · No agent to install",
       "releaseNotes": "Release notes"
+    },
+    "trust": {
+      "overline": "Teams & privacy",
+      "title": "Share servers safely. Know what leaves your Mac.",
+      "subtitle": "An end-to-end encrypted vault for your team, and a plain list of what Capstio sends and what it never sends."
+    },
+    "start": {
+      "overline": "Get started",
+      "title": "Bring your servers. Keep your keys.",
+      "subtitle": "Capstio reads the hosts you already have in ~/.ssh/config, and here is what is new."
     }
   }
 }

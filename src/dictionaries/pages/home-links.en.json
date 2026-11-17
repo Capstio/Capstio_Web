@@ -1,0 +1,73 @@
+{
+  "hero": {
+    "guide": "Installation guide"
+  },
+  "tour": {
+    "apps": "More about Apps",
+    "config": "More about Safe config"
+  },
+  "trust": {
+    "facts": [
+      {
+        "title": "Keys in the macOS Keychain",
+        "body": "SSH keys and passwords stay on your Mac, with Secure Enclave and 1Password support."
+      },
+      {
+        "title": "No agent on your servers",
+        "body": "Capstio connects over standard SSH, straight from your Mac to your VPS."
+      },
+      {
+        "title": "End-to-end encrypted team vault",
+        "body": "Shared hosts, keys and recipes are encrypted on your devices; the server stores only ciphertext."
+      }
+    ],
+    "teams": "How the team vault works"
+  },
+  "faq": {
+    "all": "All questions"
+  },
+  "keys": {
+    "label": "The tools, one key each",
+    "hint": "Click a key or drag the boat. With a key in focus, press 1 to 0.",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Select to copy",
+    "more": "More about {tool}",
+    "approve": "you approve",
+    "log": "Audit log",
+    "all": "See all features",
+    "items": {
+      "apps": {
+        "command": "docker compose restart api"
+      },
+      "docker": {
+        "command": "docker system prune -a"
+      },
+      "safeConfig": {
+        "command": "sudo nginx -t"
+      },
+      "terminal": {
+        "command": "docker volume rm db_data"
+      },
+      "recipes": {
+        "command": "sudo apt upgrade"
+      },
+      "alerts": {
+        "command": "df -h"
+      },
+      "sshSecurity": {
+        "command": "journalctl -u ssh --since today"
+      },
+      "tunnels": {
+        "command": "ssh -L 5432:localhost:5432 db"
+      },
+      "ai": {
+        "prompt": "Why is the disk full?",
+        "command": "du -sh /var/* | sort -h"
+      },
+      "teams": {
+        "line": "Linh · restarted api on prod-web-1 · 14:02 · OK"
+      }
+    }
+  }
+}

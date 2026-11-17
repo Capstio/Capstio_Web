@@ -12,10 +12,12 @@ import {
   downloadHref,
   featureHref,
   featureKeys,
+  headerLinkIds,
   solutionHref,
   solutionKeys,
   topLinkHref,
 } from "@/lib/site-nav";
+import { CommandPalette, PaletteTrigger } from "./command-palette";
 import { FeaturesMenu, SolutionsMenu } from "./header-menus";
 import { LanguageSelect } from "./language-select";
 import { ThemeToggle } from "./theme-toggle";
@@ -32,6 +34,7 @@ type SiteHeaderProps = {
     | "solutions"
     | "languages"
     | "languagesShort"
+    | "palette"
   >;
 };
 
@@ -199,7 +202,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
                   ))}
               </div>
             ))}
-            {(["compare", "insights", "releaseNotes"] as const).map((id) => (
+            {headerLinkIds.map((id) => (
               <Link
                 key={id}
                 href={localizePath(lang, topLinkHref[id])}
@@ -211,6 +214,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
           </nav>
 
           <div className="ml-auto hidden items-center gap-2 lg:flex">
+            <PaletteTrigger label={dict.palette.open} shortcut={dict.palette.shortcut} />
             <LanguageSelect
               lang={lang}
               label={dict.common.language}
@@ -222,13 +226,14 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
             {ctaButton()}
           </div>
 
+          <PaletteTrigger label={dict.palette.open} className="ml-auto size-10 lg:hidden" />
           <Button
             variant="secondary"
             aria-label={mobileOpen ? dict.common.closeMenu : dict.common.openMenu}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
             onClick={() => setMobileOpen((open) => !open)}
-            className="ml-auto size-10 border-0 p-0 lg:hidden"
+            className="size-10 border-0 p-0 lg:hidden"
           >
             {mobileOpen ? (
               <X aria-hidden="true" className="size-5" />
@@ -298,7 +303,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
               </ul>
             </details>
 
-            {(["compare", "insights", "releaseNotes"] as const).map((id) => (
+            {headerLinkIds.map((id) => (
               <Link
                 key={id}
                 href={localizePath(lang, topLinkHref[id])}
@@ -328,6 +333,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
           </div>
         )}
       </div>
+      <CommandPalette lang={lang} dict={dict.palette} />
     </header>
   );
 }

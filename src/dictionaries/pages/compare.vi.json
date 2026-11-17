@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "title": "So sánh Capstio với terminal và dashboard web",
+    "description": "Terminal thuần, dashboard web cài trên server và Capstio, so theo bốn tiêu chí: cú pháp lệnh, agent trên server, lệnh đang chạy và nơi lưu SSH key."
+  },
+  "title": "Capstio so với terminal và dashboard web",
+  "intro": "Ba cách vận hành VPS chạy Docker, đặt cạnh nhau theo những điều bạn phải lo mỗi ngày.",
+  "table": {
+    "title": "Bảng so sánh",
+    "intro": "Mỗi hàng là một tiêu chí, mỗi cột là một cách làm."
+  },
+  "scope": {
+    "title": "Phạm vi so sánh",
+    "asOf": "Cập nhật ngày 17/11/2026.",
+    "items": [
+      "So sánh ba cách làm: gõ lệnh qua SSH trong terminal, dùng một dashboard web cài trên server, và dùng Capstio trên Mac.",
+      "Bốn tiêu chí: có phải nhớ cú pháp không, có phải cài agent lên server không, có thấy lệnh thật đang chạy không, và SSH private key được lưu ở đâu.",
+      "Cột dashboard web nói về cả nhóm công cụ. Mỗi công cụ một khác, nên vài ô ghi \"Tùy từng công cụ\".",
+      "Cột Capstio dựa trên những gì bản beta làm được vào ngày cập nhật ở trên.",
+      "Trang so sánh với từng sản phẩm cụ thể sẽ có sau."
+    ]
+  },
+  "related": {
+    "title": "Tìm hiểu thêm",
+    "security": "Capstio lưu dữ liệu ở đâu",
+    "features": "Xem tất cả tính năng"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "title": "Security",
+    "description": "Capstio only uses SSH and installs no agent on your VPS. SSH keys stay in the macOS Keychain, the team vault is end-to-end encrypted, and here is exactly what leaves your Mac."
+  },
+  "title": "Security and privacy",
+  "intro": "You hand Capstio your SSH keys, so you should know exactly what it does with them. This page covers the design principles, what leaves your Mac and where it goes, and the limits of the design.",
+  "principles": {
+    "title": "Design principles",
+    "items": [
+      { "title": "Only SSH, no agent", "body": "Capstio connects over standard SSH, installs no agent on your VPS and puts no relay server between your Mac and your VPS. Some features use Docker, PM2 or systemd already on the server." },
+      { "title": "Local first", "body": "Every local feature works without an account. You only need one for teamwork and sync." },
+      { "title": "You hold the keys", "body": "Passwords and private keys stay in the macOS Keychain. Secure Enclave keys and your SSH agent, including 1Password, are supported. AI uses your own key or account." },
+      { "title": "Server data stays with you", "body": "Terminal, logs, metrics and file contents are never sent to Capstio servers." },
+      { "title": "No tracking in the app", "body": "The app embeds no analytics or tracking SDK." },
+      { "title": "End-to-end encrypted team vault", "body": "The team vault is end-to-end encrypted and the server only stores ciphertext. The end-to-end encryption design is covered by automated tests." },
+      { "title": "Risky commands ask first", "body": "The terminal warns you when you paste or type a dangerous command. Recipes carry a clear risk level: Safe, Needs confirmation or Dangerous." },
+      { "title": "Changes you can undo", "body": "Every config save makes a backup on the server. When tightening SSH settings, Capstio backs up, checks, tests a new connection and rolls back on failure, so you don't lock yourself out." },
+      { "title": "AI suggests read-only commands", "body": "You approve each command. Capstio, not the model, decides which commands count as read-only." }
+    ]
+  },
+  "data": { "title": "What leaves your Mac" },
+  "team": { "title": "A vault for the whole team" },
+  "limits": {
+    "title": "Limits of the design",
+    "intro": "What Capstio does not do, spelled out so you can judge for yourself.",
+    "items": [
+      { "title": "Alerts only while the app is open", "body": "Capstio checks your servers from your Mac, so there are no alerts while the app is closed or the Mac is off." },
+      { "title": "Secret masking is pattern-based", "body": "Secrets are masked before anything goes to an AI provider, but the filter works by recognizing patterns. If you want to be certain, use a local model." },
+      { "title": "Vault metadata stays readable", "body": "The server cannot read what is in the vault, but it does see metadata such as the number of hosts and who changed what, and when." },
+      { "title": "No recovery key, no team data", "body": "If you lose every device and the recovery key as well, the team data cannot be recovered." }
+    ]
+  },
+  "contact": {
+    "title": "Reporting a security issue",
+    "body": "Open an issue in Capstio's GitHub repository to ask the team for a private channel. Please don't post the details of a vulnerability in a public issue.",
+    "link": "Open an issue on GitHub"
+  }
+}

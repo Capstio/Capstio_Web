@@ -41,15 +41,56 @@ export const topLinkHref = {
   compare: "/compare",
   insights: "/insights",
   releaseNotes: "/release-notes",
+  pricing: "/pricing",
 } as const;
 
-// Builds are published as GitHub releases; this always opens the newest one.
-export const downloadHref =
-  "https://github.com/Capstio/Capstio_Release/releases/latest";
+// Plain links of the header after the Features and Solutions menus, in order.
+// Insights stays out of the header until it has posts (it is in the footer).
+export const headerLinkIds = ["compare", "pricing", "releaseNotes"] as const;
+
+// Builds are published as GitHub releases of this repository; the download
+// link always opens the newest one.
+export const releasesRepo = "Capstio/Capstio_Release";
+export const releasesPage = `https://github.com/${releasesRepo}/releases`;
+export const downloadHref = `${releasesPage}/latest`;
 
 export const allFeaturesHref = "/features";
 
 export const securityHref = "/security";
+
+export const faqHref = "/faq";
+
+// The getting-started guide. Download buttons still go straight to the newest
+// release (downloadHref); this page explains installing and connecting.
+export const downloadGuideHref = "/download";
+
+export const technologyKeys = ["dockerManager", "pm2Gui", "systemdGui", "sshClient"] as const;
+export type TechnologyKey = (typeof technologyKeys)[number];
+
+export const technologyHref: Record<TechnologyKey, string> = {
+  dockerManager: "/technology/docker-manager",
+  pm2Gui: "/technology/pm2-gui",
+  systemdGui: "/technology/systemd-gui",
+  sshClient: "/technology/ssh-client-for-mac",
+};
+
+// The path segment after the parent of a nested page, for example "agency"
+// from "/solutions/agency".
+export function lastSegment(path: string): string {
+  return path.slice(path.lastIndexOf("/") + 1);
+}
+
+// Real pages the command palette lists under "Pages", in order. Labels come
+// from `palette.pages.<id>` in the dictionaries.
+export const palettePages = [
+  { id: "features", href: allFeaturesHref },
+  { id: "pricing", href: topLinkHref.pricing },
+  { id: "compare", href: topLinkHref.compare },
+  { id: "security", href: securityHref },
+  { id: "faq", href: faqHref },
+  { id: "releaseNotes", href: topLinkHref.releaseNotes },
+  { id: "download", href: downloadGuideHref },
+] as const;
 
 // Footer columns. Column titles come from `footer.columns.<id>` and link labels
 // from `footer.links.<id>` in the dictionaries.
@@ -68,12 +109,7 @@ export const footerColumns: FooterColumn[] = [
   },
   {
     id: "technology",
-    links: [
-      { id: "dockerManager", href: "/technology/docker-manager" },
-      { id: "pm2Gui", href: "/technology/pm2-gui" },
-      { id: "systemdGui", href: "/technology/systemd-gui" },
-      { id: "sshClient", href: "/technology/ssh-client-for-mac" },
-    ],
+    links: technologyKeys.map((key) => ({ id: key, href: technologyHref[key] })),
   },
   {
     id: "solutions",
@@ -82,11 +118,12 @@ export const footerColumns: FooterColumn[] = [
   {
     id: "resources",
     links: [
-      { id: "insights", href: topLinkHref.insights },
+      { id: "download", href: downloadGuideHref },
+      { id: "pricing", href: topLinkHref.pricing },
       { id: "releaseNotes", href: topLinkHref.releaseNotes },
       { id: "compare", href: topLinkHref.compare },
-      { id: "faq", href: "/faq" },
-      { id: "rss", href: "/rss.xml" },
+      { id: "faq", href: faqHref },
+      { id: "insights", href: topLinkHref.insights },
     ],
   },
   {

@@ -7,7 +7,7 @@ import { themeStorageKey } from "@/lib/theme";
 // Toggles the `dark` class on <html> and remembers the choice. Both icons are
 // always rendered and swapped with CSS, so the server markup never depends on
 // the active theme and there is no hydration flash.
-function toggleTheme() {
+export function toggleTheme() {
   const isDark = document.documentElement.classList.toggle("dark");
   try {
     localStorage.setItem(themeStorageKey, isDark ? "dark" : "light");

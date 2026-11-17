@@ -1,0 +1,360 @@
+{
+  "meta": {
+    "title": "Features",
+    "description": "Everything Capstio does: apps, Docker, safe config editing, terminal, recipes, alerts, SSH security, tunnels, AI and teams, over standard SSH."
+  },
+  "title": "Features",
+  "labels": {
+    "more": "Learn more",
+    "related": "Related features",
+    "note": "Good to know:"
+  },
+  "overview": {
+    "title": "Everything you need to run your VPSs, in one Mac app",
+    "intro": "Capstio connects to your servers over standard SSH, with no agent installed on the VPS. From one window you see every server, manage apps, edit config and run commands, and you always see the real command being run.",
+    "fleet": {
+      "title": "Every VPS on one screen",
+      "intro": "The All VPS view is a grid of your servers, each with its status, CPU, RAM, disk and container count.",
+      "points": [
+        { "title": "Filter by status", "body": "Show the hosts that are online, have a warning or are failing, so you know which one to look at first." },
+        { "title": "One host in detail", "body": "Open a host for CPU, RAM and network charts over the last 15 minutes, plus its system info." },
+        { "title": "Processes in place", "body": "See the host's process table and stop a process without opening a terminal." }
+      ]
+    },
+    "all": {
+      "title": "All features",
+      "intro": "Each feature has its own page: what it does, the real commands behind it, and its current limits."
+    },
+    "principles": {
+      "title": "How Capstio is built",
+      "intro": "Four principles behind every feature above.",
+      "points": [
+        { "title": "No agent", "body": "Standard SSH only: nothing is installed on the VPS and there is no relay server between your Mac and the VPS. Some features rely on Docker, PM2 or systemd already being on the server." },
+        { "title": "Local-first", "body": "Every local feature works without an account. You only need one for team features and sync." },
+        { "title": "Truly native", "body": "Built with Swift and SwiftUI, light and dark from the system, Touch ID and full keyboard shortcuts." },
+        { "title": "Your keys", "body": "Passwords and private keys stay in the macOS Keychain. AI uses your own key or account." }
+      ]
+    }
+  },
+  "pages": {
+    "apps": {
+      "meta": {
+        "title": "Apps: Docker Compose, PM2 and systemd in one list",
+        "description": "Capstio finds apps run by Docker Compose, PM2 or systemd and gives them the same Restart, Stop and Start controls, logs and a copyable shell command."
+      },
+      "title": "Docker Compose, PM2 and systemd in one list",
+      "intro": "Capstio finds the apps on your server, however they run, and puts them in one list. Each app keeps its processes, config, logs and status in one place.",
+      "sections": [
+        {
+          "id": "one-list",
+          "title": "One list, one set of controls",
+          "intro": "No need to remember which app runs on Compose and which one on PM2 or systemd.",
+          "visual": "apps-screenshot",
+          "points": [
+            { "title": "Auto-discovery", "body": "Scans the server over SSH for apps run by Docker Compose, PM2 or systemd." },
+            { "title": "Shared actions", "body": "Restart, Stop/Start, view logs, edit config, and open a terminal right in the app's folder." },
+            { "title": "Restart loops", "body": "Apps stuck restarting over and over are highlighted so you can deal with them right away." }
+          ],
+          "note": "Apps works with Docker, PM2 or systemd already on the server. Capstio installs nothing on the VPS."
+        },
+        {
+          "id": "equivalent-command",
+          "title": "Every button shows the real command",
+          "intro": "The equivalent command matches how the app is run. You get the job done now and pick up the commands for the times you need a terminal.",
+          "visual": "command-console",
+          "runtimeCommands": "restart"
+        },
+        {
+          "id": "logs",
+          "title": "Logs from every source",
+          "intro": "Read logs from a container, Compose, PM2, systemd, journald or a log file. Filter by ERROR, WARN and INFO, and search with keyword highlighting.",
+          "runtimeCommands": "logs"
+        },
+        {
+          "id": "deploy",
+          "title": "Deploy from templates",
+          "intro": "Start a new app from a template: Node.js, WordPress, Postgres, n8n, Uptime Kuma, or your own compose file.",
+          "note": "Templates do not set up SSL/HTTPS yet. You still handle that step yourself."
+        }
+      ],
+      "related": ["docker", "safeConfig"]
+    },
+    "docker": {
+      "meta": {
+        "title": "Docker: containers, images, volumes and networks from your Mac",
+        "description": "Manage containers, images, volumes and networks on your VPS from a Mac app. Cleanup shows the space it reclaims first and never preselects volumes with data."
+      },
+      "title": "Manage Docker on your VPS from your Mac",
+      "intro": "Containers, images, volumes and networks on every server, in one native app, over standard SSH.",
+      "sections": [
+        {
+          "id": "containers",
+          "title": "Containers",
+          "intro": "A container list with the CPU, RAM and ports of each one.",
+          "points": [
+            { "title": "Bulk actions", "body": "Select several containers and act on them at once instead of typing one command each." },
+            { "title": "Details and shell", "body": "Inspect a container, or open a shell inside it without leaving the app." },
+            { "title": "Container logs", "body": "Read container logs, filter by level and highlight keywords, just like in Apps." }
+          ]
+        },
+        {
+          "id": "images",
+          "title": "Images, volumes and networks",
+          "intro": "Manage images, volumes and networks on the same screen. Capstio tells you when a tag's digest changes, so you can update the image."
+        },
+        {
+          "id": "cleanup",
+          "title": "Docker cleanup, carefully",
+          "intro": "Before a cleanup, Capstio shows how much space it will reclaim and leaves volumes with data unselected. Cleanup counts as dangerous, so it runs only after you type the host name back.",
+          "commands": [
+            { "command": "docker system prune -a --volumes", "caption": "The kind of cleanup that asks for the host name" }
+          ]
+        }
+      ],
+      "related": ["apps", "recipes"]
+    },
+    "safeConfig": {
+      "meta": {
+        "title": "Safe config editing: syntax check, backup and diff",
+        "description": "Edit Nginx, YAML, .env, JSON and Caddyfile over SFTP. Capstio checks syntax as you type, backs up on the server before every save and restores in one click."
+      },
+      "title": "Edit config without breaking production",
+      "intro": "No more blind edits in nano. Capstio checks syntax as you type, backs up the file on the server before every save, shows the diff and restores in one click.",
+      "sections": [
+        {
+          "id": "editor",
+          "title": "An editor that knows the file format",
+          "intro": "The built-in editor highlights YAML, .env, Nginx, JSON and Caddyfile, and flags syntax errors by line number while you type.",
+          "visual": "config-screenshot",
+          "points": [
+            { "title": "Secret masking", "body": "Secret values in .env files are masked, so sharing your screen while editing config is safer." },
+            { "title": "Root-owned files", "body": "Files owned by root open through sudo, with no copying them elsewhere to edit." }
+          ]
+        },
+        {
+          "id": "backups",
+          "title": "Backup, diff and restore",
+          "intro": "Every save creates a backup on the server. Browse the backups, compare versions side by side and restore an older one with a single button."
+        },
+        {
+          "id": "files",
+          "title": "Files over SFTP",
+          "intro": "Browse the server's files in one or two panes, drag and drop to upload and download, or open a file in VS Code or Cursor."
+        }
+      ],
+      "related": ["apps", "terminal"]
+    },
+    "terminal": {
+      "meta": {
+        "title": "SSH terminal for Mac with dangerous command warnings",
+        "description": "A terminal with tabs, split view, command history and a quick command bar. Capstio warns before a dangerous command is typed or pasted, sorted by risk."
+      },
+      "title": "A terminal that knows which commands are dangerous",
+      "intro": "Tabs, split view, command history and a quick command bar. Shortcuts aren't swallowed by the terminal, so ⌘1 to ⌘0 still switch tabs.",
+      "sections": [
+        {
+          "id": "dangerous-commands",
+          "title": "Risky commands always ask first",
+          "intro": "When you type or paste a command, Capstio sorts it into one of three levels: safe, needs confirmation, or dangerous. The most dangerous ones, such as a Docker cleanup, need the host name typed back before they run.",
+          "visual": "danger-console"
+        },
+        {
+          "id": "workspace",
+          "title": "Built for many servers",
+          "points": [
+            { "title": "Tabs and splits", "body": "Keep sessions side by side: one tab per server, or several for the same one." },
+            { "title": "Command history", "body": "Find a command you ran before instead of typing it again." },
+            { "title": "Quick command bar", "body": "A bar at the bottom of the terminal for the commands you run most." }
+          ]
+        },
+        {
+          "id": "recording",
+          "title": "Session recording and replay",
+          "intro": "Capstio can record a session's output, encrypted on your Mac, and replay it like a video with seeking and 1× to 8× speed, full-text search and .cast export. Only the server's output is recorded, not your keystrokes, so passwords you type are not stored.",
+          "note": "Recording is off by default and is still being tested before we promote it."
+        }
+      ],
+      "related": ["recipes", "ai"]
+    },
+    "recipes": {
+      "meta": {
+        "title": "Recipes: 24 command recipes with risk levels",
+        "description": "24 ready-made recipes for security, Docker, system, network, backup and web. Each has parameters and a risk level, and runs on several hosts in parallel."
+      },
+      "title": "Ready-made commands with risk labels",
+      "intro": "24 recipes for security, Docker, system, network, backup and web. Run the usual jobs without looking up commands, and know the risk before you start.",
+      "sections": [
+        {
+          "id": "library",
+          "title": "Every recipe is a real command",
+          "points": [
+            { "title": "Parameters", "body": "Fill in values such as a container name or a path, and Capstio builds the full command." },
+            { "title": "Many hosts at once", "body": "Run a recipe on one host or on several in parallel." },
+            { "title": "Your own recipes", "body": "Write your own recipes and sync them through Git." }
+          ]
+        },
+        {
+          "id": "risk-levels",
+          "title": "Three risk levels",
+          "intro": "Each recipe carries a label: safe, needs confirmation, or dangerous. Dangerous ones need the host name typed back before they run, just like in the terminal.",
+          "visual": "danger-console"
+        },
+        {
+          "id": "schedule",
+          "title": "Scheduled runs",
+          "intro": "Recipes can be scheduled to run later.",
+          "note": "Recipe scheduling is in the app but still being tested."
+        }
+      ],
+      "related": ["terminal", "teams"]
+    },
+    "alerts": {
+      "meta": {
+        "title": "VPS alerts as macOS notifications",
+        "description": "macOS notifications when disk, CPU or RAM cross a threshold, a container keeps restarting or a host is lost. Alerts run while Capstio is open."
+      },
+      "title": "Server alerts while Capstio is open",
+      "intro": "Capstio sends a macOS notification when something on a server needs your attention. Thresholds are yours to set.",
+      "sections": [
+        {
+          "id": "what",
+          "title": "What Capstio tells you about",
+          "points": [
+            { "title": "Disk, CPU, RAM", "body": "When usage crosses the threshold you set." },
+            { "title": "Containers", "body": "When a container keeps restarting." },
+            { "title": "Hosts", "body": "When a host loses its connection." },
+            { "title": "SSL and patches", "body": "When an SSL certificate is about to expire, or security updates are available." },
+            { "title": "SSH sign-ins", "body": "When an SSH sign-in looks suspicious." }
+          ]
+        },
+        {
+          "id": "limits",
+          "title": "Limits",
+          "intro": "Alerts run only while Capstio is open on your Mac. This is not 24/7 monitoring: when the app is closed or the Mac is off, Capstio does not check your servers.",
+          "note": "Alerts through Slack or a webhook are in the app but still being tested."
+        }
+      ],
+      "related": ["sshSecurity", "docker"]
+    },
+    "sshSecurity": {
+      "meta": {
+        "title": "SSH security: sign-in analysis and one-click IP blocking",
+        "description": "24-hour SSH sign-in analysis, one-click IP blocking, and SSH hardening that tests a new connection and rolls back on failure. Manage Linux users and keys."
+      },
+      "title": "SSH security without locking yourself out",
+      "intro": "See who is trying to sign in to your server, block an IP in one click, and harden SSH the safe way.",
+      "sections": [
+        {
+          "id": "sign-ins",
+          "title": "24-hour sign-in analysis",
+          "intro": "Failed attempts, IPs, usernames tried and an hourly chart. Capstio warns you when an IP failed many times and then got in, and blocks an IP in one click."
+        },
+        {
+          "id": "hardening",
+          "title": "Harden SSH safely",
+          "intro": "Capstio backs up the config, checks it, tries a fresh connection and rolls back on its own if that connection fails, so you don't lock yourself out."
+        },
+        {
+          "id": "users-keys",
+          "title": "Linux users and SSH keys",
+          "points": [
+            { "title": "Users on the VPS", "body": "Create, lock and delete users, grant sudo and manage authorized_keys." },
+            { "title": "Several logins", "body": "Save several login accounts per VPS and choose how to get root." },
+            { "title": "SSH keys", "body": "Create or import Ed25519 and RSA keys and push them to a host. Secure Enclave, SSH agents and 1Password are supported." },
+            { "title": "Keychain", "body": "Private keys are stored in the macOS Keychain." }
+          ]
+        }
+      ],
+      "related": ["alerts", "teams"]
+    },
+    "tunnels": {
+      "meta": {
+        "title": "SSH tunnels (Local, Remote, SOCKS) and network checks",
+        "description": "Create Local, Remote and SOCKS SSH tunnels and save them to switch on and off. Measure latency, packet loss, jitter and bandwidth on a schedule."
+      },
+      "title": "SSH tunnels and connection checks",
+      "intro": "Open tunnels to your servers and measure the connection, without remembering ssh flags.",
+      "sections": [
+        {
+          "id": "tunnels",
+          "title": "Local, Remote and SOCKS tunnels",
+          "intro": "Create a Local, Remote or SOCKS tunnel and save it to switch on and off when you need it. The tunnel list shows which ones are running and which have failed."
+        },
+        {
+          "id": "network-checks",
+          "title": "Connection checks",
+          "intro": "Measure latency, packet loss, jitter and bandwidth to a server on a schedule."
+        },
+        {
+          "id": "jump-host",
+          "title": "Through a jump host",
+          "intro": "Capstio supports connecting to a server through a jump host.",
+          "note": "Jump host connections are still being checked."
+        }
+      ],
+      "related": ["sshSecurity", "terminal"]
+    },
+    "ai": {
+      "meta": {
+        "title": "AI in the terminal: read-only commands you approve",
+        "description": "Ask in plain language; AI proposes read-only commands you approve one by one. Use your Anthropic or OpenAI key, Claude Code or Codex account, or Ollama."
+      },
+      "title": "AI next to your terminal, and you approve every command",
+      "intro": "A chat panel sits beside the terminal. Ask in plain language, the AI proposes read-only commands, and nothing runs until you approve it.",
+      "sections": [
+        {
+          "id": "read-only",
+          "title": "Capstio decides what is read-only",
+          "intro": "Capstio itself decides whether a command is read-only, not the model. You approve each command before it runs, then the AI explains the result."
+        },
+        {
+          "id": "providers",
+          "title": "Bring your own model",
+          "points": [
+            { "title": "Anthropic, OpenAI", "body": "With your own API key." },
+            { "title": "Claude Code, Codex", "body": "With your own account." },
+            { "title": "Ollama", "body": "A model running on your Mac." }
+          ]
+        },
+        {
+          "id": "privacy",
+          "title": "Where your data goes",
+          "intro": "Requests go straight to the provider you pick, not through Tekmium servers. With AI turned on, the conversation's context is sent to that provider.",
+          "note": "Secrets are masked before sending by a pattern-based filter. If you need full certainty, use a local model through Ollama."
+        }
+      ],
+      "related": ["terminal", "recipes"]
+    },
+    "teams": {
+      "meta": {
+        "title": "Teams: end-to-end encrypted vault and audit log",
+        "description": "Share hosts, SSH keys and recipes through an end-to-end encrypted vault, with Owner, Admin, Operator and Viewer roles and an audit log you can export to CSV."
+      },
+      "title": "Share servers safely and know who did what",
+      "intro": "A shared workspace for hosts, SSH keys and recipes, through an end-to-end encrypted vault. The server stores only ciphertext. Built for agencies and ops teams.",
+      "sections": [
+        {
+          "id": "vault",
+          "title": "Vault and roles",
+          "points": [
+            { "title": "Four roles", "body": "Owner, Admin, Operator and Viewer, each limited to what the role allows." },
+            { "title": "Device approval", "body": "A new device must be approved before it can open the vault." },
+            { "title": "Recovery key", "body": "A recovery key that you keep, and vault keys that can be rotated." }
+          ],
+          "note": "If you lose every device and the recovery key, the team data is lost too. Some metadata, such as the number of hosts or who edited what and when, is still visible to the server."
+        },
+        {
+          "id": "audit-log",
+          "title": "Audit log",
+          "intro": "The audit log records who did what, on which host, when, and how it went. Export it to CSV."
+        },
+        {
+          "id": "account",
+          "title": "An account only for teams",
+          "intro": "Local features work without an account. Teams and sync need a sign-in with Google or an emailed code."
+        }
+      ],
+      "related": ["sshSecurity", "recipes"]
+    }
+  }
+}

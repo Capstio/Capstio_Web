@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "Release notes: các bản phát hành Capstio",
+    "description": "Các bản phát hành của Capstio, mới nhất ở trên: số phiên bản, ngày phát hành và những thay đổi. Bản beta đầu tiên sắp ra mắt."
+  },
+  "title": "Release notes",
+  "intro": "Mỗi bản phát hành của Capstio, mới nhất ở trên, kèm liên kết tới bản tải về trên GitHub.",
+  "latest": {
+    "title": "Bản mới nhất"
+  },
+  "format": {
+    "title": "Mỗi bản phát hành ghi những gì",
+    "intro": "Chỉ ghi những bản đã thật sự phát hành, không dựng lại lịch sử.",
+    "items": [
+      "Số phiên bản của app và ngày phát hành, có liên kết riêng tới từng bản (ví dụ #0-2-0).",
+      "Tiêu đề nói về lợi ích, không chỉ là \"bản cập nhật tháng 11\".",
+      "Một đến ba thay đổi nổi bật.",
+      "Danh sách thay đổi chia nhóm Mới, Cải thiện, Sửa lỗi và Bảo mật.",
+      "Lưu ý nâng cấp, chỉ khi bạn cần làm gì đó."
+    ]
+  },
+  "notes": {
+    "rss": "Not rendered. An RSS feed of releases is planned (brief 8.6) and out of scope for now; link it from this page when it exists."
+  }
+}

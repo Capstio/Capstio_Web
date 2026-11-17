@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "title": "Tải về và bắt đầu",
+    "description": "Tải Capstio cho macOS 15 trở lên, ưu tiên Mac Apple Silicon. Yêu cầu hệ thống, các distro Linux được hỗ trợ và các bước đầu tiên: chọn ngôn ngữ, tạo SSH key, nhập host từ ~/.ssh/config."
+  },
+  "crumb": "Bắt đầu",
+  "title": "Bắt đầu với Capstio",
+  "intro": "Tải app về Mac, kết nối VPS bằng SSH chuẩn và nhập các host bạn đã có. Không cài agent lên server.",
+  "download": {
+    "title": "Tải về",
+    "body": "Nút tải mở bản phát hành mới nhất của Capstio trên GitHub.",
+    "requirement": "macOS 15 trở lên · ưu tiên Apple Silicon"
+  },
+  "requirements": {
+    "title": "Yêu cầu hệ thống",
+    "mac": {
+      "title": "Trên Mac",
+      "items": [
+        "macOS 15 trở lên.",
+        "Ưu tiên Mac dùng chip Apple Silicon."
+      ]
+    },
+    "server": {
+      "title": "Trên VPS",
+      "items": [
+        "Truy cập SSH vào server. Capstio chỉ dùng SSH chuẩn, không cài agent lên VPS.",
+        "Một số tính năng cần Docker, PM2 hoặc systemd có sẵn trên server.",
+        "Không có server trung gian giữa Mac và VPS."
+      ]
+    }
+  },
+  "distros": {
+    "title": "Distro được hỗ trợ",
+    "intro": "Capstio hỗ trợ các bản Linux phổ biến trên VPS theo ba mức.",
+    "tiers": [
+      {
+        "label": "Ưu tiên",
+        "body": "Được hỗ trợ đầu tiên.",
+        "items": ["Ubuntu 22.04", "Ubuntu 24.04", "Debian 12"]
+      },
+      {
+        "label": "Hỗ trợ tiếp theo",
+        "body": "Được hỗ trợ ngay sau nhóm ưu tiên.",
+        "items": ["Rocky Linux 9", "AlmaLinux 9"]
+      },
+      {
+        "label": "Giới hạn",
+        "body": "Dùng được, nhưng một vài tính năng không áp dụng.",
+        "items": ["CentOS 7", "Alpine"]
+      }
+    ]
+  },
+  "firstRun": {
+    "title": "Lần mở app đầu tiên",
+    "intro": "Màn chào hướng dẫn bạn qua vài bước ngắn. Không cần tài khoản để dùng các tính năng trên máy.",
+    "steps": [
+      {
+        "title": "Chọn ngôn ngữ",
+        "body": "App có tiếng Việt và tiếng Anh."
+      },
+      {
+        "title": "Tạo SSH key",
+        "body": "Tạo SSH key mới ngay trên màn chào, hoặc dùng lại key đang có. Key được lưu trong Keychain của macOS."
+      },
+      {
+        "title": "Nhập host có sẵn",
+        "body": "Capstio đọc các host trong {~/.ssh/config}, kèm user, port và key. Thử với file config của bạn ngay bên dưới."
+      },
+      {
+        "title": "Đăng nhập nếu cần",
+        "body": "Đăng nhập là tuỳ chọn, bằng Google hoặc mã gửi qua email. Tài khoản chỉ cần cho làm việc nhóm và đồng bộ."
+      }
+    ]
+  }
+}

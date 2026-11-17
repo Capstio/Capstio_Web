@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "title": "Capstio vs terminal and web dashboards",
+    "description": "A plain terminal, a web dashboard installed on the server and Capstio, compared on four points: command syntax, agents on the server, seeing the command and where the SSH key lives."
+  },
+  "title": "Capstio compared with a terminal and a web dashboard",
+  "intro": "Three ways to run a VPS with Docker, side by side on the things you deal with every day.",
+  "table": {
+    "title": "The comparison",
+    "intro": "Each row is one criterion, each column one way of working."
+  },
+  "scope": {
+    "title": "What this compares",
+    "asOf": "As of Nov 17, 2026.",
+    "items": [
+      "Three ways of working: typing commands over SSH in a terminal, using a web dashboard installed on the server, and using Capstio on a Mac.",
+      "Four criteria: whether you must remember the syntax, whether an agent goes on the server, whether you see the real command being run, and where the SSH private key is stored.",
+      "The web dashboard column describes the category as a whole. Tools differ, so some cells say \"Depends on the tool\".",
+      "The Capstio column reflects what the beta does as of the date above.",
+      "Comparisons with specific products will get their own pages later."
+    ]
+  },
+  "related": {
+    "title": "Learn more",
+    "security": "Where Capstio keeps your data",
+    "features": "See all features"
+  }
+}

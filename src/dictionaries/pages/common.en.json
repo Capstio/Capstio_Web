@@ -1,0 +1,9 @@
+{
+  "breadcrumb": { "label": "Breadcrumb", "home": "Home" },
+  "copy": { "copy": "Copy", "copied": "Copied", "copyFailed": "Select the command to copy it" },
+  "soon": {
+    "body": "This page is on its way.",
+    "home": "Back to the home page",
+    "features": "See all features"
+  }
+}

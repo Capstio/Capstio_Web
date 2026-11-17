@@ -1,0 +1,73 @@
+{
+  "hero": {
+    "guide": "Hướng dẫn cài đặt"
+  },
+  "tour": {
+    "apps": "Tìm hiểu thêm về Apps",
+    "config": "Tìm hiểu cách sửa config an toàn"
+  },
+  "trust": {
+    "facts": [
+      {
+        "title": "Key nằm trong Keychain của macOS",
+        "body": "SSH key và mật khẩu ở lại trên máy Mac, hỗ trợ Secure Enclave và 1Password."
+      },
+      {
+        "title": "Không cài agent lên server",
+        "body": "Capstio kết nối qua SSH chuẩn, thẳng từ máy Mac tới VPS của bạn."
+      },
+      {
+        "title": "Vault nhóm mã hóa đầu‑cuối",
+        "body": "Host, key và recipe chia sẻ được mã hóa trên thiết bị của bạn; máy chủ chỉ lưu bản mã."
+      }
+    ],
+    "teams": "Cách vault nhóm hoạt động"
+  },
+  "faq": {
+    "all": "Xem tất cả câu hỏi"
+  },
+  "keys": {
+    "label": "Các công cụ, mỗi phím một công cụ",
+    "hint": "Bấm vào một phím hoặc kéo con thuyền. Khi đang chọn một phím, nhấn 1 đến 0.",
+    "copy": "Copy",
+    "copied": "Đã copy",
+    "copyFailed": "Hãy chọn để copy",
+    "more": "Xem thêm về {tool}",
+    "approve": "bạn duyệt",
+    "log": "Nhật ký thao tác",
+    "all": "Xem tất cả tính năng",
+    "items": {
+      "apps": {
+        "command": "docker compose restart api"
+      },
+      "docker": {
+        "command": "docker system prune -a"
+      },
+      "safeConfig": {
+        "command": "sudo nginx -t"
+      },
+      "terminal": {
+        "command": "docker volume rm db_data"
+      },
+      "recipes": {
+        "command": "sudo apt upgrade"
+      },
+      "alerts": {
+        "command": "df -h"
+      },
+      "sshSecurity": {
+        "command": "journalctl -u ssh --since today"
+      },
+      "tunnels": {
+        "command": "ssh -L 5432:localhost:5432 db"
+      },
+      "ai": {
+        "prompt": "Vì sao disk bị đầy?",
+        "command": "du -sh /var/* | sort -h"
+      },
+      "teams": {
+        "line": "Linh · restart api trên prod-web-1 · 14:02 · OK"
+      }
+    }
+  }
+}

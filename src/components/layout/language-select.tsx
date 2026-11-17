@@ -3,24 +3,10 @@
 import { Check, ChevronDown, Globe } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
-import {
-  hasLocale,
-  localizePath,
-  locales,
-  stripLocale,
-  type Locale,
-} from "@/lib/i18n";
+import { hasLocale, locales, openInLocale, type Locale } from "@/lib/i18n";
 
 // Custom listbox dropdown (the native <select> popup cannot be styled).
 // Keyboard: Arrow keys, Home, End, Enter, Space, Escape and Tab.
-// Each language has its own URL, so switching opens the same page in the
-// other language. A full page load, not a client navigation: the language is
-// the root layout's [lang] param, so a client transition would rebuild <html>
-// in React, which re-renders the theme <script> and makes React report it.
-function switchLocale(locale: Locale) {
-  const { pathname, search, hash } = window.location;
-  window.location.assign(localizePath(locale, stripLocale(pathname)) + search + hash);
-}
 
 export function LanguageSelect({
   lang,
@@ -76,7 +62,7 @@ export function LanguageSelect({
     setOpen(false);
     buttonRef.current?.focus();
     if (next === lang || !hasLocale(next)) return;
-    switchLocale(next);
+    openInLocale(next);
   }
 
   function onOptionKeyDown(event: React.KeyboardEvent, locale: Locale) {
