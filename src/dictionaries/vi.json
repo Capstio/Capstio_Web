@@ -47,7 +47,7 @@
   "footer": {
     "tagline": "Quản lý mọi VPS từ một chiếc Mac, không cần nhớ lệnh.",
     "requirement": "macOS 15+ · không cài agent",
-    "copyright": "© 2026 Tekmium Solutions · Capstio by Tekmium Solutions",
+    "copyright": "© 2026 The Capstio Authors",
     "columns": {
       "features": "Tính năng",
       "technology": "Công nghệ",

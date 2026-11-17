@@ -151,7 +151,7 @@ export function DangerConsole({ dict }: { dict: DangerDict }) {
                 <button
                   type="submit"
                   disabled={!hostMatches}
-                  className="type-small h-10 rounded-md bg-tile-danger px-4 font-semibold text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+                  className="type-small h-10 rounded-md bg-tile-danger px-4 font-semibold text-on-action transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {dict.run}
                 </button>

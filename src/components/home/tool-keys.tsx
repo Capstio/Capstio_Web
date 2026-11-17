@@ -43,9 +43,9 @@ const icons: Record<FeatureKey, LucideIcon> = {
 };
 
 const riskTone: Record<RiskLevel, string> = {
-  safe: "bg-tile-success/14 text-tile-success",
-  confirm: "bg-tile-warning/14 text-tile-warning",
-  dangerous: "bg-tile-danger/14 text-tile-danger",
+  safe: "bg-tile-success/14 text-success",
+  confirm: "bg-tile-warning/14 text-warning",
+  dangerous: "bg-tile-danger/14 text-danger",
 };
 
 // What a key shows: a real command (with its risk level), the question the AI
@@ -292,6 +292,7 @@ export function ToolKeys({
       surface="light"
       aria-labelledby={headingId}
       spacing="py-10 lg:py-16"
+      className="overflow-x-clip"
     >
       <Container className="flex flex-col gap-8 lg:gap-10">
         <div data-reveal className="flex flex-col gap-4 lg:items-center lg:text-center">
@@ -326,9 +327,10 @@ export function ToolKeys({
           </p>
           <div ref={row} className="relative flex flex-col gap-0">
           {/* The voyage's boat sails over the keys to the selected one. */}
-          <div ref={sea} aria-hidden="true" className="pointer-events-none relative mt-10 h-16 sm:h-20">
+          <div ref={sea} aria-hidden="true" className="pointer-events-none relative left-1/2 mt-10 h-16 w-screen -translate-x-1/2 sm:h-20">
             <SeaLayers part="back" />
             {boat && (
+              <div className="absolute inset-y-0 left-1/2 z-10 -translate-x-1/2" style={{ width: rowW }}>
               <div
                 ref={mover}
                 data-facing={boat.dir}
@@ -413,6 +415,7 @@ export function ToolKeys({
                   </div>
                 </div>
               </div>
+              </div>
             )}
             <SeaLayers part="front" className="z-20" />
           </div>
@@ -444,7 +447,7 @@ export function ToolKeys({
                   className={cn(
                     "group relative flex aspect-square flex-col justify-between rounded-lg border p-2 text-left transition-[transform,box-shadow,background-color] duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kicker motion-reduce:transition-none sm:p-3",
                     selected
-                      ? "translate-y-0.5 border-kicker bg-kicker text-white shadow-[0_1px_0_0_var(--color-kicker)]"
+                      ? "translate-y-0.5 border-action bg-action text-on-action shadow-[0_1px_0_0_var(--color-action)]"
                       : "border-bento-line bg-linear-to-b from-bento-card to-page text-body shadow-[0_4px_0_0_var(--color-bento-line)] hover:-translate-y-px",
                   )}
                 >

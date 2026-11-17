@@ -47,7 +47,7 @@
   "footer": {
     "tagline": "Heavy lifting for every server, from one Mac.",
     "requirement": "macOS 15+ · no agent to install",
-    "copyright": "© 2026 Tekmium Solutions · Capstio by Tekmium Solutions",
+    "copyright": "© 2026 The Capstio Authors",
     "columns": {
       "features": "Features",
       "technology": "Technology",

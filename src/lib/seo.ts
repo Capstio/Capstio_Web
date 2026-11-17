@@ -62,6 +62,7 @@ export async function pageMetadata(
   return {
     title,
     description,
+    authors: [{ name: "The Capstio Authors" }],
     alternates: pageAlternates(lang, path),
     openGraph: {
       type: "website",
@@ -184,7 +185,6 @@ export function homeJsonLd(
         url: siteUrl,
         logo: `${siteUrl}/apple-icon.png`,
         sameAs: ["https://github.com/Capstio"],
-        parentOrganization: { "@type": "Organization", name: "Tekmium Solutions" },
       },
       {
         "@type": "WebSite",

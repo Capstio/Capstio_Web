@@ -1,6 +1,6 @@
 # Capstio
 
-> Capstio is a native macOS app for running many VPSs from one window: Docker, PM2, systemd, config files and a terminal, over standard SSH with no agent installed on the server. Made by Tekmium Solutions.
+> Capstio is a native macOS app for running many VPSs from one window: Docker, PM2, systemd, config files and a terminal, over standard SSH with no agent installed on the server. Made by The Capstio Authors.
 
 Key facts:
 
