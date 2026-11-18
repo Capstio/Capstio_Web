@@ -6,16 +6,18 @@ import { useEffect, useRef, useState } from "react";
 import { Button, DownloadButton, Logo } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/lib/dictionaries";
-import type { Locale } from "@/lib/i18n";
+import { localizePath, type Locale } from "@/lib/i18n";
 import {
   allFeaturesHref,
   downloadHref,
   featureHref,
   featureKeys,
+  headerLinkIds,
   solutionHref,
   solutionKeys,
   topLinkHref,
 } from "@/lib/site-nav";
+import { CommandPalette, PaletteTrigger } from "./command-palette";
 import { FeaturesMenu, SolutionsMenu } from "./header-menus";
 import { LanguageSelect } from "./language-select";
 import { ThemeToggle } from "./theme-toggle";
@@ -32,11 +34,12 @@ type SiteHeaderProps = {
     | "solutions"
     | "languages"
     | "languagesShort"
+    | "palette"
   >;
 };
 
 const navTrigger =
-  "type-small inline-flex h-9 items-center gap-1 rounded-md px-3 font-medium text-body transition-colors hover:text-heading motion-reduce:transition-none";
+  "type-small inline-flex h-9 items-center gap-1 rounded-md px-2.5 font-medium whitespace-nowrap xl:px-3 text-body transition-colors hover:text-heading motion-reduce:transition-none";
 
 export function SiteHeader({ lang, dict }: SiteHeaderProps) {
   const headerRef = useRef<HTMLElement>(null);
@@ -52,7 +55,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
     let frame = 0;
     const update = () => {
       frame = 0;
-      if (window.innerWidth >= 1024) setMobileOpen(false);
+      if (window.innerWidth >= 1280) setMobileOpen(false);
       setScrolled(window.scrollY > 24);
 
       const pill = pillRef.current;
@@ -126,11 +129,16 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
     setMobileOpen(false);
   };
 
+  // In the floating pill the buttons become round too.
+  const roundWhenCompact = compact
+    ? "rounded-full! [transition-property:background-color,color,border-radius]!"
+    : "[transition-property:background-color,color,border-radius]!";
+
   const ctaButton = (className?: string) => (
     <DownloadButton
       href={downloadHref}
       onClick={closeAll}
-      className={className}
+      className={cn(roundWhenCompact, className)}
     >
       {dict.common.ctaDownload}
     </DownloadButton>
@@ -156,19 +164,19 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
           ref={pillRef}
           data-surface={compact && overDark ? "dark" : undefined}
           className={cn(
-            "header-glass absolute flex items-center gap-6 border-b transition-[left,right,top,height,padding,border-radius,background-color,border-color,box-shadow] duration-200 ease-out motion-reduce:transition-none",
+            "header-glass absolute flex items-center gap-4 border-b xl:gap-6 transition-[left,right,top,height,padding,border-radius,background-color,border-color,box-shadow] duration-200 ease-out motion-reduce:transition-none",
             compact
               ? "top-3 right-[max(0.75rem,calc((100%-1200px)/2))] left-[max(0.75rem,calc((100%-1200px)/2))] h-14 rounded-[1.75rem] border-transparent bg-(--glass-tint) px-4 shadow-md lg:top-4 lg:right-[max(1rem,calc((100%-1200px)/2))] lg:left-[max(1rem,calc((100%-1200px)/2))] lg:h-16 lg:rounded-[2rem] lg:px-5"
               : "top-0 right-0 left-0 h-16 rounded-none border-line bg-page px-[max(1rem,calc((100%-1200px)/2))] shadow-none md:px-[max(2rem,calc((100%-1200px)/2))] lg:h-18",
           )}
         >
-          <Link href="/" aria-label={dict.common.home} onClick={closeAll}>
+          <Link href={localizePath(lang, "/")} aria-label={dict.common.home} onClick={closeAll} className="flex items-center">
             <Logo />
           </Link>
 
           <nav
             aria-label={dict.common.mainNav}
-            className="hidden items-center gap-1 lg:flex"
+            className="hidden items-center gap-1 xl:flex"
           >
             {(["features", "solutions"] as const).map((id) => (
               <div key={id} className="relative">
@@ -193,16 +201,16 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
                 </button>
                 {openMenu === id &&
                   (id === "features" ? (
-                    <FeaturesMenu dict={dict} onNavigate={closeAll} />
+                    <FeaturesMenu lang={lang} dict={dict} onNavigate={closeAll} />
                   ) : (
-                    <SolutionsMenu dict={dict} onNavigate={closeAll} />
+                    <SolutionsMenu lang={lang} dict={dict} onNavigate={closeAll} />
                   ))}
               </div>
             ))}
-            {(["compare", "insights", "releaseNotes"] as const).map((id) => (
+            {headerLinkIds.map((id) => (
               <Link
                 key={id}
-                href={topLinkHref[id]}
+                href={localizePath(lang, topLinkHref[id])}
                 className={navTrigger}
               >
                 {dict.header.nav[id]}
@@ -210,30 +218,35 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
             ))}
           </nav>
 
-          <div className="ml-auto hidden items-center gap-2 lg:flex">
+          <div className="ml-auto hidden items-center gap-2 xl:flex">
+            <PaletteTrigger label={dict.palette.open} shortcut={dict.palette.shortcut} className={roundWhenCompact} round={compact} />
             <LanguageSelect
               lang={lang}
               label={dict.common.language}
               names={dict.languages}
               triggerNames={dict.languagesShort}
               align="end"
+              buttonClassName={roundWhenCompact}
             />
-            <ThemeToggle label={dict.common.theme} />
+            <ThemeToggle label={dict.common.theme} className={roundWhenCompact} />
             {ctaButton()}
           </div>
 
+          <PaletteTrigger label={dict.palette.open} className="ml-auto size-10 xl:hidden" />
+          {/* Tablets have room for the download button next to the menu. */}
+          <div className="hidden sm:block xl:hidden">{ctaButton()}</div>
           <Button
             variant="secondary"
             aria-label={mobileOpen ? dict.common.closeMenu : dict.common.openMenu}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
             onClick={() => setMobileOpen((open) => !open)}
-            className="ml-auto size-10 border-0 p-0 lg:hidden"
+            className="size-10 border-0 px-0! xl:hidden"
           >
             {mobileOpen ? (
-              <X aria-hidden="true" className="size-5" />
+              <X aria-hidden="true" className="size-5 shrink-0" />
             ) : (
-              <Menu aria-hidden="true" className="size-5" />
+              <Menu aria-hidden="true" className="size-5 shrink-0" />
             )}
           </Button>
         </div>
@@ -241,7 +254,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
         {mobileOpen && (
           <div
             id="mobile-menu"
-            className="fixed inset-x-0 top-16 bottom-0 overflow-y-auto bg-page px-4 pb-8 lg:hidden"
+            className="fixed inset-x-0 top-16 bottom-0 overflow-y-auto bg-page px-4 pb-8 lg:top-18 xl:hidden"
           >
             <details className="group border-b border-line" open>
               <summary className="type-body flex h-12 cursor-pointer list-none items-center justify-between font-medium text-heading">
@@ -255,7 +268,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
                 {featureKeys.map((key) => (
                   <li key={key}>
                     <Link
-                      href={featureHref[key]}
+                      href={localizePath(lang, featureHref[key])}
                       onClick={closeAll}
                       className="type-small block py-2 text-body hover:text-heading"
                     >
@@ -265,7 +278,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
                 ))}
                 <li className="col-span-2 pt-1">
                   <Link
-                    href={allFeaturesHref}
+                    href={localizePath(lang, allFeaturesHref)}
                     onClick={closeAll}
                     className="type-small font-medium text-link"
                   >
@@ -287,7 +300,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
                 {solutionKeys.map((key) => (
                   <li key={key}>
                     <Link
-                      href={solutionHref[key]}
+                      href={localizePath(lang, solutionHref[key])}
                       onClick={closeAll}
                       className="type-small block py-2 text-body hover:text-heading"
                     >
@@ -298,10 +311,10 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
               </ul>
             </details>
 
-            {(["compare", "insights", "releaseNotes"] as const).map((id) => (
+            {headerLinkIds.map((id) => (
               <Link
                 key={id}
-                href={topLinkHref[id]}
+                href={localizePath(lang, topLinkHref[id])}
                 onClick={closeAll}
                 className="type-body flex h-12 items-center border-b border-line font-medium text-heading"
               >
@@ -328,6 +341,7 @@ export function SiteHeader({ lang, dict }: SiteHeaderProps) {
           </div>
         )}
       </div>
+      <CommandPalette lang={lang} dict={dict.palette} />
     </header>
   );
 }

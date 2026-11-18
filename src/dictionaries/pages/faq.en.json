@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "title": "FAQ",
+    "description": "Answers about Capstio: which macOS and Linux versions it supports, whether it installs anything on your VPS, when alerts run, where AI requests go and where your SSH keys live."
+  },
+  "title": "Frequently asked questions",
+  "intro": "The questions people ask most about Capstio, grouped by topic. The answers only cover what the app does today.",
+  "common": { "title": "Most asked" },
+  "groups": [
+    {
+      "id": "mac",
+      "title": "Your Mac and setup",
+      "items": [
+        {
+          "question": "Which macOS versions and Macs does Capstio run on?",
+          "answer": "macOS 15 or later, with Apple Silicon Macs first. Capstio is a native Mac app written in Swift and SwiftUI."
+        },
+        {
+          "question": "Is there a Windows or Linux version?",
+          "answer": "No. Capstio is a Mac app. It runs on your Mac and connects to your Linux servers over SSH."
+        },
+        {
+          "question": "Can I keep my existing hosts and SSH keys?",
+          "answer": "Yes. The first-run screen imports the hosts you already have in ~/.ssh/config, and you keep using your current SSH keys. Capstio can also create or import Ed25519 and RSA keys."
+        }
+      ]
+    },
+    {
+      "id": "servers",
+      "title": "Servers and apps",
+      "items": [
+        {
+          "question": "Which kinds of apps does Capstio find on a server?",
+          "answer": "Apps run by Docker Compose, PM2 and systemd, in one list. Each app keeps its processes, config, logs and status in one place, however it was started."
+        },
+        {
+          "question": "What does the server need?",
+          "answer": "Just SSH. Capstio installs no agent on your VPS. Some features use Docker, PM2 or systemd already on the server; on distributions with limited support, features that do not apply are hidden."
+        },
+        {
+          "question": "Is editing config on the server safe?",
+          "answer": "The editor checks syntax as you type, and every save makes a backup on the server first. You can review the diff and restore an earlier version in one click."
+        }
+      ]
+    },
+    {
+      "id": "alerts",
+      "title": "Alerts",
+      "items": [
+        {
+          "question": "Do alerts work when Capstio is closed?",
+          "answer": "No. Alerts run only while Capstio is open on your Mac. They appear as macOS notifications and can also go to Slack or a webhook."
+        },
+        {
+          "question": "What can Capstio alert me about?",
+          "answer": "Disk, CPU or RAM over a threshold, containers that keep restarting, a host losing its connection, SSL certificates about to expire, pending security updates and suspicious SSH logins. You can set your own thresholds."
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "title": "AI",
+      "items": [
+        {
+          "question": "Which AI providers can I use?",
+          "answer": "Anthropic and OpenAI with your own API key, Claude Code and Codex with your own account, or Ollama running on your Mac. AI only works once you turn it on."
+        },
+        {
+          "question": "Where do AI requests go?",
+          "answer": "Straight from your Mac to the provider you pick, never through Capstio servers. Secrets are masked before anything is sent; if you want to be certain, use a local model through Ollama."
+        },
+        {
+          "question": "Can the AI run commands on my server by itself?",
+          "answer": "No. The AI suggests read-only commands and you approve each one. Capstio, not the model, decides which commands count as read-only."
+        }
+      ]
+    },
+    {
+      "id": "privacy",
+      "title": "Privacy and teams",
+      "items": [
+        {
+          "question": "Does the app collect usage data?",
+          "answer": "The app embeds no analytics or tracking SDK. Your terminal, logs, metrics and file contents are never sent to Capstio servers."
+        },
+        {
+          "question": "What can the team vault server see?",
+          "answer": "Shared hosts, SSH keys and recipes are end-to-end encrypted, and the server only stores ciphertext. Metadata such as the number of hosts and who changed what, and when, stays readable."
+        },
+        {
+          "question": "Can team data be recovered if I lose my devices?",
+          "answer": "You hold a recovery key for that. If you lose every device and the recovery key as well, the team data cannot be recovered."
+        },
+        {
+          "question": "How do I sign in?",
+          "answer": "With Google or a code sent by email, and only when you need teamwork or sync. Sign in with Apple is not available."
+        }
+      ]
+    }
+  ]
+}

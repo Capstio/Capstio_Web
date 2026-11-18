@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "title": "Câu hỏi thường gặp",
+    "description": "Giải đáp về Capstio: cần macOS nào, hỗ trợ bản Linux nào, có cài gì lên VPS không, cảnh báo chạy khi nào, AI gửi dữ liệu đi đâu và SSH key được lưu ở đâu."
+  },
+  "title": "Câu hỏi thường gặp",
+  "intro": "Những câu hỏi hay gặp nhất về Capstio, chia theo chủ đề. Câu trả lời chỉ nói những gì app đang làm được.",
+  "common": { "title": "Câu hỏi phổ biến" },
+  "groups": [
+    {
+      "id": "mac",
+      "title": "Máy Mac và cài đặt",
+      "items": [
+        {
+          "question": "Capstio chạy trên macOS nào và máy Mac nào?",
+          "answer": "macOS 15 trở lên, ưu tiên máy Mac dùng Apple Silicon. Capstio là app Mac native viết bằng Swift và SwiftUI."
+        },
+        {
+          "question": "Có bản cho Windows hoặc Linux không?",
+          "answer": "Không. Capstio là app dành cho Mac. App chạy trên Mac của bạn và kết nối tới các server Linux qua SSH."
+        },
+        {
+          "question": "Tôi có dùng lại được host và SSH key đang có không?",
+          "answer": "Có. Màn chào lần đầu nhập host có sẵn từ ~/.ssh/config, và bạn dùng tiếp SSH key đang có. Capstio cũng tạo hoặc import được key Ed25519 và RSA."
+        }
+      ]
+    },
+    {
+      "id": "servers",
+      "title": "Server và ứng dụng",
+      "items": [
+        {
+          "question": "Capstio nhận ra những loại app nào trên server?",
+          "answer": "App chạy bằng Docker Compose, PM2 và systemd, gom về một danh sách. Mỗi app có tiến trình, config, log và trạng thái ở cùng một chỗ, không phụ thuộc cách nó được chạy."
+        },
+        {
+          "question": "Server cần có sẵn những gì?",
+          "answer": "Chỉ cần SSH. Capstio không cài agent lên VPS. Một số tính năng dùng Docker, PM2 hoặc systemd đã có sẵn trên server; trên bản Linux hỗ trợ giới hạn, tính năng không áp dụng sẽ được ẩn."
+        },
+        {
+          "question": "Sửa config trên server có an toàn không?",
+          "answer": "Editor kiểm tra cú pháp ngay khi gõ, và mỗi lần lưu đều tạo bản sao lưu trên server. Bạn xem diff và khôi phục bản cũ bằng một chạm."
+        }
+      ]
+    },
+    {
+      "id": "alerts",
+      "title": "Cảnh báo",
+      "items": [
+        {
+          "question": "Cảnh báo có chạy khi Capstio đang đóng không?",
+          "answer": "Không. Cảnh báo chỉ chạy khi Capstio đang mở trên Mac của bạn. Cảnh báo hiện dưới dạng notification của macOS, và có thể gửi thêm tới Slack hoặc webhook."
+        },
+        {
+          "question": "Capstio cảnh báo những gì?",
+          "answer": "Disk, CPU hoặc RAM vượt ngưỡng, container restart liên tục, host mất kết nối, chứng chỉ SSL sắp hết hạn, có bản cập nhật bảo mật, và đăng nhập SSH đáng ngờ. Bạn tự chỉnh được ngưỡng."
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "title": "AI",
+      "items": [
+        {
+          "question": "Capstio dùng được những nhà cung cấp AI nào?",
+          "answer": "Anthropic và OpenAI với key của bạn, Claude Code và Codex với tài khoản của bạn, hoặc Ollama chạy ngay trên máy. AI chỉ hoạt động khi bạn bật."
+        },
+        {
+          "question": "Yêu cầu gửi cho AI đi đâu?",
+          "answer": "Đi thẳng từ Mac của bạn tới nhà cung cấp bạn chọn, không qua máy chủ của Capstio. Secret được che trước khi gửi; muốn tuyệt đối thì dùng model cục bộ qua Ollama."
+        },
+        {
+          "question": "AI có tự chạy lệnh trên server không?",
+          "answer": "Không. AI đề xuất lệnh chỉ đọc, và bạn bấm cho phép từng lệnh. Chính Capstio quyết định lệnh nào là chỉ đọc, không phải model."
+        }
+      ]
+    },
+    {
+      "id": "privacy",
+      "title": "Quyền riêng tư và làm việc nhóm",
+      "items": [
+        {
+          "question": "App có thu thập số liệu sử dụng không?",
+          "answer": "App không nhúng SDK phân tích hay theo dõi. Terminal, log, số liệu và nội dung file không bao giờ gửi tới máy chủ Capstio."
+        },
+        {
+          "question": "Máy chủ của vault nhóm thấy được gì?",
+          "answer": "Host, SSH key và recipe dùng chung được mã hoá đầu-cuối, máy chủ chỉ lưu bản mã. Metadata như số host, ai sửa gì và lúc nào vẫn ở dạng rõ."
+        },
+        {
+          "question": "Mất thiết bị thì dữ liệu nhóm có khôi phục được không?",
+          "answer": "Bạn giữ recovery key để khôi phục. Nếu mất hết thiết bị và mất cả recovery key thì dữ liệu nhóm không khôi phục được."
+        },
+        {
+          "question": "Đăng nhập bằng cách nào?",
+          "answer": "Bằng Google hoặc mã gửi qua email, và chỉ khi bạn cần làm việc nhóm hoặc đồng bộ. Hiện chưa có đăng nhập bằng Apple."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "title": "Bảo mật",
+    "description": "Capstio chỉ dùng SSH, không cài agent lên VPS. SSH key nằm trong Keychain của macOS, vault nhóm mã hoá đầu-cuối, và đây là danh sách dữ liệu nào rời máy Mac của bạn."
+  },
+  "title": "Bảo mật và quyền riêng tư",
+  "intro": "Bạn giao SSH key cho Capstio, nên bạn cần biết rõ app làm gì với chúng. Trang này nêu các nguyên tắc thiết kế, dữ liệu nào rời máy Mac và đi đâu, cùng những giới hạn của thiết kế.",
+  "principles": {
+    "title": "Nguyên tắc thiết kế",
+    "items": [
+      { "title": "Chỉ dùng SSH, không cài agent", "body": "Capstio kết nối qua SSH chuẩn, không cài agent lên VPS và không có server trung gian giữa Mac và VPS. Một số tính năng dùng Docker, PM2 hoặc systemd có sẵn trên server." },
+      { "title": "Cục bộ trước tiên", "body": "Mọi tính năng cục bộ đều dùng được mà không cần tài khoản. Tài khoản chỉ cần cho làm việc nhóm và đồng bộ." },
+      { "title": "Bạn giữ khoá", "body": "Mật khẩu và private key nằm trong Keychain của macOS. Hỗ trợ key Secure Enclave và SSH agent, kể cả 1Password. AI dùng key hoặc tài khoản của chính bạn." },
+      { "title": "Dữ liệu server ở lại máy bạn", "body": "Terminal, log, số liệu và nội dung file không bao giờ gửi tới máy chủ Capstio." },
+      { "title": "Không theo dõi trong app", "body": "App không nhúng SDK phân tích hay theo dõi." },
+      { "title": "Vault nhóm mã hoá đầu-cuối", "body": "Vault nhóm mã hoá đầu-cuối, máy chủ chỉ lưu bản mã. Thiết kế mã hoá đầu-cuối, có test tự động." },
+      { "title": "Lệnh nguy hiểm phải xác nhận", "body": "Terminal cảnh báo khi bạn dán hoặc gõ lệnh nguy hiểm. Recipe có mức rủi ro rõ ràng: An toàn, Cần xác nhận, Nguy hiểm." },
+      { "title": "Thay đổi có đường lui", "body": "Mỗi lần lưu config đều tạo bản sao lưu trên server. Khi siết cấu hình SSH, Capstio sao lưu, kiểm tra, thử kết nối mới và tự hoàn tác nếu thất bại, để bạn không tự khoá mình ra ngoài." },
+      { "title": "AI chỉ đề xuất lệnh chỉ đọc", "body": "Bạn cho phép từng lệnh. Chính Capstio quyết định lệnh nào là chỉ đọc, không phải model." }
+    ]
+  },
+  "data": { "title": "Những gì rời máy Mac" },
+  "team": { "title": "Vault cho cả nhóm" },
+  "limits": {
+    "title": "Giới hạn của thiết kế",
+    "intro": "Những điều Capstio không làm, nói rõ để bạn tự đánh giá.",
+    "items": [
+      { "title": "Cảnh báo chỉ chạy khi app đang mở", "body": "Capstio kiểm tra server từ Mac của bạn, nên khi app đóng hoặc máy tắt thì không có cảnh báo." },
+      { "title": "Che secret dựa trên mẫu", "body": "Secret được che trước khi gửi cho AI, nhưng bộ lọc dựa trên nhận dạng mẫu. Muốn tuyệt đối thì dùng model cục bộ." },
+      { "title": "Metadata của vault ở dạng rõ", "body": "Máy chủ không đọc được nội dung vault, nhưng thấy metadata như số host, ai sửa gì và lúc nào." },
+      { "title": "Mất recovery key là mất dữ liệu nhóm", "body": "Nếu mất hết thiết bị và cả recovery key, dữ liệu nhóm không khôi phục được." }
+    ]
+  },
+  "contact": {
+    "title": "Báo vấn đề bảo mật",
+    "body": "Mở một issue trên kho GitHub của Capstio để xin kênh liên hệ riêng với đội ngũ. Đừng đăng chi tiết lỗ hổng trong issue công khai.",
+    "link": "Mở issue trên GitHub"
+  }
+}

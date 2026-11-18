@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "title": "Pricing",
+    "description": "Capstio pricing: Personal at ${personal} a year, Team at ${team} per person per month. Every plan starts with a {days}-day free trial with every feature unlocked."
+  },
+  "title": "Capstio pricing",
+  "intro": "Two plans, priced in US dollars: Personal at ${personal} a year and Team at ${team} per person per month. Both start with a {days}-day free trial with every feature unlocked.",
+  "includes": {
+    "title": "What every plan includes",
+    "intro": "Everything in Personal is part of Team too. Team adds what a group needs to work together: the end-to-end encrypted vault, roles, a shared audit log and shared recipes.",
+    "trial": "A {days}-day free trial with every feature unlocked",
+    "allFeatures": "See all features"
+  },
+  "questions": {
+    "title": "Pricing questions",
+    "items": [
+      {
+        "question": "How long is the free trial?",
+        "answer": "{days} days, with every feature unlocked. Both Personal and Team start with it."
+      },
+      {
+        "question": "What happens when the trial ends?",
+        "answer": "To keep using Capstio, pick a plan: Personal at ${personal} a year, or Team at ${team} per person per month."
+      },
+      {
+        "question": "Can I use Capstio for commercial work?",
+        "answer": "Yes. Commercial use is part of the Personal plan, and Team includes everything in Personal."
+      },
+      {
+        "question": "Should I pick Personal or Team?",
+        "answer": "Personal is one year of use for one person on their own Mac. Team is for groups that share servers, SSH keys and recipes: it adds the end-to-end encrypted team vault, the Owner, Admin, Operator and Viewer roles, a shared audit log you can export to CSV, Slack and webhook alerts, and recipes shared over Git."
+      },
+      {
+        "question": "Is there a limit on hosts?",
+        "answer": "No. Every plan includes unlimited hosts."
+      },
+      {
+        "question": "How does Team pricing work?",
+        "answer": "${team} for each person on the team, per month. Prices are in US dollars."
+      }
+    ]
+  }
+}

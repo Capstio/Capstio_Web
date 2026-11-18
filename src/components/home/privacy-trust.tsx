@@ -1,19 +1,17 @@
 import { ArrowUpRight, Check, Globe, LockKeyhole, type LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { Container, Section } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/lib/dictionaries";
+import { localizePath, type Locale } from "@/lib/i18n";
 import { securityHref } from "@/lib/site-nav";
 import { withArrow } from "./with-arrow";
 
 type PrivacyDict = Dictionary["home"]["privacy"];
 
-const headingId = "privacy-heading";
-
 // Figma strokes sit inside the frame and take no space; CSS borders do, so
-// the paddings are 1px smaller than Figma (20 / 28) to keep the text width.
+// the paddings are 1px smaller than the intended 20 / 24.
 const column =
-  "flex flex-col gap-5 rounded-lg border bg-bento-card p-4.75 lg:gap-6 lg:p-6.75";
+  "flex flex-col gap-5 rounded-lg border bg-bento-card p-4.75 lg:p-5.75";
 
 // One column of the matrix: tile icon, label and title, a divider, then the
 // rows. `marker` is the small round icon in front of each row.
@@ -49,7 +47,7 @@ function MatrixColumn({
         </span>
         <div className="flex flex-col gap-1">
           <p className={cn("text-xs leading-[0.9375rem] font-semibold uppercase", labelClassName)}>{label}</p>
-          <h3 className="text-lg leading-[1.375rem] font-semibold text-strong lg:text-xl lg:leading-6">{title}</h3>
+          <h4 className="text-lg leading-[1.375rem] font-semibold text-strong">{title}</h4>
         </div>
       </div>
       <hr className="border-bento-line" />
@@ -78,61 +76,74 @@ function MatrixColumn({
   );
 }
 
-// Home section "What leaves your Mac, and where it goes" (Figma "Feature -
-// Privacy & Trust" desktop and mobile). Two columns from 1024px: what never
-// reaches Capstio servers, and what the app sends out with where and when;
-// stacked below. The copy follows the brief's list of claims we may make.
-export function PrivacyTrust({ dict }: { dict: PrivacyDict }) {
+// The "What leaves your Mac, and where it goes" half of the Trust section
+// (Figma "Feature - Privacy & Trust"): what never reaches Capstio servers, and
+// what the app sends out with where and when. The two lists sit side by side
+// from 1280px, where the column is wide enough, and stack below. The copy
+// follows the brief's list of claims we may make. It sits under the section's
+// h2, so its title is an h3 and each list title an h4.
+export function PrivacyColumn({
+  lang,
+  dict,
+  className,
+  hideSecurityLink = false,
+}: {
+  lang: Locale;
+  dict: PrivacyDict;
+  className?: string;
+  // The security page itself leaves out the link that points at it.
+  hideSecurityLink?: boolean;
+}) {
   return (
-    <Section surface="light" aria-labelledby={headingId} spacing="py-10 lg:py-20">
-      <Container className="flex flex-col gap-8 lg:gap-12">
-        <div className="flex flex-col gap-4 lg:items-center lg:text-center">
-          <p className="text-[0.8125rem] leading-4 font-semibold text-kicker uppercase">
-            {dict.overline}
-          </p>
-          <h2 id={headingId} className="type-h2 text-strong">
-            {dict.title}
-          </h2>
-          <p className="max-w-180 text-base leading-6 text-soft">{dict.subtitle}</p>
-        </div>
+    <div id="privacy" className={className}>
+      <div data-reveal-self className="flex flex-col gap-3">
+        <p className="text-xs font-semibold text-kicker uppercase">{dict.overline}</p>
+        <h3 className="text-xl leading-7 font-bold text-balance text-strong lg:text-2xl lg:leading-8">
+          {dict.title}
+        </h3>
+        <p className="text-sm leading-[1.3125rem] text-soft lg:text-[0.9375rem] lg:leading-6">
+          {dict.subtitle}
+        </p>
+      </div>
 
-        <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
-          <MatrixColumn
-            icon={LockKeyhole}
-            tone="bg-tile-success/14 text-tile-success"
-            labelClassName="text-privacy-good"
-            label={dict.local.label}
-            title={dict.local.title}
-            marker={Check}
-            markerTone="bg-tile-success/16 text-tile-success"
-            className="border-privacy-local-line"
-          >
-            {dict.local.rows}
-          </MatrixColumn>
-          <MatrixColumn
-            icon={Globe}
-            tone="bg-kicker/14 text-kicker"
-            labelClassName="text-privacy-label"
-            label={dict.outbound.label}
-            title={dict.outbound.title}
-            marker={ArrowUpRight}
-            markerTone="bg-kicker/14 text-kicker"
-            className="border-privacy-line"
-          >
-            {dict.outbound.rows}
-          </MatrixColumn>
-        </div>
+      <div data-reveal className="grid gap-4 xl:grid-cols-2 xl:gap-5">
+        <MatrixColumn
+          icon={LockKeyhole}
+          tone="bg-tile-success/14 text-tile-success"
+          labelClassName="text-privacy-good"
+          label={dict.local.label}
+          title={dict.local.title}
+          marker={Check}
+          markerTone="bg-tile-success/16 text-tile-success"
+          className="border-privacy-local-line"
+        >
+          {dict.local.rows}
+        </MatrixColumn>
+        <MatrixColumn
+          icon={Globe}
+          tone="bg-kicker/14 text-kicker"
+          labelClassName="text-privacy-label"
+          label={dict.outbound.label}
+          title={dict.outbound.title}
+          marker={ArrowUpRight}
+          markerTone="bg-kicker/14 text-kicker"
+          className="border-privacy-line"
+        >
+          {dict.outbound.rows}
+        </MatrixColumn>
+      </div>
 
-        <div className="flex flex-col items-center gap-2.5 text-center text-[0.9375rem] leading-[1.125rem]">
-          <p className="text-soft">{dict.footnote.note}</p>
+      <div data-reveal-self className="flex flex-col gap-2 text-[0.9375rem] leading-[1.125rem]">
+        <p className="text-soft">{dict.footnote.note}</p>
+        {!hideSecurityLink && (
           <Link
-            href={securityHref}
-            className="font-medium text-kicker underline-offset-4 hover:underline"
+            href={localizePath(lang, securityHref)}
+            className="w-fit font-medium text-kicker underline-offset-4 hover:underline"
           >
             {withArrow(dict.footnote.link, "size-4")}
           </Link>
-        </div>
-      </Container>
-    </Section>
+        )}
+      </div>
+    </div>
   );
 }

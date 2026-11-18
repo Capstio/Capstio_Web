@@ -424,12 +424,12 @@
   --hero-dot: rgb(255 255 255 / 0.6);
 
   /* Section palette, dark (Figma "Problem & Core Feature / Dark") */
-  --sp-card: var(--color-navy-800);
-  --sp-card-line: rgb(255 255 255 / 0.06);
+  --sp-card: #111628;
+  --sp-card-line: rgb(255 255 255 / 0.07);
   --sp-card-shadow: none;
-  --sp-panel: var(--color-navy-900);
+  --sp-panel: #0c1020;
   --sp-panel-line: rgb(255 255 255 / 0.12);
-  --sp-panel-shadow: 0 8px 40px rgb(47 91 211 / 0.14);
+  --sp-panel-shadow: 0 8px 40px rgb(47 91 211 / 0.06);
   --sp-panel-column: rgb(255 255 255 / 0.03);
   --sp-panel-column-line: rgb(255 255 255 / 0.08);
   /*
@@ -438,8 +438,8 @@
    * #182c5e. CSS never draws a box-shadow under its own box, so 34% over the
    * #0e1322 panel reproduces the rendered colour.
    */
-  --sp-panel-highlight: rgb(47 91 211 / 0.34);
-  --sp-panel-highlight-shadow: 0 8px 32px rgb(47 91 211 / 0.28);
+  --sp-panel-highlight: rgb(47 91 211 / 0.2);
+  --sp-panel-highlight-shadow: 0 8px 32px rgb(47 91 211 / 0.12);
   --sp-panel-divider: rgb(255 255 255 / 0.07);
   --sp-chip: rgb(255 255 255 / 0.08);
   --sp-chip-line: rgb(255 255 255 / 0.1);
@@ -463,14 +463,14 @@
   --sp-logo-ring: var(--color-slate-0);
   --sp-kicker: var(--color-blue-450);
   --sp-point: rgb(255 255 255 / 0.035);
-  --sp-point-tile: rgb(47 91 211 / 0.22);
+  --sp-point-tile: rgb(47 91 211 / 0.14);
   --sp-point-icon: var(--color-blue-450);
   --sp-chip-solid: rgb(255 255 255 / 0.1);
-  --sp-stage: radial-gradient(closest-side, var(--color-blue-600), #15214d 50%, #0a0f1f);
+  --sp-stage: radial-gradient(closest-side, color-mix(in oklab, var(--color-blue-600) 52%, #0a0f1f), #111a3a 52%, #0a0f1f);
   --sp-stage-line: rgb(255 255 255 / 0.08);
   --sp-window: #0b0f19;
   --sp-window-line: rgb(255 255 255 / 0.14);
-  --sp-window-shadow: 0 24px 48px rgb(0 0 0 / 0.55), 0 0 60px rgb(47 91 211 / 0.25);
+  --sp-window-shadow: 0 24px 48px rgb(0 0 0 / 0.55), 0 0 60px rgb(47 91 211 / 0.12);
   --sp-callout: #121a2e;
   --sp-callout-line: rgb(255 255 255 / 0.14);
   --sp-callout-good-line: rgb(46 196 160 / 0.35);
@@ -479,9 +479,9 @@
   --sp-callout-text: var(--color-ink-200);
   --sp-callout-tile: rgb(59 130 246 / 0.18);
   --sp-callout-button: rgb(255 255 255 / 0.08);
-  --sp-bento-card: var(--color-navy-900);
+  --sp-bento-card: #0c1020;
   --sp-bento-line: rgb(255 255 255 / 0.08);
-  --sp-bento-hero: radial-gradient(120% 120% at 0% 0%, #1b2a55, var(--color-navy-900) 60%);
+  --sp-bento-hero: radial-gradient(120% 120% at 0% 0%, #131c3a, #0c1020 60%);
   --sp-fleet-shadow: none;
   --sp-number: linear-gradient(to bottom, var(--color-slate-0), #7c8ba8);
   --sp-number-good: linear-gradient(to bottom, #5eead4, #1e9e82);
@@ -497,8 +497,8 @@
   --sp-privacy-local-line: rgb(46 196 160 / 0.1);
   --sp-privacy-line: rgb(255 255 255 / 0.08);
   --sp-faq-line: rgb(255 255 255 / 0.06);
-  --sp-cta-bg: radial-gradient(50% 31.25% at 50% 50%, #1d3170 0%, #111833 55%, var(--color-navy-900) 100%);
-  --sp-cta-line: rgb(47 91 211 / 0.6);
+  --sp-cta-bg: radial-gradient(50% 31.25% at 50% 50%, #14204a 0%, #0d1326 55%, #0c1020 100%);
+  --sp-cta-line: rgb(47 91 211 / 0.32);
 }
 
 /* ----------------------------------------------------------------- 3. Contexts */
@@ -777,4 +777,319 @@
       --glass-tint: color-mix(in srgb, var(--bg-page) 92%, transparent);
     }
   }
+}
+
+/*
+ * Page motion (components/motion/page-motion.tsx). The head script adds
+ * .motion to <html> before first paint when the visitor allows motion, so the
+ * elements below start hidden instead of flashing in and then animating.
+ * Once the motion script runs it adds .motion-ready and takes over; if it never
+ * runs (blocked or failed JS), the fallback animation shows everything after
+ * 2.5s so no content stays hidden.
+ *   [data-reveal]       its children fade and rise in, one after another
+ *   [data-reveal-self]  the element itself fades and rises in
+ *   [data-split]        the hero headline; its [data-word] spans come in one by one
+ *   code[data-type]     a command chip, typed out character by character
+ *   [data-pill]         the hero announcement: its command is typed, then
+ *                       its output appears
+ *   [data-page-capstan] the capstan and rope at the page edge, shown only
+ *                       with motion; scrolling winds the rope in
+ */
+@layer base {
+  /* Sections opened by #id (palette, links) stay clear of the fixed header. */
+  section[id] {
+    scroll-margin-top: 4rem;
+  }
+
+  @media (width >= 64rem) {
+    section[id] {
+      scroll-margin-top: 4.5rem;
+    }
+  }
+
+  html.motion :is([data-reveal] > *, [data-reveal-self], [data-split] [data-word]) {
+    opacity: 0;
+    animation: motion-fallback 0s 2.5s forwards;
+  }
+
+  html.motion :is(code[data-type], [data-pill-command]) {
+    clip-path: inset(0 100% 0 0);
+    animation: motion-fallback 0s 2.5s forwards;
+  }
+
+  html.motion [data-pill-output] {
+    opacity: 0;
+    animation: motion-fallback 0s 2.5s forwards;
+  }
+
+  html:not(.motion) [data-page-capstan] {
+    display: none;
+  }
+
+  html.motion.motion-ready :is([data-reveal] > *, [data-reveal-self], [data-split] [data-word], code[data-type], [data-pill-command], [data-pill-output]) {
+    animation: none;
+  }
+
+  @keyframes motion-fallback {
+    to {
+      opacity: 1;
+      clip-path: inset(0 0 0 0);
+    }
+  }
+}
+
+/*
+ * Hero announcement border: a light sweeps along the 1px border (the pill's
+ * padding shows this background). Still for visitors who prefer less motion.
+ */
+@layer components {
+  .pill-shimmer {
+    background-image: linear-gradient(
+      90deg,
+      var(--color-line) 0%,
+      var(--color-line) 35%,
+      var(--color-kicker) 50%,
+      var(--color-line) 65%,
+      var(--color-line) 100%
+    );
+    background-size: 300% 100%;
+    animation: pill-shimmer 5s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pill-shimmer {
+      animation: none;
+    }
+  }
+
+  @keyframes pill-shimmer {
+    from {
+      background-position: 100% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+}
+
+/*
+ * The voyage's sea (components/home/wave-divider.tsx): each swell layer slides
+ * one 1440px tile sideways (seamless: the tiled layer is one tile wider than
+ * the sea) while its wrapper rises and falls. Durations and directions are set
+ * per layer inline. Page motion reads these live transforms to keep the boat
+ * on the water. Still for visitors who prefer less motion.
+ */
+@layer components {
+  .wave-roll {
+    animation: wave-roll 16s linear infinite;
+  }
+
+  .wave-bob {
+    animation: wave-bob 4s ease-in-out infinite alternate;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wave-roll,
+    .wave-bob {
+      animation: none;
+    }
+  }
+
+  @keyframes wave-roll {
+    to {
+      transform: translateX(-1440px);
+    }
+  }
+
+  @keyframes wave-bob {
+    from {
+      transform: translateY(-7%);
+    }
+    to {
+      transform: translateY(7%);
+    }
+  }
+}
+
+/*
+ * Hero scroll-out (components/home/hero.tsx, hero-video.tsx). Over the first
+ * half viewport of scroll page motion sets --hero-p from 0 to 1 on the hero
+ * section, and measures --hero-lift (how far the window rises, its top staying
+ * under the headline, over the subtitle, button and tabs that fade away), --hero-rise (how far the sea climbs: the window's lift
+ * plus the height its scale gives up) and --hero-rest (how far the sea starts
+ * lower, leaving a thin strip in view when the window fits on the first
+ * screen). Both move linearly with --hero-p, so the gap between the window's
+ * bottom and the water only shrinks to zero at the end and never goes below
+ * it. Without the variables (no JS, reduced motion) every transform is the
+ * identity: the static layout, window full size and the sea below it.
+ * From 1024px the hero's content sticks under the fixed header for the length
+ * of the spacer, which is reserved here before first paint (no layout shift).
+ * The section's negative bottom margin takes back the room the sea leaves
+ * when it rises, so the next section follows the water instead of a blank
+ * band; it is set after load, while the section's end is still off screen.
+ */
+@layer components {
+  html.motion [data-voyage="hero"] [data-hero-window] {
+    transform: translateY(calc(var(--hero-p, 0) * var(--hero-lift, 0px) * -1))
+      scale(calc(1 - 0.16 * var(--hero-p, 0)));
+  }
+
+  html.motion [data-voyage="hero"] > [data-sea] {
+    transform: translateY(
+      calc(var(--hero-rest, 0px) * (1 - var(--hero-p, 0)) - var(--hero-rise, 0px) * var(--hero-p, 0))
+    );
+  }
+
+  [data-hero-pin-spacer] {
+    display: none;
+  }
+
+  @media (width >= 64rem) {
+    html.motion [data-hero-pin] {
+      position: sticky;
+      top: 4.5rem;
+    }
+
+    html.motion [data-hero-pin-spacer] {
+      display: block;
+      height: 50svh;
+    }
+
+    html.motion [data-hero-scroll] {
+      margin-bottom: calc(var(--hero-rise, 0px) * -1);
+    }
+
+    /* While the window rises over them, the subtitle, the download button and
+       the tabs fade out (the headline and the header's button stay), and are
+       taken out of the way once gone so the window gets the clicks. */
+    html.motion [data-hero-fade] {
+      opacity: calc(1 - min(var(--hero-p, 0) * 2.4, 1));
+    }
+
+    html.motion [data-hero-scroll][data-hero-faded] [data-hero-fade] {
+      visibility: hidden;
+    }
+  }
+}
+
+/* A tool card on the keyboard leg fades in when its key is pressed. */
+@keyframes tool-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+/* Pressing the selected key again: the boat backs off and sails in again. */
+@keyframes boat-resail {
+  0% {
+    transform: translateX(-72px) rotate(-3deg);
+    opacity: 0.6;
+  }
+  70% {
+    transform: translateX(4px) rotate(-2deg);
+    opacity: 1;
+  }
+}
+
+.boat-resail {
+  animation: boat-resail 900ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boat-resail {
+    animation: none;
+  }
+}
+
+/* A tap on the boat: it hops over a swell. */
+@keyframes boat-hop {
+  35% {
+    transform: translateY(-14px) rotate(-6deg);
+  }
+  70% {
+    transform: translateY(2px) rotate(2deg);
+  }
+}
+
+.boat-hop {
+  animation: boat-hop 500ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boat-hop {
+    animation: none;
+  }
+}
+
+/* The boat's reactions: dizzy from a shaken mouse, a spin on a double tap. */
+@keyframes boat-dizzy {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: translateX(-3px) rotate(-16deg);
+  }
+  35% {
+    transform: translateX(3px) rotate(14deg);
+  }
+  55% {
+    transform: translateX(-2px) rotate(-10deg);
+  }
+  75% {
+    transform: translateX(2px) rotate(8deg);
+  }
+}
+
+@keyframes boat-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes boat-say {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.boat-dizzy {
+  transform-origin: 50% 80%;
+  animation: boat-dizzy 1.4s ease-in-out;
+}
+
+.boat-spin {
+  transform-origin: 50% 60%;
+  animation: boat-spin 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.boat-say {
+  transform-origin: 50% 100%;
+  animation: boat-say 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boat-dizzy,
+  .boat-spin,
+  .boat-say {
+    animation: none;
+  }
+}
+
+/* The boat's own colours: soft blues on a light page, the heading's white on a dark one. */
+:root {
+  --boat-hull: #34477a;
+  --boat-sail: #7d98e6;
+}
+
+:root.dark,
+[data-surface="dark"] {
+  --boat-hull: var(--text-heading);
+  --boat-sail: var(--text-heading);
 }

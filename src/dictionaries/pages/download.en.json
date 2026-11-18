@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "title": "Download and get started",
+    "description": "Download Capstio for macOS 15 or later, Apple Silicon first. System requirements, supported Linux distributions and the first steps: choose a language, create an SSH key, import hosts from ~/.ssh/config."
+  },
+  "crumb": "Get started",
+  "title": "Get started with Capstio",
+  "intro": "Download the app to your Mac, connect to your VPS over standard SSH and bring in the hosts you already have. No agent installed on the server.",
+  "download": {
+    "title": "Download",
+    "body": "The download button opens the newest Capstio release on GitHub.",
+    "requirement": "macOS 15 or later · Apple Silicon first"
+  },
+  "requirements": {
+    "title": "System requirements",
+    "mac": {
+      "title": "On your Mac",
+      "items": [
+        "macOS 15 or later.",
+        "Apple Silicon Macs come first."
+      ]
+    },
+    "server": {
+      "title": "On your VPS",
+      "items": [
+        "SSH access to the server. Capstio uses standard SSH only and installs no agent on the VPS.",
+        "Some features need Docker, PM2 or systemd already on the server.",
+        "No relay server sits between your Mac and your VPS."
+      ]
+    }
+  },
+  "distros": {
+    "title": "Supported distributions",
+    "intro": "Capstio supports the Linux distributions common on VPS hosts, in three tiers.",
+    "tiers": [
+      {
+        "label": "First",
+        "body": "Supported first.",
+        "items": ["Ubuntu 22.04", "Ubuntu 24.04", "Debian 12"]
+      },
+      {
+        "label": "Next",
+        "body": "Supported right after the first tier.",
+        "items": ["Rocky Linux 9", "AlmaLinux 9"]
+      },
+      {
+        "label": "Limited",
+        "body": "They work, but a few features do not apply.",
+        "items": ["CentOS 7", "Alpine"]
+      }
+    ]
+  },
+  "firstRun": {
+    "title": "The first run",
+    "intro": "The welcome screen walks you through a few short steps. You don't need an account for the features on your Mac.",
+    "steps": [
+      {
+        "title": "Choose a language",
+        "body": "The app speaks Vietnamese and English."
+      },
+      {
+        "title": "Create an SSH key",
+        "body": "Create a new SSH key right on the welcome screen, or keep using the keys you have. Keys are stored in the macOS Keychain."
+      },
+      {
+        "title": "Import your hosts",
+        "body": "Capstio reads the hosts in {~/.ssh/config}, with their user, port and key. Try it with your own config below."
+      },
+      {
+        "title": "Sign in if you need to",
+        "body": "Signing in is optional, with Google or a code sent to your email. An account is only needed for teamwork and sync."
+      }
+    ]
+  }
+}

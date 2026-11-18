@@ -1,0 +1,9 @@
+{
+  "breadcrumb": { "label": "Đường dẫn", "home": "Trang chủ" },
+  "copy": { "copy": "Copy", "copied": "Đã copy", "copyFailed": "Bôi đen lệnh để copy" },
+  "soon": {
+    "body": "Trang này đang được hoàn thiện.",
+    "home": "Về trang chủ",
+    "features": "Xem tất cả tính năng"
+  }
+}

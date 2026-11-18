@@ -1,0 +1,471 @@
+{
+  "meta": {
+    "title": "Tính năng",
+    "description": "Mọi tính năng của Capstio: Apps, Docker, sửa config an toàn, terminal, recipes, cảnh báo, bảo mật SSH, tunnel, AI và làm việc nhóm, qua SSH chuẩn."
+  },
+  "title": "Tính năng",
+  "labels": {
+    "more": "Xem chi tiết",
+    "related": "Tính năng liên quan",
+    "note": "Lưu ý:"
+  },
+  "overview": {
+    "title": "Mọi thứ để vận hành VPS, trong một app Mac",
+    "intro": "Capstio kết nối tới server bằng SSH chuẩn, không cài agent lên VPS. Từ một cửa sổ, bạn xem toàn bộ server, quản lý app, sửa config và chạy lệnh, luôn thấy lệnh thật đang chạy.",
+    "fleet": {
+      "title": "Toàn bộ VPS trên một màn hình",
+      "intro": "Màn Toàn bộ VPS là lưới các server, mỗi ô kèm trạng thái, CPU, RAM, disk và số container.",
+      "points": [
+        {
+          "title": "Lọc theo trạng thái",
+          "body": "Lọc nhanh các host đang ổn, có cảnh báo hoặc đang lỗi để biết nên xử lý máy nào trước."
+        },
+        {
+          "title": "Tổng quan từng host",
+          "body": "Mở một host để xem biểu đồ CPU, RAM, network trong 15 phút gần nhất và thông tin hệ thống."
+        },
+        {
+          "title": "Process ngay tại chỗ",
+          "body": "Xem bảng process của host và dừng một process mà không cần mở terminal."
+        }
+      ]
+    },
+    "all": {
+      "title": "Tất cả tính năng",
+      "intro": "Mỗi tính năng có trang riêng, với những gì nó làm, lệnh thật đi kèm và giới hạn hiện tại."
+    },
+    "principles": {
+      "title": "Nguyên tắc của Capstio",
+      "intro": "Bốn nguyên tắc áp dụng cho mọi tính năng ở trên.",
+      "points": [
+        {
+          "title": "Không cài agent",
+          "body": "Chỉ dùng SSH chuẩn, không cài gì lên VPS và không có server trung gian giữa Mac và VPS. Một số tính năng cần Docker, PM2 hoặc systemd có sẵn trên server."
+        },
+        {
+          "title": "Local-first",
+          "body": "Không cần tài khoản vẫn dùng đầy đủ các tính năng cục bộ. Tài khoản chỉ cần cho làm việc nhóm và đồng bộ."
+        },
+        {
+          "title": "Native thật",
+          "body": "Viết bằng Swift và SwiftUI, sáng/tối theo hệ thống, Touch ID và phím tắt đầy đủ."
+        },
+        {
+          "title": "Bạn giữ khoá",
+          "body": "Mật khẩu và private key nằm trong Keychain của macOS. AI dùng key hoặc tài khoản của chính bạn."
+        }
+      ]
+    }
+  },
+  "pages": {
+    "apps": {
+      "meta": {
+        "title": "Apps: Docker Compose, PM2 và systemd trong một danh sách",
+        "description": "Capstio tự nhận diện app chạy bằng Docker Compose, PM2 hay systemd, cho cùng nút Restart, Stop, Start, log và lệnh shell tương đương để copy."
+      },
+      "title": "Docker Compose, PM2 và systemd trong một danh sách",
+      "intro": "Capstio tự phát hiện app trên server dù chạy bằng gì, rồi gom về một danh sách. Mỗi app có tiến trình, config, log và trạng thái ở cùng một chỗ.",
+      "sections": [
+        {
+          "id": "one-list",
+          "title": "Một danh sách, cùng một bộ thao tác",
+          "intro": "Không cần nhớ app nào chạy bằng Compose, app nào bằng PM2 hay systemd.",
+          "visual": "apps-screenshot",
+          "points": [
+            {
+              "title": "Tự nhận diện",
+              "body": "Quét server qua SSH và tìm app chạy bằng Docker Compose, PM2 hoặc systemd."
+            },
+            {
+              "title": "Thao tác chung",
+              "body": "Restart, Stop/Start, xem log, sửa config và mở terminal ngay tại thư mục của app."
+            },
+            {
+              "title": "App restart liên tục",
+              "body": "App đang restart liên tục được làm nổi bật để bạn xử lý ngay."
+            }
+          ],
+          "note": "Tab Apps làm việc với Docker, PM2 hoặc systemd đã có sẵn trên server. Capstio không cài thêm gì lên VPS."
+        },
+        {
+          "id": "equivalent-command",
+          "title": "Mỗi nút bấm đều hiện lệnh thật",
+          "intro": "Lệnh tương đương đổi đúng theo cách app được chạy. Bạn làm được việc ngay, và học dần lệnh khi cần dùng terminal.",
+          "visual": "command-console",
+          "runtimeCommands": "restart"
+        },
+        {
+          "id": "logs",
+          "title": "Log theo từng nguồn",
+          "intro": "Xem log của container, Compose, PM2, systemd, journald hoặc một file log. Lọc theo mức ERROR, WARN, INFO và tìm kiếm có tô sáng từ khoá.",
+          "runtimeCommands": "logs"
+        },
+        {
+          "id": "deploy",
+          "title": "Deploy app mới từ mẫu",
+          "intro": "Dựng app mới từ mẫu có sẵn: Node.js, WordPress, Postgres, n8n, Uptime Kuma, hoặc file compose của riêng bạn.",
+          "note": "Mẫu deploy chưa tự cấu hình SSL/HTTPS. Bước này bạn vẫn cần tự làm."
+        }
+      ],
+      "related": ["docker", "safeConfig"]
+    },
+    "docker": {
+      "meta": {
+        "title": "Docker: container, image, volume và network trên Mac",
+        "description": "Quản lý container, image, volume và network trên VPS từ app Mac. Dọn Docker cho thấy trước dung lượng thu hồi và không chọn sẵn volume có dữ liệu."
+      },
+      "title": "Quản lý Docker trên VPS từ máy Mac",
+      "intro": "Container, image, volume và network của mọi server trong một app native, qua SSH chuẩn.",
+      "sections": [
+        {
+          "id": "containers",
+          "title": "Container",
+          "intro": "Danh sách container kèm CPU, RAM và port của từng cái.",
+          "points": [
+            {
+              "title": "Thao tác hàng loạt",
+              "body": "Chọn nhiều container và xử lý cùng lúc thay vì gõ từng lệnh."
+            },
+            {
+              "title": "Chi tiết và shell",
+              "body": "Xem chi tiết một container, hoặc mở shell vào container ngay trong app."
+            },
+            {
+              "title": "Log của container",
+              "body": "Xem log container, lọc theo mức và tô sáng từ khoá như ở tab Apps."
+            }
+          ]
+        },
+        {
+          "id": "images",
+          "title": "Image, volume và network",
+          "intro": "Quản lý image, volume và network trên cùng một màn hình. Capstio cho biết khi digest của một tag thay đổi để bạn cập nhật image."
+        },
+        {
+          "id": "cleanup",
+          "title": "Dọn Docker an toàn",
+          "intro": "Trước khi dọn, Capstio cho thấy dung lượng sẽ thu hồi được và không chọn sẵn volume có dữ liệu. Lệnh dọn là lệnh nguy hiểm, nên bạn phải gõ lại tên host mới chạy được.",
+          "commands": [
+            {
+              "command": "docker system prune -a --volumes",
+              "caption": "Loại lệnh dọn cần gõ lại tên host"
+            }
+          ]
+        }
+      ],
+      "related": ["apps", "recipes"]
+    },
+    "safeConfig": {
+      "meta": {
+        "title": "Sửa config an toàn: kiểm tra cú pháp, sao lưu, diff",
+        "description": "Sửa Nginx, YAML, .env, JSON và Caddyfile qua SFTP. Capstio kiểm tra cú pháp khi gõ, sao lưu trên server trước mỗi lần lưu và khôi phục một chạm."
+      },
+      "title": "Sửa config mà không làm sập production",
+      "intro": "Thôi sửa mò bằng nano. Capstio kiểm tra cú pháp ngay khi gõ, tạo bản sao lưu trên server trước mỗi lần lưu, cho xem diff và khôi phục một chạm.",
+      "sections": [
+        {
+          "id": "editor",
+          "title": "Editor biết cú pháp của file",
+          "intro": "Editor tích hợp tô màu YAML, .env, Nginx, JSON và Caddyfile, báo lỗi cú pháp theo số dòng khi bạn gõ.",
+          "visual": "config-screenshot",
+          "points": [
+            {
+              "title": "Che giá trị bí mật",
+              "body": "Giá trị bí mật trong file .env được che, nên chia sẻ màn hình khi sửa config an toàn hơn."
+            },
+            {
+              "title": "File của root",
+              "body": "File thuộc root được mở qua sudo, không cần chép ra chỗ khác để sửa."
+            }
+          ]
+        },
+        {
+          "id": "backups",
+          "title": "Sao lưu, diff và khôi phục",
+          "intro": "Mỗi lần lưu đều tạo một bản sao lưu ngay trên server. Xem danh sách bản sao lưu, so sánh diff song song và khôi phục bản cũ bằng một nút."
+        },
+        {
+          "id": "files",
+          "title": "Duyệt file qua SFTP",
+          "intro": "Duyệt file trên server ở một hoặc hai khung, kéo thả để upload và download, hoặc mở file bằng VS Code hay Cursor."
+        }
+      ],
+      "related": ["apps", "terminal"]
+    },
+    "terminal": {
+      "meta": {
+        "title": "Terminal SSH cho Mac, có cảnh báo lệnh nguy hiểm",
+        "description": "Terminal nhiều tab, chia đôi, lịch sử lệnh và thanh lệnh nhanh. Capstio cảnh báo khi bạn gõ hoặc dán lệnh nguy hiểm, xếp lệnh theo mức rủi ro."
+      },
+      "title": "Terminal biết lệnh nào nguy hiểm",
+      "intro": "Terminal nhiều tab, chia đôi, lịch sử lệnh và thanh lệnh nhanh. Phím tắt không bị terminal nuốt mất, nên vẫn chuyển tab bằng ⌘1 đến ⌘0.",
+      "sections": [
+        {
+          "id": "dangerous-commands",
+          "title": "Lệnh rủi ro luôn phải hỏi trước",
+          "intro": "Khi bạn gõ hoặc dán một lệnh, Capstio xếp nó vào một trong ba mức: An toàn, Cần xác nhận, Nguy hiểm. Lệnh nguy hiểm nhất, như dọn Docker, cần gõ lại tên host mới chạy.",
+          "visual": "danger-console"
+        },
+        {
+          "id": "workspace",
+          "title": "Làm việc với nhiều server",
+          "points": [
+            {
+              "title": "Tab và chia đôi",
+              "body": "Mở nhiều phiên cạnh nhau, mỗi tab một server hoặc nhiều tab cho cùng một server."
+            },
+            {
+              "title": "Lịch sử lệnh",
+              "body": "Tìm lại lệnh đã chạy thay vì gõ lại từ đầu."
+            },
+            {
+              "title": "Thanh lệnh nhanh",
+              "body": "Thanh lệnh nhanh ở đáy terminal để chạy các lệnh hay dùng."
+            }
+          ]
+        },
+        {
+          "id": "recording",
+          "title": "Ghi và xem lại phiên",
+          "intro": "Capstio có thể ghi output của một phiên làm việc, mã hoá trên máy, rồi cho xem lại như video với tua và tốc độ 1× đến 8×, tìm toàn văn và xuất file .cast. Chỉ output của server được ghi, không ghi phím gõ, nên mật khẩu đang gõ không bị lưu.",
+          "note": "Tính năng này mặc định tắt và vẫn đang được kiểm thử thêm trước khi giới thiệu rộng."
+        }
+      ],
+      "related": ["recipes", "ai"]
+    },
+    "recipes": {
+      "meta": {
+        "title": "Recipes: 24 công thức lệnh có mức rủi ro",
+        "description": "24 recipe dựng sẵn cho bảo mật, Docker, hệ thống, mạng, sao lưu và web. Mỗi recipe có tham số, mức rủi ro và chạy trên nhiều host song song."
+      },
+      "title": "Thư viện lệnh dựng sẵn, có nhãn rủi ro",
+      "intro": "24 recipe cho bảo mật, Docker, hệ thống, mạng, sao lưu và web. Bạn chạy việc quen thuộc mà không phải tra lệnh, và luôn biết trước mức rủi ro.",
+      "sections": [
+        {
+          "id": "library",
+          "title": "Mỗi recipe là một lệnh thật",
+          "points": [
+            {
+              "title": "Tham số",
+              "body": "Điền tham số như tên container hoặc đường dẫn, Capstio ghép thành lệnh hoàn chỉnh."
+            },
+            {
+              "title": "Nhiều host song song",
+              "body": "Chạy một recipe trên một host hoặc nhiều host cùng lúc."
+            },
+            {
+              "title": "Recipe của riêng bạn",
+              "body": "Tự tạo recipe mới và đồng bộ qua Git."
+            }
+          ]
+        },
+        {
+          "id": "risk-levels",
+          "title": "Ba mức rủi ro",
+          "intro": "Mỗi recipe mang một nhãn: An toàn, Cần xác nhận hoặc Nguy hiểm. Lệnh nguy hiểm cần gõ lại tên host trước khi chạy, như trong terminal.",
+          "visual": "danger-console"
+        },
+        {
+          "id": "schedule",
+          "title": "Hẹn giờ chạy",
+          "intro": "Recipe có thể được hẹn giờ chạy.",
+          "note": "Hẹn giờ recipe đã có trong app nhưng vẫn đang được kiểm thử thêm."
+        }
+      ],
+      "related": ["terminal", "teams"]
+    },
+    "alerts": {
+      "meta": {
+        "title": "Cảnh báo VPS bằng notification macOS",
+        "description": "Notification macOS khi disk, CPU, RAM vượt ngưỡng, container restart liên tục hoặc host mất kết nối. Cảnh báo chạy khi Capstio đang mở."
+      },
+      "title": "Cảnh báo server khi Capstio đang mở",
+      "intro": "Capstio gửi notification macOS khi có chuyện cần bạn xem trên server. Ngưỡng tuỳ chỉnh được.",
+      "sections": [
+        {
+          "id": "what",
+          "title": "Capstio báo những gì",
+          "points": [
+            {
+              "title": "Disk, CPU, RAM",
+              "body": "Khi mức dùng vượt ngưỡng bạn đặt."
+            },
+            {
+              "title": "Container",
+              "body": "Khi một container restart liên tục."
+            },
+            {
+              "title": "Host",
+              "body": "Khi một host mất kết nối."
+            },
+            {
+              "title": "SSL và bản vá",
+              "body": "Khi chứng chỉ SSL sắp hết hạn, hoặc có bản cập nhật bảo mật."
+            },
+            {
+              "title": "Đăng nhập SSH",
+              "body": "Khi có lần đăng nhập SSH đáng ngờ."
+            }
+          ]
+        },
+        {
+          "id": "limits",
+          "title": "Giới hạn",
+          "intro": "Cảnh báo chỉ chạy khi Capstio đang mở trên Mac. Đây không phải dịch vụ giám sát 24/7: khi app đóng hoặc máy tắt, Capstio không kiểm tra server.",
+          "note": "Gửi cảnh báo qua Slack hoặc webhook đã có trong app nhưng vẫn đang được kiểm thử thêm."
+        }
+      ],
+      "related": ["sshSecurity", "docker"]
+    },
+    "sshSecurity": {
+      "meta": {
+        "title": "Bảo mật SSH: phân tích đăng nhập, chặn IP một chạm",
+        "description": "Phân tích đăng nhập SSH 24 giờ, chặn IP một chạm, siết cấu hình SSH có thử kết nối mới và tự hoàn tác. Quản lý user Linux và SSH key."
+      },
+      "title": "Bảo mật SSH mà không tự khoá mình ra ngoài",
+      "intro": "Xem ai đang thử đăng nhập vào server, chặn IP một chạm và siết cấu hình SSH theo cách an toàn trước.",
+      "sections": [
+        {
+          "id": "sign-ins",
+          "title": "Phân tích đăng nhập 24 giờ",
+          "intro": "Số lần đăng nhập sai, IP, username bị thử và biểu đồ theo giờ. Capstio cảnh báo khi một IP sai nhiều lần rồi lại đăng nhập được, và cho chặn IP bằng một chạm."
+        },
+        {
+          "id": "hardening",
+          "title": "Siết cấu hình SSH an toàn",
+          "intro": "Capstio sao lưu cấu hình, kiểm tra, thử một kết nối mới, và tự hoàn tác nếu kết nối thất bại, để bạn không tự khoá mình ra ngoài."
+        },
+        {
+          "id": "users-keys",
+          "title": "User Linux và SSH key",
+          "points": [
+            {
+              "title": "User trên VPS",
+              "body": "Tạo, khoá, xoá user, cấp sudo và quản lý authorized_keys."
+            },
+            {
+              "title": "Nhiều tài khoản đăng nhập",
+              "body": "Một VPS lưu được nhiều tài khoản đăng nhập, và bạn chọn cách lấy quyền root."
+            },
+            {
+              "title": "SSH key",
+              "body": "Tạo hoặc import key Ed25519/RSA, đẩy key lên host. Hỗ trợ Secure Enclave, SSH agent và 1Password."
+            },
+            {
+              "title": "Keychain",
+              "body": "Private key được lưu trong Keychain của macOS."
+            }
+          ]
+        }
+      ],
+      "related": ["alerts", "teams"]
+    },
+    "tunnels": {
+      "meta": {
+        "title": "Tunnel SSH Local, Remote, SOCKS và kiểm tra mạng",
+        "description": "Tạo tunnel SSH Local, Remote và SOCKS, lưu lại để bật tắt. Đo độ trễ, mất gói, jitter và băng thông tới server theo lịch."
+      },
+      "title": "Tunnel SSH và kiểm tra đường truyền",
+      "intro": "Tạo tunnel tới server và đo chất lượng kết nối, không phải nhớ cú pháp lệnh ssh.",
+      "sections": [
+        {
+          "id": "tunnels",
+          "title": "Tunnel Local, Remote, SOCKS",
+          "intro": "Tạo tunnel Local, Remote hoặc SOCKS và lưu lại để bật tắt khi cần. Danh sách tunnel cho thấy cái nào đang chạy, cái nào lỗi."
+        },
+        {
+          "id": "network-checks",
+          "title": "Kiểm tra đường truyền",
+          "intro": "Đo độ trễ, tỉ lệ mất gói, jitter và băng thông tới server theo lịch."
+        },
+        {
+          "id": "jump-host",
+          "title": "Kết nối qua jump host",
+          "intro": "Capstio hỗ trợ kết nối tới server qua jump host.",
+          "note": "Kết nối qua jump host vẫn đang được kiểm tra thêm."
+        }
+      ],
+      "related": ["sshSecurity", "terminal"]
+    },
+    "ai": {
+      "meta": {
+        "title": "AI trong terminal: đề xuất lệnh chỉ đọc",
+        "description": "Hỏi bằng ngôn ngữ thường, AI đề xuất lệnh chỉ đọc và bạn cho phép từng lệnh. Dùng key Anthropic, OpenAI, tài khoản Claude Code, Codex hoặc Ollama."
+      },
+      "title": "AI cạnh terminal, bạn cho phép từng lệnh",
+      "intro": "Panel chat nằm cạnh terminal. Bạn hỏi bằng ngôn ngữ thường, AI đề xuất lệnh chỉ đọc, và lệnh chỉ chạy khi bạn bấm cho phép.",
+      "sections": [
+        {
+          "id": "read-only",
+          "title": "Capstio quyết định lệnh nào là chỉ đọc",
+          "intro": "Chính Capstio quyết định một lệnh có phải chỉ đọc hay không, không phải model. Bạn duyệt từng lệnh trước khi chạy, rồi AI giải thích kết quả."
+        },
+        {
+          "id": "providers",
+          "title": "Dùng model của bạn",
+          "points": [
+            {
+              "title": "Anthropic, OpenAI",
+              "body": "Bằng API key của chính bạn."
+            },
+            {
+              "title": "Claude Code, Codex",
+              "body": "Bằng tài khoản của chính bạn."
+            },
+            {
+              "title": "Ollama",
+              "body": "Model chạy ngay trên máy Mac."
+            }
+          ]
+        },
+        {
+          "id": "privacy",
+          "title": "Dữ liệu đi đâu",
+          "intro": "Yêu cầu đi thẳng tới nhà cung cấp bạn chọn, không qua server Tekmium. Khi bật AI, ngữ cảnh của cuộc trò chuyện được gửi tới nhà cung cấp đó.",
+          "note": "Secret được che trước khi gửi bằng bộ lọc dựa trên nhận dạng mẫu. Muốn chắc chắn tuyệt đối, hãy dùng model chạy trên máy qua Ollama."
+        }
+      ],
+      "related": ["terminal", "recipes"]
+    },
+    "teams": {
+      "meta": {
+        "title": "Làm việc nhóm: vault mã hoá đầu-cuối và nhật ký",
+        "description": "Đội dùng chung host, SSH key và recipe qua vault mã hoá đầu-cuối, có vai trò Owner, Admin, Operator, Viewer và nhật ký thao tác xuất CSV."
+      },
+      "title": "Đội dùng chung server an toàn, biết ai làm gì",
+      "intro": "Workspace dùng chung host, SSH key và recipe qua vault mã hoá đầu-cuối. Máy chủ chỉ lưu bản mã. Phù hợp agency và đội vận hành.",
+      "sections": [
+        {
+          "id": "vault",
+          "title": "Vault và phân quyền",
+          "points": [
+            {
+              "title": "Bốn vai trò",
+              "body": "Owner, Admin, Operator và Viewer, mỗi người chỉ làm được việc của vai trò mình."
+            },
+            {
+              "title": "Duyệt thiết bị mới",
+              "body": "Thiết bị mới phải được duyệt trước khi mở được vault."
+            },
+            {
+              "title": "Recovery key",
+              "body": "Có recovery key do bạn giữ, và khoá vault có thể xoay vòng."
+            }
+          ],
+          "note": "Nếu mất hết thiết bị và cả recovery key thì dữ liệu nhóm cũng mất. Một số metadata, như số host hay ai sửa lúc nào, vẫn hiện rõ với máy chủ."
+        },
+        {
+          "id": "audit-log",
+          "title": "Nhật ký thao tác",
+          "intro": "Nhật ký ghi ai làm gì, trên host nào, lúc nào và kết quả ra sao. Xuất được ra CSV."
+        },
+        {
+          "id": "account",
+          "title": "Tài khoản chỉ cho làm việc nhóm",
+          "intro": "Các tính năng cục bộ dùng không cần tài khoản. Làm việc nhóm và đồng bộ cần đăng nhập bằng Google hoặc mã gửi qua email."
+        }
+      ],
+      "related": ["sshSecurity", "recipes"]
+    }
+  }
+}

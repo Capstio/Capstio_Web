@@ -1,0 +1,197 @@
+{
+  "hero": {
+    "guide": "Hướng dẫn cài đặt"
+  },
+  "tour": {
+    "apps": "Tìm hiểu thêm về Apps",
+    "config": "Tìm hiểu cách sửa config an toàn"
+  },
+  "trust": {
+    "facts": [
+      {
+        "title": "Key nằm trong Keychain của macOS",
+        "body": "SSH key và mật khẩu ở lại trên máy Mac, hỗ trợ Secure Enclave và 1Password."
+      },
+      {
+        "title": "Không cài agent lên server",
+        "body": "Capstio kết nối qua SSH chuẩn, thẳng từ máy Mac tới VPS của bạn."
+      },
+      {
+        "title": "Vault nhóm mã hóa đầu‑cuối",
+        "body": "Host, key và recipe chia sẻ được mã hóa trên thiết bị của bạn; máy chủ chỉ lưu bản mã."
+      }
+    ],
+    "teams": "Cách vault nhóm hoạt động"
+  },
+  "faq": {
+    "all": "Xem tất cả câu hỏi"
+  },
+  "keys": {
+    "label": "Các công cụ, mỗi phím một công cụ",
+    "hint": "Bấm một phím, kéo con thuyền, hoặc cứ chọc thử xem nó nói gì. Khi đang chọn một phím, nhấn 1 đến 0.",
+    "copy": "Copy",
+    "copied": "Đã copy",
+    "copyFailed": "Hãy chọn để copy",
+    "more": "Xem thêm về {tool}",
+    "approve": "bạn duyệt",
+    "log": "Nhật ký thao tác",
+    "all": "Xem tất cả tính năng",
+    "items": {
+      "apps": {
+        "command": "docker compose restart api"
+      },
+      "docker": {
+        "command": "docker system prune -a"
+      },
+      "safeConfig": {
+        "command": "sudo nginx -t"
+      },
+      "terminal": {
+        "command": "docker volume rm db_data"
+      },
+      "recipes": {
+        "command": "sudo apt upgrade"
+      },
+      "alerts": {
+        "command": "df -h"
+      },
+      "sshSecurity": {
+        "command": "journalctl -u ssh --since today"
+      },
+      "tunnels": {
+        "command": "ssh -L 5432:localhost:5432 db"
+      },
+      "ai": {
+        "prompt": "Vì sao disk bị đầy?",
+        "command": "du -sh /var/* | sort -h"
+      },
+      "teams": {
+        "line": "Linh · restart api trên prod-web-1 · 14:02 · OK"
+      }
+    },
+    "boat": {
+      "hello": [
+        "Chào bạn! Tôi là thuyền trưởng Capstio.",
+        "Ahoy! Bạn ghé chơi à?",
+        "Xin chào! Cứ kéo tôi đi đâu cũng được."
+      ],
+      "tap": [
+        "Nhột quá!",
+        "Á! Đừng chọc tôi.",
+        "Hihi, nhảy này!",
+        "Tôi đây, tôi đây!",
+        "Ui, bạn bấm trúng tôi rồi."
+      ],
+      "annoyed": [
+        "Thôi, đừng chọc nữa mà!",
+        "Bạn đang thử độ kiên nhẫn của tôi đó.",
+        "Được rồi được rồi, tôi chóng mặt rồi!"
+      ],
+      "dizzy": [
+        "Ôi chóng mặt quá!",
+        "Bạn lắc chuột nhiều quá, tôi say sóng mất!",
+        "Từ từ thôi, tôi xoay mòng mòng đây này!",
+        "Á, trời đất đảo lộn rồi!"
+      ],
+      "dragStart": [
+        "Ơ, đi đâu vậy?",
+        "Bay nào!",
+        "Cẩn thận, tôi sợ độ cao!"
+      ],
+      "drop": [
+        "Phù, đáp xuống an toàn.",
+        "Cảm ơn đã đưa tôi đi!",
+        "Chỗ này được đó."
+      ],
+      "edgeLeft": [
+        "Hết đường bên trái rồi!",
+        "Tới bờ trái rồi, đừng đẩy nữa!"
+      ],
+      "edgeRight": [
+        "Hết biển bên phải rồi!",
+        "Tới bờ phải rồi, quay đầu thôi!"
+      ],
+      "spin": [
+        "Xoay vòng này, wheee!",
+        "Nhìn tôi xoay nè!"
+      ],
+      "hold": [
+        "Giữ tôi lâu thế? Thả ra nào.",
+        "Bạn đang giữ thuyền đó nha."
+      ],
+      "fast": [
+        "Từ từ! Bấm nhanh quá tôi đuổi không kịp.",
+        "Đua với tôi hả? Tôi chạy không nổi đâu."
+      ],
+      "idle": [
+        "Có ai không? Tôi đang chờ đây.",
+        "Bấm thử một phím đi, hay kéo tôi cũng được.",
+        "Biển hôm nay êm ghê."
+      ],
+      "sleepy": [
+        "Zzz... tôi ngủ gật một chút...",
+        "Ngáp... Khi nào bạn quay lại thì gọi tôi."
+      ],
+      "near": [
+        "Ơ, bạn đến gần rồi đó.",
+        "Tôi thấy con trỏ của bạn rồi nha!",
+        "Lại đây, tôi không cắn đâu."
+      ],
+      "copy": [
+        "Đã chép! Dán cẩn thận nhé.",
+        "Chép xong. Nhớ đọc lệnh trước khi chạy!",
+        "Gọn! Lệnh nằm trong clipboard rồi."
+      ],
+      "keyboard": [
+        "Dùng bàn phím hả? Giỏi quá, phím 1 đến 0 nhé!",
+        "Phím tắt là dân chuyên rồi."
+      ],
+      "leave": [
+        "Bạn đi đâu vậy? Quay lại nhé!",
+        "Đi mạnh giỏi nha, tôi ở đây."
+      ],
+      "tools": {
+        "apps": [
+          "Mọi app trong một danh sách. Gọn ghê!",
+          "Docker, PM2, systemd: một chỗ thôi."
+        ],
+        "docker": [
+          "Dọn Docker? Tôi cho bạn xem dung lượng trước đã.",
+          "Container, image, volume, network... đủ cả."
+        ],
+        "safeConfig": [
+          "Sửa config? Có bản sao lưu trước khi lưu, yên tâm.",
+          "Nginx sai cú pháp? Tôi báo ngay lúc gõ."
+        ],
+        "terminal": [
+          "Lệnh nguy hiểm là tôi hú còi đó!",
+          "Terminal có tab, chia đôi, cả lịch sử lệnh."
+        ],
+        "recipes": [
+          "24 công thức lệnh, mỗi cái có mức rủi ro.",
+          "Không nhớ lệnh? Đã có công thức."
+        ],
+        "alerts": [
+          "Đĩa đầy, CPU nóng: tôi báo, miễn là app đang mở nhé.",
+          "Thông báo macOS, nhưng chỉ khi Capstio còn mở."
+        ],
+        "sshSecurity": [
+          "Ai đang gõ cửa SSH? Chặn IP một chạm.",
+          "Siết SSH có thử kết nối mới, hỏng thì tự quay lại."
+        ],
+        "tunnels": [
+          "Đường hầm Local, Remote, SOCKS. Chui thôi!",
+          "Có kiểm tra kết nối trước khi chui."
+        ],
+        "ai": [
+          "AI chỉ đề xuất lệnh chỉ-đọc, bạn duyệt từng cái.",
+          "Dùng key riêng của bạn, hoặc Ollama chạy trên máy."
+        ],
+        "teams": [
+          "Vault mã hoá đầu-cuối, có vai trò và nhật ký.",
+          "Làm việc nhóm: Owner, Admin, Operator, Viewer."
+        ]
+      }
+    }
+  }
+}

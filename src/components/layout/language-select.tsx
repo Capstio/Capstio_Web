@@ -3,26 +3,10 @@
 import { Check, ChevronDown, Globe } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
-import {
-  hasLocale,
-  localeCookie,
-  localeCookieMaxAge,
-  locales,
-  type Locale,
-} from "@/lib/i18n";
+import { hasLocale, locales, openInLocale, type Locale } from "@/lib/i18n";
 
 // Custom listbox dropdown (the native <select> popup cannot be styled).
 // Keyboard: Arrow keys, Home, End, Enter, Space, Escape and Tab.
-// The language is stored in a cookie and the URL never changes. The proxy
-// picks the language from the request cookie, so the cookie is written first
-// and the page is then reloaded. A full reload, not router.refresh(): the
-// language is the root layout's [lang] param, so a client refresh would
-// rebuild <html> in React, which re-renders the theme <script> and makes
-// React report it.
-function switchLocale(locale: Locale) {
-  document.cookie = `${localeCookie}=${locale}; path=/; max-age=${localeCookieMaxAge}; samesite=lax`;
-  window.location.reload();
-}
 
 export function LanguageSelect({
   lang,
@@ -33,6 +17,7 @@ export function LanguageSelect({
   align = "start",
   placement = "bottom",
   className,
+  buttonClassName,
 }: {
   lang: Locale;
   label: string;
@@ -46,6 +31,7 @@ export function LanguageSelect({
   // "top" opens the list upward, for controls near the bottom of the page.
   placement?: "bottom" | "top";
   className?: string;
+  buttonClassName?: string;
 }) {
   const listId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -78,7 +64,7 @@ export function LanguageSelect({
     setOpen(false);
     buttonRef.current?.focus();
     if (next === lang || !hasLocale(next)) return;
-    switchLocale(next);
+    openInLocale(next);
   }
 
   function onOptionKeyDown(event: React.KeyboardEvent, locale: Locale) {
@@ -136,6 +122,7 @@ export function LanguageSelect({
           "type-small inline-flex w-full items-center gap-2 rounded-md px-2.5 font-medium text-heading transition-colors hover:bg-heading/10 motion-reduce:transition-none",
           variant === "outlined" ? "h-10 border border-line" : "h-9",
           open && "bg-heading/10",
+          buttonClassName,
         )}
       >
         <Globe aria-hidden="true" className="size-4 shrink-0 text-body" />

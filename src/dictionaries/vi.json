@@ -22,7 +22,7 @@
       "features": "Tính năng",
       "solutions": "Giải pháp",
       "compare": "So sánh",
-      "insights": "Insights",
+      "pricing": "Bảng giá",
       "releaseNotes": "Release notes"
     },
     "allFeatures": "Tất cả tính năng"
@@ -47,7 +47,7 @@
   "footer": {
     "tagline": "Quản lý mọi VPS từ một chiếc Mac, không cần nhớ lệnh.",
     "requirement": "macOS 15+ · không cài agent",
-    "copyright": "© 2026 Tekmium Solutions · Capstio by Tekmium Solutions",
+    "copyright": "© 2026 The Capstio Authors",
     "columns": {
       "features": "Tính năng",
       "technology": "Công nghệ",
@@ -65,13 +65,48 @@
       "releaseNotes": "Release notes",
       "compare": "So sánh",
       "faq": "FAQ",
-      "rss": "RSS",
+      "download": "Tải về",
+      "pricing": "Bảng giá",
       "about": "Giới thiệu",
       "brand": "Thương hiệu",
       "security": "Bảo mật",
       "privacy": "Quyền riêng tư",
       "terms": "Điều khoản"
     }
+  },
+  "palette": {
+    "open": "Tìm kiếm",
+    "shortcut": "⌘K",
+    "title": "Bảng lệnh",
+    "placeholder": "Tìm trang, section, thao tác và lệnh…",
+    "empty": "Không tìm thấy.",
+    "groups": { "goTo": "Trên trang chủ", "pages": "Các trang", "actions": "Thao tác", "commands": "Copy một lệnh" },
+    "actions": { "download": "Tải về Capstio", "theme": "Đổi giao diện sáng / tối", "language": "View in English" },
+    "copied": "Đã copy vào clipboard",
+    "copyFailed": "Trình duyệt chặn copy. Hãy bôi đen lệnh trên trang để copy.",
+    "sections": {
+      "problem": "Vấn đề",
+      "try": "Thử ngay",
+      "tour": "Tham quan app",
+      "features": "Tất cả tính năng",
+      "trust": "Nhóm, bảo mật và quyền riêng tư",
+      "start": "Bắt đầu",
+      "pricing": "Bảng giá",
+      "faq": "Câu hỏi thường gặp"
+    },
+    "pages": {
+      "features": "Tất cả tính năng",
+      "pricing": "Bảng giá",
+      "compare": "So sánh",
+      "security": "Bảo mật",
+      "faq": "Câu hỏi thường gặp",
+      "releaseNotes": "Release notes",
+      "download": "Tải về và bắt đầu"
+    }
+  },
+  "voyage": {
+    "leg": "Chặng",
+    "nav": "Các chặng của trang"
   },
   "home": {
     "hero": {
@@ -85,12 +120,17 @@
         "docker": { "label": "Docker", "subtitle": "Container, image, volume và network trong một app native. Xem trước dung lượng thu hồi được trước khi dọn Docker." },
         "terminal": { "label": "Terminal", "subtitle": "Terminal nhiều tab, chia đôi và thanh lệnh nhanh ngay trong app. Cảnh báo khi bạn gõ hoặc dán lệnh nguy hiểm." }
       },
+      "announcement": {
+        "label": "Đã có bảng giá: {price} USD một năm, dùng thử miễn phí {days} ngày",
+        "command": "capstio pricing",
+        "output": "{price}$/năm · thử {days} ngày"
+      },
       "videoAlt": "Capstio trên Mac: các app Docker Compose, PM2 và systemd của một server trong cùng một danh sách",
       "unmute": "Bật âm thanh",
       "mute": "Tắt âm thanh"
     },
     "problem": {
-      "overline": "Vấn đề",
+      "overline": "Vùng nước xoáy",
       "title": "Vận hành server không cần phải nơm nớp lo gõ sai một lệnh.",
       "subtitle": "Gõ lệnh terminal dễ sai, còn dashboard web thì phải cài thêm và tốn công bảo trì. Capstio xử lý được cả hai.",
       "cards": {
@@ -132,6 +172,28 @@
         ]
       }
     },
+    "try": {
+      "overline": "Thử ngay",
+      "title": "Thấy lệnh Capstio chạy trước khi nó chạy.",
+      "subtitle": "Mỗi nút bấm đều hiện lệnh shell thật, và lệnh rủi ro luôn hỏi trước. Thử cả hai ngay tại đây, trong trình duyệt.",
+      "tabs": {
+        "command": { "label": "Mỗi nút đều hiện lệnh", "body": "Chọn cách app đang chạy và một thao tác, rồi copy lệnh thật." },
+        "danger": { "label": "Lệnh rủi ro luôn hỏi trước", "body": "Gõ một lệnh và xem Capstio xếp nó theo mức rủi ro." }
+      }
+    },
+    "tour": {
+      "overline": "Tham quan app",
+      "title": "App, file config và cả đội VPS của bạn.",
+      "subtitle": "Màn hình thật của Capstio. Chuyển tab để xem từng màn.",
+      "tabs": { "apps": "Apps", "config": "Sửa config an toàn", "fleet": "Toàn bộ VPS" },
+      "fleet": {
+        "overline": "Toàn bộ VPS",
+        "title": "Mọi server, một cửa sổ.",
+        "body": "CPU, RAM, disk và container của từng host.",
+        "link": "Xem tất cả tính năng",
+        "imageAlt": "Màn hình Toàn bộ VPS của Capstio: sáu server với mức dùng CPU, RAM, disk cùng tổng số container, app và cảnh báo"
+      }
+    },
     "unifiedApps": {
       "overline": "Quản lý theo ứng dụng",
       "title": "Docker, PM2, systemd.\nGom về một danh sách duy nhất.",
@@ -162,13 +224,7 @@
       "overline": "Tất cả trong một app Mac",
       "title": "Mọi công cụ bạn cần. Trong một app Mac duy nhất.",
       "subtitle": "Terminal, recipe, log, cảnh báo, bảo mật SSH và tunnel trong một app native. Chỉ cần SSH, không cài agent lên VPS.",
-      "fleet": {
-        "overline": "Toàn bộ VPS",
-        "title": "Mọi server, một cửa sổ.",
-        "body": "CPU, RAM, disk và container của từng host.",
-        "link": "Xem tất cả tính năng",
-        "imageAlt": "Màn hình Toàn bộ VPS của Capstio: sáu server với mức dùng CPU, RAM, disk cùng tổng số container, app và cảnh báo"
-      },
+      "allFeatures": "Xem tất cả tính năng",
       "recipes": { "body": "recipe dựng sẵn, có nhãn rủi ro, chạy trên nhiều host.", "link": "Xem thêm về Recipes" },
       "agentless": { "body": "agent cài lên VPS. Chỉ dùng SSH chuẩn." },
       "terminal": { "body": "Terminal nhiều tab, chia đôi. Phím tắt không bị terminal nuốt, chuyển tab bằng ⌘1 đến ⌘0.", "link": "Xem thêm về Terminal" },
@@ -242,6 +298,132 @@
         "link": "Xem chi tiết kiến trúc bảo mật"
       }
     },
+    "command": {
+      "overline": "Lệnh tương đương",
+      "title": "Mỗi nút bấm đều cho thấy lệnh thật nó chạy.",
+      "subtitle": "Chọn cách app đang chạy và một thao tác. Capstio làm đúng việc đó trên server và hiện lệnh shell thật, sẵn để copy. Làm được ngay, học dần từng lệnh.",
+      "runtimeLabel": "App chạy bằng",
+      "actionLabel": "Thao tác",
+      "actions": { "restart": "Khởi động lại", "stop": "Dừng", "logs": "Xem log", "status": "Trạng thái" },
+      "running": "đang chạy",
+      "copy": "Copy",
+      "copied": "Đã copy",
+      "copyFailed": "Bôi đen lệnh để copy",
+      "note": "Lệnh chạy trên server qua SSH chuẩn, không cài gì lên đó."
+    },
+    "danger": {
+      "overline": "Lệnh nguy hiểm",
+      "title": "Lệnh rủi ro luôn phải hỏi trước.",
+      "subtitle": "Gõ hoặc dán một lệnh như khi dùng terminal. Capstio xếp lệnh theo mức rủi ro, và những lệnh nguy hiểm nhất, như dọn Docker, cần gõ lại tên host mới được chạy.",
+      "simulation": "Mô phỏng ngay trong trình duyệt. Không có gì được gửi đi hay chạy thật, và app có bộ quy tắc riêng đầy đủ hơn.",
+      "inputLabel": "Lệnh",
+      "placeholder": "Gõ một lệnh rồi nhấn Enter",
+      "tryLabel": "Thử:",
+      "levels": {
+        "safe": { "label": "An toàn", "body": "Chỉ đọc. Chạy ngay." },
+        "confirm": { "label": "Cần xác nhận", "body": "Lệnh làm thay đổi trạng thái server, nên Capstio hỏi trước khi chạy." },
+        "dangerous": { "label": "Nguy hiểm", "body": "Có thể xoá dữ liệu hoặc làm sập server. Gõ lại tên host để chạy." }
+      },
+      "confirmPrompt": "Gõ {host} để xác nhận",
+      "run": "Chạy",
+      "cancel": "Huỷ",
+      "ranSafe": "Trong Capstio, lệnh này sẽ chạy ngay.",
+      "ranConfirmed": "Đã xác nhận. Trong Capstio lệnh sẽ chạy lúc này; ở đây không có gì xảy ra.",
+      "cancelled": "Đã huỷ. Không có lệnh nào được chạy."
+    },
+    "native": {
+      "overline": "Native trên Mac",
+      "title": "Làm cho Mac, không phải bọc lại cho Mac.",
+      "subtitle": "Swift và SwiftUI, giao diện chuẩn macOS và những phím tắt bạn đã quen.",
+      "items": [
+        { "title": "Swift và SwiftUI", "body": "App Mac thật, không phải trang web đặt trong cửa sổ." },
+        { "title": "Sáng và tối", "body": "Theo giao diện bạn chọn trong macOS." },
+        { "title": "Touch ID", "body": "Được hỗ trợ như các app Mac native khác." },
+        { "title": "Keychain", "body": "Mật khẩu và private key nằm trong Keychain của macOS." },
+        { "title": "Secure Enclave và 1Password", "body": "Dùng key Secure Enclave hoặc SSH agent, kể cả 1Password." },
+        { "title": "Ưu tiên bàn phím", "body": "Đủ phím tắt; ⌘1 đến ⌘0 chuyển tab ngay cả trong terminal." }
+      ],
+      "requirement": "macOS 15 trở lên, ưu tiên Apple Silicon."
+    },
+    "team": {
+      "overline": "Làm việc nhóm",
+      "title": "Cả đội dùng chung server, an toàn.",
+      "subtitle": "Host, SSH key và recipe nằm trong một vault dùng chung, mã hoá đầu-cuối. Máy chủ chỉ lưu bản mã.",
+      "items": [
+        {
+          "title": "Vault mã hoá đầu-cuối",
+          "body": "Host, key và recipe dùng chung được mã hoá trên thiết bị của bạn. Metadata như số host, ai sửa gì và lúc nào vẫn ở dạng rõ."
+        },
+        { "title": "Duyệt thiết bị", "body": "Thiết bị mới phải được duyệt trước khi mở được vault." },
+        { "title": "Recovery key", "body": "Bạn giữ recovery key. Mất hết thiết bị và cả key thì dữ liệu nhóm không khôi phục được." },
+        { "title": "Xoay vòng khoá vault", "body": "Xoay vòng khoá vault bất cứ khi nào cần." },
+        { "title": "Nhật ký thao tác", "body": "Ai làm gì, trên host nào, lúc nào, kết quả ra sao. Xuất được CSV." }
+      ],
+      "rolesTitle": "Vai trò",
+      "roles": [
+        "Owner",
+        "Admin",
+        "Operator",
+        "Viewer"
+      ],
+      "rolesNote": "Mỗi người có đúng quyền công việc của họ cần.",
+      "pricingLink": "Giá gói Nhóm"
+    },
+    "migrate": {
+      "overline": "Chuyển sang dễ dàng",
+      "title": "Mang host từ ~/.ssh/config sang.",
+      "subtitle": "Capstio nhập các host bạn đã có và dùng lại SSH key sẵn có. Dán file config để xem Capstio sẽ nhập những gì.",
+      "inputLabel": "Nội dung ~/.ssh/config",
+      "placeholder": "Dán nội dung ~/.ssh/config vào đây",
+      "privacy": "Chỉ đọc ngay trong trang này. Không tải lên, không lưu lại.",
+      "example": "Dùng ví dụ",
+      "clear": "Xoá",
+      "resultTitle": "Host sẽ được nhập",
+      "count": "{n} host",
+      "skipped": "Bỏ qua {n} mẫu wildcard như Host *",
+      "empty": "Chưa có host. Dán file config hoặc dùng ví dụ.",
+      "via": "qua {host}",
+      "defaultKey": "key mặc định"
+    },
+    "latest": {
+      "overline": "Mới nhất",
+      "title": "Có gì mới",
+      "releaseLabel": "Bản phát hành",
+      "releasedOn": "Phát hành {date}",
+      "viewRelease": "Ghi chú phát hành",
+      "comingSoonTitle": "Bản beta đầu tiên sắp ra mắt",
+      "comingSoonBody": "Ghi chú phát hành sẽ xuất hiện ở đây ngay khi có bản đầu tiên.",
+      "allReleases": "Các bản phát hành trên GitHub",
+      "insightsLabel": "Insights",
+      "insightsTitle": "Bài hướng dẫn sắp có",
+      "insightsBody": "Các bài hướng dẫn vận hành VPS, với lệnh đã được chạy thử thật, đang được chuẩn bị."
+    },
+    "capstan": {
+      "overline": "Tên gọi",
+      "title": "Capstio đến từ capstan.",
+      "body": "Capstan là chiếc tời đứng trên boong tàu, dùng để kéo neo. Một người đẩy tời có thể kéo cả con tàu vào bến. Capstio làm việc nặng cho server của bạn theo cách đó.",
+      "artLabel": "Chiếc tời trên bến đang cuộn dây kéo con tàu vào bến"
+    },
+    "pricing": {
+      "overline": "Bảng giá",
+      "title": "Giá đơn giản. Dùng thử miễn phí 14 ngày.",
+      "subtitle": "Gói nào cũng bắt đầu bằng 14 ngày dùng thử, mở đủ mọi tính năng. Giá tính bằng USD.",
+      "cta": "Dùng thử miễn phí 14 ngày",
+      "plans": {
+        "personal": {
+          "name": "Cá nhân",
+          "period": "mỗi năm",
+          "description": "Một năm sử dụng cho một người, trên Mac của mình.",
+          "features": ["Không giới hạn host", "Apps, Docker, terminal và SFTP", "Sửa config an toàn, có sao lưu", "24 recipe, cảnh báo và AI", "Dùng cho mục đích thương mại"]
+        },
+        "team": {
+          "name": "Nhóm",
+          "period": "mỗi người / tháng",
+          "description": "Cho đội dùng chung server, SSH key và recipe.",
+          "features": ["Mọi tính năng của gói Cá nhân", "Vault nhóm mã hoá đầu-cuối", "Vai trò Owner, Admin, Operator, Viewer", "Nhật ký thao tác chung, xuất CSV", "Cảnh báo qua Slack và webhook", "Recipe dùng chung qua Git"]
+        }
+      }
+    },
     "faq": {
       "overline": "FAQ",
       "title": "Câu hỏi thường gặp",
@@ -264,15 +446,25 @@
         },
         {
           "question": "Tải Capstio ở đâu?",
-          "answer": "Từ trang Tải về, dạng file DMG cho macOS 15 trở lên. Homebrew và Mac App Store sẽ có sau."
+          "answer": "Từ trang GitHub Releases của Capstio, dạng file DMG cho macOS 15 trở lên. Homebrew và Mac App Store sẽ có sau."
         }
       ]
     },
     "cta": {
-      "overline": "DÀNH CHO macOS",
+      "overline": "BẾN CẢNG · DÀNH CHO macOS",
       "subtitle": "Docker, PM2, systemd, file config và terminal trong một app native. Chỉ cần SSH, không cài agent.",
       "requirement": "macOS 15 trở lên · Không cần cài agent",
       "releaseNotes": "Release notes"
+    },
+    "trust": {
+      "overline": "Nhóm và quyền riêng tư",
+      "title": "Chia sẻ server an toàn. Biết rõ dữ liệu nào rời máy.",
+      "subtitle": "Vault mã hoá đầu-cuối cho nhóm, và danh sách rõ ràng những gì Capstio gửi đi và không bao giờ gửi."
+    },
+    "start": {
+      "overline": "Bắt đầu",
+      "title": "Mang server sang. Giữ nguyên key.",
+      "subtitle": "Capstio đọc các host bạn đã có trong ~/.ssh/config, và đây là những gì mới."
     }
   }
 }

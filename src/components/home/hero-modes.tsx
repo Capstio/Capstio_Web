@@ -1,7 +1,15 @@
 "use client";
 
+import { animate } from "animejs";
 import { Box, LayoutGrid, Terminal, type LucideIcon } from "lucide-react";
-import { useId, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type ReactNode,
+} from "react";
 import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/lib/dictionaries";
 import { HeroVideo, type HeroMode } from "./hero-video";
@@ -29,8 +37,27 @@ export function HeroModes({
 }) {
   const [active, setActive] = useState<HeroMode>("apps");
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const pillRef = useRef<HTMLSpanElement>(null);
   const id = useId();
   const panelId = `${id}-subtitle`;
+
+  // The pill behind the active tab slides to it. It starts under the first
+  // tab (the server-rendered state) and is moved only from here, so React never
+  // resets its transform. Without motion it jumps.
+  const activeIndex = modes.findIndex((mode) => mode.id === active);
+  useEffect(() => {
+    const pill = pillRef.current;
+    if (!pill) return;
+    const x = `${activeIndex * 100}%`;
+    if (!document.documentElement.classList.contains("motion")) {
+      pill.style.transform = `translateX(${x})`;
+      return;
+    }
+    const slide = animate(pill, { x, duration: 420, ease: "outBack(1.2)" });
+    return () => {
+      slide.pause();
+    };
+  }, [activeIndex]);
 
   // Arrow keys, Home and End move between tabs (WAI-ARIA tabs pattern).
   function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
@@ -59,6 +86,7 @@ export function HeroModes({
       <div
         id={panelId}
         role="tabpanel"
+        data-hero-fade
         aria-labelledby={`${id}-${active}`}
         className="grid max-w-155 text-center"
       >
@@ -67,8 +95,8 @@ export function HeroModes({
             key={mode}
             aria-hidden={mode !== active}
             className={cn(
-              "type-body-l text-balance text-body [grid-area:1/1] transition-opacity duration-200 motion-reduce:transition-none",
-              mode === active ? "opacity-100" : "invisible opacity-0",
+              "type-body-l text-balance text-body [grid-area:1/1] transition-[opacity,translate,visibility] duration-300 ease-out motion-reduce:transition-none",
+              mode === active ? "translate-y-0 opacity-100" : "invisible translate-y-1.5 opacity-0",
             )}
           >
             {dict.modes[mode].subtitle}
@@ -80,10 +108,16 @@ export function HeroModes({
 
       <div
         role="tablist"
+        data-hero-fade
         aria-label={dict.modesLabel}
         onKeyDown={onKeyDown}
-        className="grid w-85 max-w-full grid-cols-3 rounded-full bg-control p-1"
+        className="relative grid w-85 max-w-full grid-cols-3 rounded-full bg-control p-1"
       >
+        <span
+          ref={pillRef}
+          aria-hidden="true"
+          className="absolute inset-y-1 left-1 w-[calc((100%-0.5rem)/3)] rounded-full bg-action"
+        />
         {modes.map(({ id: mode, icon: Icon }, index) => {
           const selected = mode === active;
           return (
@@ -100,9 +134,9 @@ export function HeroModes({
               tabIndex={selected ? 0 : -1}
               onClick={() => setActive(mode)}
               className={cn(
-                "type-small inline-flex h-10 items-center justify-center gap-2 rounded-full transition-colors motion-reduce:transition-none",
+                "type-small relative inline-flex h-10 items-center justify-center gap-2 rounded-full transition-colors duration-300 motion-reduce:transition-none",
                 selected
-                  ? "bg-action font-bold text-on-action"
+                  ? "font-bold text-on-action"
                   : "text-muted hover:text-heading",
               )}
             >

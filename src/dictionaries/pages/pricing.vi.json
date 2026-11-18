@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "title": "Bảng giá",
+    "description": "Giá Capstio: gói Cá nhân {personal} USD mỗi năm, gói Nhóm {team} USD mỗi người mỗi tháng. Gói nào cũng có {days} ngày dùng thử, mở đủ mọi tính năng."
+  },
+  "title": "Bảng giá Capstio",
+  "intro": "Hai gói, giá tính bằng USD: Cá nhân {personal} USD mỗi năm, Nhóm {team} USD mỗi người mỗi tháng. Gói nào cũng bắt đầu bằng {days} ngày dùng thử, mở đủ mọi tính năng.",
+  "includes": {
+    "title": "Gói nào cũng có",
+    "intro": "Mọi tính năng của gói Cá nhân đều có trong gói Nhóm. Gói Nhóm thêm phần làm việc chung: vault mã hoá đầu-cuối, vai trò, nhật ký thao tác và recipe dùng chung.",
+    "trial": "{days} ngày dùng thử, mở đủ mọi tính năng",
+    "allFeatures": "Xem tất cả tính năng"
+  },
+  "questions": {
+    "title": "Câu hỏi về giá",
+    "items": [
+      {
+        "question": "Thời gian dùng thử là bao lâu?",
+        "answer": "{days} ngày, với mọi tính năng đều mở. Gói Cá nhân và gói Nhóm đều bắt đầu bằng thời gian dùng thử này."
+      },
+      {
+        "question": "Hết thời gian dùng thử thì sao?",
+        "answer": "Để tiếp tục dùng Capstio, bạn chọn một gói: Cá nhân {personal} USD mỗi năm, hoặc Nhóm {team} USD mỗi người mỗi tháng."
+      },
+      {
+        "question": "Tôi có được dùng Capstio cho công việc thương mại không?",
+        "answer": "Có. Gói Cá nhân đã gồm quyền dùng cho mục đích thương mại, và gói Nhóm có mọi thứ của gói Cá nhân."
+      },
+      {
+        "question": "Nên chọn gói Cá nhân hay gói Nhóm?",
+        "answer": "Gói Cá nhân là một năm sử dụng cho một người, trên Mac của mình. Gói Nhóm dành cho đội dùng chung server, SSH key và recipe: thêm vault nhóm mã hoá đầu-cuối, vai trò Owner, Admin, Operator, Viewer, nhật ký thao tác chung xuất được CSV, cảnh báo qua Slack và webhook, và recipe dùng chung qua Git."
+      },
+      {
+        "question": "Có giới hạn số host không?",
+        "answer": "Không. Gói nào cũng không giới hạn số host."
+      },
+      {
+        "question": "Giá gói Nhóm tính thế nào?",
+        "answer": "{team} USD cho mỗi người trong nhóm, mỗi tháng. Giá tính bằng USD."
+      }
+    ]
+  }
+}

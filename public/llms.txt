@@ -1,0 +1,48 @@
+# Capstio
+
+> Capstio is a native macOS app for running many VPSs from one window: Docker, PM2, systemd, config files and a terminal, over standard SSH with no agent installed on the server. Made by The Capstio Authors.
+
+Key facts:
+
+- Platform: macOS 15 or later, Apple Silicon first. No Windows, Linux or iOS version.
+- Current version: 0.1.0 (early release).
+- Connection: standard SSH only. Nothing is installed on the VPS and there is no relay server between the Mac and the VPS. Some features rely on Docker, PM2 or systemd already being on the server.
+- Local-first: every local feature works without an account. An account is only needed for team features and sync (sign-in with Google or an emailed code).
+- Keys and data: passwords and private keys stay in the macOS Keychain. Terminal output, logs, metrics and file contents are never sent to Capstio servers.
+- Languages: Vietnamese and English.
+- Supported servers: Ubuntu 22.04 and 24.04 and Debian 12 first, then Rocky Linux 9 and AlmaLinux 9. CentOS 7 and Alpine have limited support.
+
+## Features
+
+- Apps: Docker Compose, PM2 and systemd apps in one list, with the same Restart / Stop / Start controls and the equivalent shell command shown with a copy button.
+- Docker: containers, images, volumes and networks; a cleanup shows how much space it reclaims before it runs.
+- Safe config editing: syntax check while typing for YAML, .env, Nginx, JSON and Caddyfile; a backup on the server before every save; diff and one-click restore.
+- Terminal: tabs, split view, command history and a quick command bar; warns before a dangerous command is typed or pasted. Commands are sorted by risk (safe, needs confirmation, dangerous), and the most dangerous ones, such as a Docker cleanup, ask for the host name to be typed back.
+- Recipes: 24 ready-made command recipes for security, Docker, system, network, backup and web, each with a risk level (safe, needs confirmation, dangerous).
+- Logs: per app, container, journald or file, filtered by ERROR / WARN / INFO with keyword highlighting.
+- Alerts: macOS notifications for disk, CPU and RAM thresholds, restarting containers and lost hosts, while Capstio is open.
+- SSH security: 24-hour sign-in analysis, one-click IP blocking, and SSH hardening that tests a new connection and rolls back on failure.
+- Tunnels: Local, Remote and SOCKS tunnels and connectivity checks.
+- AI in the terminal: proposes read-only commands that you approve one by one; uses your own Anthropic or OpenAI key, Claude Code or Codex account, or a local Ollama model.
+- Getting started: imports the hosts already in ~/.ssh/config and reuses existing SSH keys.
+- Native on Mac: Swift and SwiftUI, light and dark from the system, Touch ID, passwords and private keys in the macOS Keychain, Secure Enclave keys and SSH agents including 1Password, full keyboard shortcuts.
+- Teams: an end-to-end encrypted shared vault for hosts, SSH keys and recipes, with roles (Owner, Admin, Operator, Viewer) and an audit log.
+
+## Pricing
+
+- Personal: 29 USD for one year of use by one person.
+- Team: 8 USD per person per month.
+- Both start with a 14-day free trial.
+
+## Links
+
+- [Home (English)](https://capstio.app/en): product overview with interactive demos and a product tour.
+- [Trang chủ (Tiếng Việt)](https://capstio.app/): the same page in Vietnamese.
+- [Features](https://capstio.app/en/features): overview and one page per feature (Apps, Docker, Safe config, Terminal, Recipes, Alerts, SSH security, Tunnels, AI, Teams) at /en/features/<feature>.
+- [Pricing](https://capstio.app/en/pricing): Personal and Team plans and the 14-day trial.
+- [Security](https://capstio.app/en/security): design principles, what leaves your Mac, and the team vault.
+- [Compare](https://capstio.app/en/compare): Capstio next to a plain terminal and web dashboards.
+- [FAQ](https://capstio.app/en/faq): setup, servers, alerts, AI, privacy and teams.
+- [Release notes](https://capstio.app/en/release-notes): the latest release.
+- [Get started](https://capstio.app/en/download): requirements, supported distributions and first steps.
+- [Download](https://github.com/Capstio/Capstio_Release/releases/latest): the latest DMG on GitHub Releases.

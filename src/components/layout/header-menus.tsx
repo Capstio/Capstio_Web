@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/dictionaries";
+import { localizePath, type Locale } from "@/lib/i18n";
 import {
   allFeaturesHref,
   featureHref,
@@ -10,6 +11,7 @@ import {
 } from "@/lib/site-nav";
 
 type MenuProps = {
+  lang: Locale;
   dict: Pick<Dictionary, "features" | "solutions" | "header">;
   onNavigate: () => void;
 };
@@ -20,14 +22,14 @@ const panel =
 const item =
   "block rounded-md px-3 py-2.5 transition-colors hover:bg-heading/10 motion-reduce:transition-none";
 
-export function FeaturesMenu({ dict, onNavigate }: MenuProps) {
+export function FeaturesMenu({ lang, dict, onNavigate }: MenuProps) {
   return (
     <div id="menu-features" className={`${panel} w-[43.25rem]`}>
       <ul className="grid grid-cols-2 gap-x-4">
         {featureKeys.map((key) => (
           <li key={key}>
             <Link
-              href={featureHref[key]}
+              href={localizePath(lang, featureHref[key])}
               onClick={onNavigate}
               className={item}
             >
@@ -42,7 +44,7 @@ export function FeaturesMenu({ dict, onNavigate }: MenuProps) {
         ))}
       </ul>
       <Link
-        href={allFeaturesHref}
+        href={localizePath(lang, allFeaturesHref)}
         onClick={onNavigate}
         className="type-small mt-2 inline-flex items-center gap-2 px-3 py-2 font-medium text-link hover:underline"
       >
@@ -53,13 +55,13 @@ export function FeaturesMenu({ dict, onNavigate }: MenuProps) {
   );
 }
 
-export function SolutionsMenu({ dict, onNavigate }: MenuProps) {
+export function SolutionsMenu({ lang, dict, onNavigate }: MenuProps) {
   return (
     <ul id="menu-solutions" className={`${panel} w-[22.5rem]`}>
       {solutionKeys.map((key) => (
         <li key={key}>
           <Link
-            href={solutionHref[key]}
+            href={localizePath(lang, solutionHref[key])}
             onClick={onNavigate}
             className={item}
           >
