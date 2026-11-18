@@ -184,15 +184,46 @@
     "tour": {
       "overline": "Tham quan app",
       "title": "App, file config và cả đội VPS của bạn.",
-      "subtitle": "Màn hình thật của Capstio. Chuyển tab để xem từng màn.",
+      "subtitle": "Dùng thử Capstio ngay tại đây. Cứ bấm thoải mái, không đụng tới server thật.",
       "tabs": { "apps": "Apps", "config": "Sửa config an toàn", "fleet": "Toàn bộ VPS" },
       "fleet": {
         "overline": "Toàn bộ VPS",
         "title": "Mọi server, một cửa sổ.",
         "body": "CPU, RAM, disk và container của từng host.",
-        "link": "Xem tất cả tính năng",
-        "imageAlt": "Màn hình Toàn bộ VPS của Capstio: sáu server với mức dùng CPU, RAM, disk cùng tổng số container, app và cảnh báo"
+        "link": "Xem tất cả tính năng"
       }
+    },
+    "playground": {
+      "label": "Bản demo tương tác của app Capstio với server mẫu",
+      "demoNote": "Bản demo tương tác · dữ liệu mẫu",
+      "inertLines": [
+        "Ơ kìa! {view} đang đợi bạn trong app thật.",
+        "Thuyền demo chưa chở {view}. Tải Capstio để mở nhé.",
+        "{view} có đủ trong bản app đầy đủ. Tải Capstio về xem nào."
+      ],
+      "inertPersistent": "Bạn kiên trì ghê! Mục này có sẵn trong app thật, chờ bạn đó.",
+      "inertInvite": "Bấm tới năm lần rồi, đúng là thuyền trưởng. Mang app thật ra khơi nhé?",
+      "tourDone": "Bạn đã đi hết demo: Apps, sửa config và toàn bộ VPS. App thật còn nhiều hơn thế.",
+      "inertViews": {
+        "Overview": "Overview vẽ CPU, RAM và mạng của server theo thời gian thực.",
+        "Docker": "Docker gom container, image, volume và network về một chỗ.",
+        "Terminal": "App thật có terminal SSH cho từng server ngay tại đây.",
+        "Recipes": "Recipes chạy một chuỗi lệnh đã lưu và cho xem kết quả từng bước.",
+        "Logs": "Logs theo dõi app trực tiếp, lọc theo ERROR, WARN hoặc INFO.",
+        "Security": "Security cho thấy các bản cập nhật bảo mật đang chờ trên server.",
+        "Users": "Users liệt kê các tài khoản trên server.",
+        "Network": "Network mở SSH tunnel tới server chỉ vài cú bấm.",
+        "Alerts": "Alerts báo khi container restart liên tục hay có bản cập nhật đang chờ.",
+        "Recipe Library": "Recipe Library giữ các chuỗi lệnh bạn dùng lại trên mọi server.",
+        "SSH Keys": "SSH Keys tạo key mới và gắn vào server cho bạn.",
+        "Recorded sessions": "Recorded sessions phát lại những gì đã gõ trong terminal, từng bước.",
+        "Activity log": "Activity log lưu lịch sử mọi thao tác trong app.",
+        "Account & Team": "Account & Team chia sẻ server với cả đội theo nhóm.",
+        "AI assistant": "Trợ lý AI có trong app thật, bật trong Settings.",
+        "Command palette": "Bảng lệnh trong app thật đưa bạn tới mọi màn hình hay server.",
+        "Settings": "Settings có terminal, cảnh báo, AI, quyền riêng tư và dữ liệu."
+      },
+      "inertCta": "Tải Capstio"
     },
     "unifiedApps": {
       "overline": "Quản lý theo ứng dụng",
@@ -202,8 +233,7 @@
         { "title": "Tự động nhận diện", "body": "Tự quét và nhận diện app đang chạy bằng Docker Compose, PM2 hay systemd. Chỉ dùng SSH chuẩn, không cài agent." },
         { "title": "Thao tác chuẩn hóa", "body": "Khởi động lại hoặc dừng dịch vụ bằng cùng một nút bấm, luôn thấy lệnh shell thật đang chạy." },
         { "title": "Xem log tập trung", "body": "Xem log trực tiếp của từng app theo thời gian thực. Lọc nhanh dòng ERROR, WARN và tô sáng từ khóa quan trọng." }
-      ],
-      "imageAlt": "Tab Apps của Capstio liệt kê các app Docker Compose, PM2 và systemd của một server"
+      ]
     },
     "safeConfig": {
       "overline": "Sửa config an toàn",
@@ -215,10 +245,10 @@
         { "title": "Che giá trị bí mật", "body": "Tự che giá trị bí mật trong file .env, chia sẻ màn hình khi sửa config an toàn hơn." }
       ],
       "syntaxValid": "Cú pháp hợp lệ · .env",
+      "syntaxError": "Lỗi cú pháp ở dòng {line}",
       "backupTitle": "Đã sao lưu trên server",
-      "backupMeta": ".env · 13:52 · 3 phiên bản",
-      "restore": "Khôi phục",
-      "imageAlt": "Sửa file .env trong Capstio: giá trị bí mật được che và kiểm tra cú pháp hợp lệ"
+      "backupMeta": "{file} · {time} · {count} phiên bản",
+      "restore": "Khôi phục"
     },
     "bento": {
       "overline": "Tất cả trong một app Mac",

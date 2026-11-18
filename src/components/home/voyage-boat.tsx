@@ -22,20 +22,23 @@ export const boatBow = { x: 151, y: 80 };
 // Page motion drives every [data-boat] on screen (see page-motion.tsx): it
 // clears the CSS translate and moves the boat with a transform from the box
 // its position classes give it (left/top, resolved to px), so the classes
-// must position it with left/right and top.
+// must position it with left/right and top. A `still` boat (the app
+// playground's guide) is left alone by page motion.
 export function VoyageBoat({
   className,
   style,
   ref,
+  still = false,
 }: {
   className?: string;
   style?: CSSProperties;
   ref?: Ref<SVGSVGElement>;
+  still?: boolean;
 }) {
   return (
     <svg
       ref={ref}
-      data-boat
+      data-boat={still ? undefined : true}
       aria-hidden="true"
       viewBox={`0 0 ${boatWidth} ${boatHeight}`}
       className={cn("pointer-events-none absolute overflow-visible", className)}

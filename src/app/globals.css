@@ -203,6 +203,31 @@
   --color-callout-check: var(--sp-callout-check);
   --color-callout-check-mark: var(--sp-callout-check-mark);
   --color-icon-soft: var(--sp-icon-soft);
+
+  --color-pg-bg: var(--pg-bg);
+  --color-pg-sidebar: var(--pg-sidebar);
+  --color-pg-line: var(--pg-line);
+  --color-pg-text: var(--pg-text);
+  --color-pg-muted: var(--pg-muted);
+  --color-pg-stripe: var(--pg-stripe);
+  --color-pg-field: var(--pg-field);
+  --color-pg-selected: var(--pg-selected);
+  --color-pg-card: var(--pg-card);
+  --color-pg-button: var(--pg-button);
+  --color-pg-accent: var(--pg-accent);
+  --color-pg-on-accent: var(--pg-on-accent);
+  --color-pg-green: var(--pg-green);
+  --color-pg-orange: var(--pg-orange);
+  --color-pg-red: var(--pg-red);
+  --color-pg-purple: var(--pg-purple);
+  --color-pg-pm2: var(--pg-pm2);
+  --color-pg-good-bg: var(--pg-good-bg);
+  --color-pg-good-text: var(--pg-good-text);
+  --color-pg-warn-bg: var(--pg-warn-bg);
+  --color-pg-warn-text: var(--pg-warn-text);
+  --color-pg-bad-bg: var(--pg-bad-bg);
+  --color-pg-banner: var(--pg-banner);
+  --color-pg-code-key: var(--pg-code-key);
   --color-tile-warning: var(--color-orange-500);
   --color-tile-danger: var(--color-rose-500);
   --color-tile-info: var(--color-azure-500);
@@ -357,9 +382,6 @@
   --sp-bento-card: var(--color-ink-50);
   --sp-bento-line: rgb(15 23 42 / 0.08);
   --sp-bento-hero: radial-gradient(120% 120% at 0% 0%, #e6ecff, var(--color-ink-50) 60%);
-  /* Lifts the white Fleet window off the light card; follows its rounded
-     corners because the image is drawn with object-contain. */
-  --sp-fleet-shadow: drop-shadow(0 4px 12px rgb(15 23 42 / 0.08)) drop-shadow(0 0 1px rgb(15 23 42 / 0.12));
   --sp-number: linear-gradient(to bottom, var(--color-ink-900), var(--color-ink-500));
   --sp-number-good: linear-gradient(to bottom, #14b8a6, #0b7f66);
   --sp-key: linear-gradient(to bottom, var(--color-slate-0), var(--color-ink-100));
@@ -482,7 +504,6 @@
   --sp-bento-card: #0c1020;
   --sp-bento-line: rgb(255 255 255 / 0.08);
   --sp-bento-hero: radial-gradient(120% 120% at 0% 0%, #131c3a, #0c1020 60%);
-  --sp-fleet-shadow: none;
   --sp-number: linear-gradient(to bottom, var(--color-slate-0), #7c8ba8);
   --sp-number-good: linear-gradient(to bottom, #5eead4, #1e9e82);
   --sp-key: linear-gradient(to bottom, #232b40, #151b2b);
@@ -1092,4 +1113,160 @@
 [data-surface="dark"] {
   --boat-hull: var(--text-heading);
   --boat-sail: var(--text-heading);
+}
+
+/* ---------------------------------------------------------------- App playground */
+
+/*
+ * The interactive Capstio window that replaces the product screenshots
+ * (components/playground). Its colours follow the macOS app, not the site
+ * palette, and switch with the site theme.
+ */
+:root {
+  --pg-bg: #ffffff;
+  --pg-sidebar: #ebebf0;
+  --pg-line: rgb(0 0 0 / 0.09);
+  --pg-text: #1d1d1f;
+  --pg-muted: #6e6e73;
+  --pg-stripe: #f5f5f7;
+  --pg-field: rgb(0 0 0 / 0.05);
+  --pg-selected: rgb(0 0 0 / 0.08);
+  --pg-card: #f5f5f7;
+  --pg-button: #ffffff;
+  --pg-accent: #2f7cf6;
+  --pg-on-accent: #ffffff;
+  --pg-green: #34c759;
+  --pg-orange: #ff9f0a;
+  --pg-red: #ff3b30;
+  --pg-purple: #af52de;
+  --pg-pm2: #248a3d;
+  --pg-good-bg: rgb(52 199 89 / 0.14);
+  --pg-good-text: #248a3d;
+  --pg-warn-bg: rgb(255 159 10 / 0.16);
+  --pg-warn-text: #b25000;
+  --pg-bad-bg: rgb(255 59 48 / 0.12);
+  --pg-banner: #fdf3e1;
+  --pg-code-key: #2f6fd6;
+}
+
+:root.dark {
+  --pg-bg: #1e1e20;
+  --pg-sidebar: #1d2128;
+  --pg-line: rgb(255 255 255 / 0.1);
+  --pg-text: #f5f5f7;
+  --pg-muted: #98989d;
+  --pg-stripe: #252528;
+  --pg-field: rgb(255 255 255 / 0.08);
+  --pg-selected: rgb(255 255 255 / 0.1);
+  --pg-card: #2a2a2d;
+  --pg-button: #3a3a3c;
+  --pg-accent: #3b82f6;
+  --pg-green: #30d158;
+  --pg-orange: #ff9f0a;
+  --pg-red: #ff453a;
+  --pg-purple: #bf5af2;
+  --pg-pm2: #30d158;
+  --pg-good-bg: rgb(48 209 88 / 0.16);
+  --pg-good-text: #30d158;
+  --pg-warn-bg: rgb(255 159 10 / 0.18);
+  --pg-warn-text: #ff9f0a;
+  --pg-bad-bg: rgb(255 69 58 / 0.18);
+  --pg-banner: rgb(255 159 10 / 0.12);
+  --pg-code-key: #6ca4ff;
+}
+
+/*
+ * The window is laid out at a fixed logical size and scaled with its
+ * container: --px is one logical pixel (1/1440 of the window width on
+ * desktop, 1/400 on phones, where the window has a compact layout). The
+ * Tailwind spacing, text and radius scales are redefined in that unit, so
+ * ordinary utilities (p-3, text-sm, rounded-md) scale with the window.
+ */
+.pg-window {
+  --px: calc(100cqw / 1440);
+  --spacing: calc(var(--px) * 4);
+  --text-xs: calc(var(--px) * 11);
+  --text-sm: calc(var(--px) * 13);
+  --text-base: calc(var(--px) * 14);
+  --text-lg: calc(var(--px) * 16);
+  --text-xl: calc(var(--px) * 18);
+  --text-2xl: calc(var(--px) * 24);
+  --radius-sm: calc(var(--px) * 5);
+  --radius-md: calc(var(--px) * 7);
+  --radius-lg: calc(var(--px) * 10);
+  --radius-xl: calc(var(--px) * 12);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: 1.35;
+  -webkit-font-smoothing: antialiased;
+
+  @media (width < 48rem) {
+    --px: calc(100cqw / 400);
+  }
+}
+
+.pg-mono {
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, var(--font-mono);
+}
+
+/* The playground's guide boat bobs gently while it talks. */
+@keyframes pg-boat-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-1.5px) rotate(3deg);
+  }
+}
+
+.pg-boat-bob {
+  transform-origin: 50% 80%;
+  animation: pg-boat-bob 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-boat-bob {
+    animation: none;
+  }
+}
+
+/*
+ * Parts of the app the playground does not simulate show a small anchor on
+ * hover or keyboard focus, so a visitor knows before clicking that the full
+ * app has them.
+ */
+.pg-window [aria-disabled="true"] {
+  position: relative;
+  cursor: help;
+}
+
+.pg-window [aria-disabled="true"]::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--px) * 1);
+  right: calc(var(--px) * 1);
+  width: max(9px, calc(var(--px) * 11));
+  height: max(9px, calc(var(--px) * 11));
+  background: var(--pg-accent);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round'%3E%3Ccircle cx='12' cy='5' r='2.5'/%3E%3Cpath d='M12 7.5V21M7 11h10M4 14c0 4 3.6 7 8 7s8-3 8-7'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  opacity: 0;
+  transform: translateY(2px) scale(0.6);
+  transition:
+    opacity 150ms ease-out,
+    transform 150ms ease-out;
+  pointer-events: none;
+}
+
+.pg-window [aria-disabled="true"]:hover::after,
+.pg-window [aria-disabled="true"]:focus-visible::after {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-window [aria-disabled="true"]::after {
+    transition: none;
+  }
 }

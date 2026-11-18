@@ -184,15 +184,46 @@
     "tour": {
       "overline": "Product tour",
       "title": "Your apps, your configs, your whole fleet.",
-      "subtitle": "Real screens from Capstio. Switch views to see each one.",
+      "subtitle": "Try Capstio right here. Click around, nothing touches a real server.",
       "tabs": { "apps": "Apps", "config": "Safe config", "fleet": "Fleet" },
       "fleet": {
         "overline": "Fleet",
         "title": "Every server, one window.",
         "body": "CPU, RAM, disk and containers for every host.",
-        "link": "See all features",
-        "imageAlt": "The Capstio All VPS view: six servers with their CPU, RAM and disk use, and totals for containers, apps and alerts"
+        "link": "See all features"
       }
+    },
+    "playground": {
+      "label": "Interactive demo of the Capstio app with sample servers",
+      "demoNote": "Interactive demo · sample data",
+      "inertLines": [
+        "Ahoy! {view} is waiting for you in the real app.",
+        "This demo boat doesn't carry {view} yet. Download Capstio to open it.",
+        "{view} sails with the full app. Grab Capstio to explore it."
+      ],
+      "inertPersistent": "You really want to see this one! It's ready for you in the real app.",
+      "inertInvite": "Five clicks in, you're clearly a captain. Take the real app out to sea?",
+      "tourDone": "You've sailed through the whole demo: Apps, Safe config and Fleet. The full app has much more.",
+      "inertViews": {
+        "Overview": "Overview charts CPU, RAM and network for the server, live.",
+        "Docker": "Docker opens containers, images, volumes and networks in one place.",
+        "Terminal": "The real app has an SSH terminal for every server, right here.",
+        "Recipes": "Recipes run a saved series of commands and show you every step's output.",
+        "Logs": "Logs follow any app live. Filter by ERROR, WARN or INFO.",
+        "Security": "Security shows the security updates waiting on the server.",
+        "Users": "Users lists the accounts on the server.",
+        "Network": "Network opens SSH tunnels to your server in a few clicks.",
+        "Alerts": "Alerts tell you when a container keeps restarting or updates are waiting.",
+        "Recipe Library": "The Recipe Library keeps the command recipes you reuse on every server.",
+        "SSH Keys": "SSH Keys makes a new key and sets it up on your servers.",
+        "Recorded sessions": "Recorded sessions replay what was typed in a terminal, step by step.",
+        "Activity log": "The Activity log keeps a history of every action taken in the app.",
+        "Account & Team": "Account & Team shares servers with your team, by group.",
+        "AI assistant": "The AI assistant lives in the real app. Turn it on in Settings.",
+        "Command palette": "The command palette in the real app jumps to any view or host.",
+        "Settings": "Settings covers the terminal, alerts, AI, privacy and your data."
+      },
+      "inertCta": "Download Capstio"
     },
     "unifiedApps": {
       "overline": "Unified apps view",
@@ -202,8 +233,7 @@
         { "title": "Auto-Discovery", "body": "Finds apps whether they run on Docker Compose, PM2, or systemd. Standard SSH only, no agent." },
         { "title": "Standardized Controls", "body": "Restart or stop any app with the same buttons, and see the equivalent command." },
         { "title": "Instant Logs", "body": "Open logs for any app. Filter by ERROR, WARN, or INFO and highlight keywords." }
-      ],
-      "imageAlt": "The Capstio Apps tab listing the Docker Compose, PM2 and systemd apps of one server"
+      ]
     },
     "safeConfig": {
       "overline": "Safe config editor",
@@ -215,10 +245,10 @@
         { "title": "Secret Masking", "body": "Masks secret values in .env files, so screen-sharing a config is safer." }
       ],
       "syntaxValid": "Syntax valid · .env",
+      "syntaxError": "Syntax error on line {line}",
       "backupTitle": "Backup saved on server",
-      "backupMeta": ".env · 13:52 · 3 versions",
-      "restore": "Restore",
-      "imageAlt": "Editing a .env file in Capstio: secret values are hidden and the syntax check passes"
+      "backupMeta": "{file} · {time} · {count} versions",
+      "restore": "Restore"
     },
     "bento": {
       "overline": "All in one Mac app",

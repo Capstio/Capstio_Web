@@ -47,6 +47,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
         dict={home.tour}
         apps={home.unifiedApps}
         config={home.safeConfig}
+        playground={home.playground}
         links={links.tour}
       />
       <ToolKeys

@@ -41,3 +41,31 @@ export const equivalentCommands: Record<Runtime, Record<AppAction, string>> = {
     status: "systemctl status api",
   },
 };
+
+// Buttons of the app playground, per runtime (components/playground).
+export type PlaygroundAction = "restart" | "stop" | "start" | "pull" | "reload";
+
+export const playgroundActions: Record<Runtime, readonly PlaygroundAction[]> = {
+  compose: ["restart", "stop", "pull"],
+  pm2: ["restart", "stop", "reload"],
+  systemd: ["restart", "stop"],
+};
+
+// The command one playground button stands for. A Compose project is
+// addressed by its folder, a PM2 process or systemd unit by its name; PM2
+// apps that belong to root run through sudo.
+export function appCommand(
+  runtime: Runtime,
+  action: PlaygroundAction,
+  app: { name: string; path?: string; user?: string },
+): string {
+  if (runtime === "compose") {
+    const verb = action === "pull" ? "pull && docker compose up -d" : action;
+    return `cd ${app.path} && docker compose ${verb}`;
+  }
+  if (runtime === "pm2") {
+    const sudo = app.user === "root" ? "sudo " : "";
+    return `${sudo}pm2 ${action} ${app.name}`;
+  }
+  return `sudo systemctl ${action} ${app.name}`;
+}

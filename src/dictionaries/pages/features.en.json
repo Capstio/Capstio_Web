@@ -49,7 +49,7 @@
           "id": "one-list",
           "title": "One list, one set of controls",
           "intro": "No need to remember which app runs on Compose and which one on PM2 or systemd.",
-          "visual": "apps-screenshot",
+          "visual": "apps-playground",
           "points": [
             { "title": "Auto-discovery", "body": "Scans the server over SSH for apps run by Docker Compose, PM2 or systemd." },
             { "title": "Shared actions", "body": "Restart, Stop/Start, view logs, edit config, and open a terminal right in the app's folder." },
@@ -125,7 +125,7 @@
           "id": "editor",
           "title": "An editor that knows the file format",
           "intro": "The built-in editor highlights YAML, .env, Nginx, JSON and Caddyfile, and flags syntax errors by line number while you type.",
-          "visual": "config-screenshot",
+          "visual": "config-playground",
           "points": [
             { "title": "Secret masking", "body": "Secret values in .env files are masked, so sharing your screen while editing config is safer." },
             { "title": "Root-owned files", "body": "Files owned by root open through sudo, with no copying them elsewhere to edit." }

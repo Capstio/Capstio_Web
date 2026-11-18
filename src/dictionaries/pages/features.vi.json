@@ -70,7 +70,7 @@
           "id": "one-list",
           "title": "Một danh sách, cùng một bộ thao tác",
           "intro": "Không cần nhớ app nào chạy bằng Compose, app nào bằng PM2 hay systemd.",
-          "visual": "apps-screenshot",
+          "visual": "apps-playground",
           "points": [
             {
               "title": "Tự nhận diện",
@@ -167,7 +167,7 @@
           "id": "editor",
           "title": "Editor biết cú pháp của file",
           "intro": "Editor tích hợp tô màu YAML, .env, Nginx, JSON và Caddyfile, báo lỗi cú pháp theo số dòng khi bạn gõ.",
-          "visual": "config-screenshot",
+          "visual": "config-playground",
           "points": [
             {
               "title": "Che giá trị bí mật",

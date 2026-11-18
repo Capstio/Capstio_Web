@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { FeatureLinkCard, FeaturePoints, ScreenshotFrame } from "@/components/page/feature-page";
+import { FeatureLinkCard, FeaturePoints, PlaygroundVisual } from "@/components/page/feature-page";
 import { PageSection } from "@/components/page/page-section";
 import { PageShell } from "@/components/page/page-shell";
-import { FleetScreenshot } from "@/components/home/fleet-screenshot";
 import { getDictionary, getPageCopy } from "@/lib/dictionaries";
 import { hasLocale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
@@ -32,12 +31,7 @@ export default async function FeaturesPage({ params }: PageProps<"/[lang]/featur
   return (
     <PageShell lang={lang} trail={[{ name: copy.title, path }]} title={overview.title} intro={overview.intro}>
       <PageSection id="fleet" title={overview.fleet.title} intro={overview.fleet.intro}>
-        <ScreenshotFrame>
-          <FleetScreenshot
-            alt={home.tour.fleet.imageAlt}
-            sizes="(min-width: 1264px) 1152px, calc(100vw - 48px)"
-          />
-        </ScreenshotFrame>
+        <PlaygroundVisual home={home} screen="fleet" />
         <FeaturePoints points={overview.fleet.points} />
       </PageSection>
 
