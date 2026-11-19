@@ -17,13 +17,11 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { CommandConsole } from "@/components/home/command-equivalent";
 import { DangerConsole } from "@/components/home/danger-demo";
-import { FleetScreenshot } from "@/components/home/fleet-screenshot";
-import { ConfigScreenshot } from "@/components/home/safe-config";
-import { AppsScreenshot } from "@/components/home/unified-apps";
 import { withArrow } from "@/components/home/with-arrow";
 import { CommandBlock } from "@/components/page/command-block";
 import { PageSection } from "@/components/page/page-section";
 import { PageShell } from "@/components/page/page-shell";
+import { AppPlayground, PlaygroundFrame, type Screen } from "@/components/playground/app-playground";
 import { Card } from "@/components/ui";
 import { appActions, equivalentCommands, runtimeNames, runtimes, type AppAction } from "@/lib/commands";
 import { getDictionary, getPageCopy, type Dictionary } from "@/lib/dictionaries";
@@ -58,8 +56,6 @@ type FeatureCopy = {
   sections: readonly SectionCopy[];
   related: readonly string[];
 };
-
-const fullWidthSizes = "(min-width: 1264px) 1152px, calc(100vw - 48px)";
 
 export const featureIcons: Record<FeatureKey, LucideIcon> = {
   apps: LayoutGrid,
@@ -102,36 +98,21 @@ export async function featureMetadata(lang: Locale, key: FeatureKey): Promise<Me
   return pageMetadata(lang, featureHref[key], page.meta);
 }
 
-// The screenshot frame of the product tour: the screenshots fill a box with
-// the ratio of the widest one.
-export function ScreenshotFrame({ children }: { children: ReactNode }) {
+// The app playground opened on one screen, in the product tour's frame.
+export function PlaygroundVisual({ home, screen }: { home: Dictionary["home"]; screen: Screen }) {
   return (
-    <div className="rounded-lg border border-stage-line bg-(image:--sp-stage) p-2 md:p-4 lg:rounded-xl lg:p-6">
-      <div className="relative aspect-[3000/1810]">{children}</div>
-    </div>
+    <PlaygroundFrame>
+      <AppPlayground dict={{ ...home.playground, config: home.safeConfig }} initialScreen={screen} />
+    </PlaygroundFrame>
   );
 }
 
 function renderVisual(visual: string | undefined, home: Dictionary["home"]): ReactNode {
   switch (visual) {
-    case "apps-screenshot":
-      return (
-        <ScreenshotFrame>
-          <AppsScreenshot alt={home.unifiedApps.imageAlt} sizes={fullWidthSizes} />
-        </ScreenshotFrame>
-      );
-    case "config-screenshot":
-      return (
-        <ScreenshotFrame>
-          <ConfigScreenshot dict={home.safeConfig} sizes={fullWidthSizes} />
-        </ScreenshotFrame>
-      );
-    case "fleet-screenshot":
-      return (
-        <ScreenshotFrame>
-          <FleetScreenshot alt={home.tour.fleet.imageAlt} sizes={fullWidthSizes} />
-        </ScreenshotFrame>
-      );
+    case "apps-playground":
+      return <PlaygroundVisual home={home} screen="apps" />;
+    case "config-playground":
+      return <PlaygroundVisual home={home} screen="files" />;
     case "command-console":
       return <CommandConsole dict={home.command} />;
     case "danger-console":

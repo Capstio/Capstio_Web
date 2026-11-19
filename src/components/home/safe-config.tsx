@@ -1,86 +1,88 @@
-import { Check, EyeOff, History, ShieldCheck, type LucideIcon } from "lucide-react";
-import Image from "next/image";
+import { Check, EyeOff, History, ShieldCheck, TriangleAlert, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/lib/dictionaries";
-import configDark from "../../../public/features/config-dark.png";
-import configLight from "../../../public/features/config-light.png";
+import { fill } from "@/lib/i18n";
 
-// The "Safe config" view of the product tour: the .env editor screenshot with
-// its floating callouts, and the icons of its three points (home.safeConfig).
+// The "Safe config" view of the product tour: the icons of its three points
+// (home.safeConfig) and the two callouts that float over the playground's
+// .env editor and repeat what it does, live.
 
 type SafeConfigDict = Dictionary["home"]["safeConfig"];
+export type ConfigCalloutsDict = Pick<
+  SafeConfigDict,
+  "syntaxValid" | "syntaxError" | "backupTitle" | "backupMeta" | "restore"
+>;
 
 // Icons of the three points, in dictionary order (Figma "icon/syntax-guard",
 // "icon/backup-history", "icon/secret-mask").
 export const configPointIcons: LucideIcon[] = [ShieldCheck, History, EyeOff];
 
 const callout =
-  "absolute flex items-center rounded-[10px] border bg-callout text-xs leading-[0.9375rem] font-semibold text-callout-text";
+  "flex w-fit items-center rounded-lg border bg-callout text-xs leading-[1.36] font-semibold text-callout-text";
 
-// The screenshot is the app window with its macOS shadow, fitted whole into
-// the tour's screen frame (see product tour). The callouts float over its
-// lower left corner and repeat what the editor does; phones only get the
-// syntax one, as in Figma.
-export function ConfigScreenshot({
+// The syntax result of the open .env and its latest backup, with a working
+// Restore. They sit in the empty space under the file list, so they never
+// cover a control; phones only get the syntax one, as in Figma.
+export function ConfigCallouts({
   dict,
-  sizes,
+  errorLine,
+  file,
+  backupTime,
+  versions,
+  onRestore,
+  className,
 }: {
-  dict: Pick<SafeConfigDict, "imageAlt" | "syntaxValid" | "backupTitle" | "backupMeta" | "restore">;
-  sizes: string;
+  dict: ConfigCalloutsDict;
+  errorLine: number | null;
+  file: string;
+  backupTime: string;
+  versions: number;
+  onRestore: () => void;
+  className?: string;
 }) {
+  const valid = errorLine === null;
   return (
-    <>
-      <Image
-        src={configLight}
-        alt={dict.imageAlt}
-        fill
-        sizes={sizes}
-        placeholder="blur"
-        className="object-contain dark:hidden"
-      />
-      <Image
-        src={configDark}
-        alt={dict.imageAlt}
-        fill
-        sizes={sizes}
-        placeholder="blur"
-        className="hidden object-contain dark:block"
-      />
-
-      {/* Decorative: the image alt already describes the screen. */}
-      <div aria-hidden="true">
-        <p
+    <div className={cn("flex flex-col gap-2", className)}>
+      <p
+        aria-live="polite"
+        className={cn(
+          callout,
+          "gap-2 py-2 pr-3 pl-2.5",
+          valid
+            ? "border-callout-good-line shadow-(--sp-callout-good-shadow)"
+            : "border-pg-red/50 shadow-(--sp-callout-shadow)",
+        )}
+      >
+        <span
+          aria-hidden="true"
           className={cn(
-            callout,
-            "bottom-1 left-1 gap-2 border-callout-good-line py-2 pr-3 pl-2.5 shadow-(--sp-callout-good-shadow) md:bottom-[24%] md:left-[2%]",
+            "inline-flex size-4 items-center justify-center rounded-full",
+            valid ? "bg-callout-check text-callout-check-mark" : "bg-pg-red text-pg-on-accent",
           )}
         >
-          <span className="inline-flex size-4 items-center justify-center rounded-full bg-callout-check text-callout-check-mark">
-            <Check className="size-2.5" strokeWidth={4} />
-          </span>
-          {dict.syntaxValid}
-        </p>
+          {valid ? <Check className="size-2.5" strokeWidth={4} /> : <TriangleAlert className="size-2.5" strokeWidth={3} />}
+        </span>
+        {valid ? dict.syntaxValid : fill(dict.syntaxError, { line: errorLine })}
+      </p>
 
-        <div
-          className={cn(
-            callout,
-            "bottom-[8%] left-[2%] hidden gap-2.5 border-callout-line p-2.25 shadow-(--sp-callout-shadow) md:flex",
-          )}
+      <div className={cn(callout, "gap-2.5 border-callout-line p-2.25 shadow-(--sp-callout-shadow) max-md:hidden")}>
+        <span className="inline-flex size-6 items-center justify-center rounded-md bg-callout-tile text-kicker">
+          <History aria-hidden="true" className="size-3.5" strokeWidth={2.2} />
+        </span>
+        <span className="flex flex-col gap-px">
+          <span>{dict.backupTitle}</span>
+          <span className="font-mono text-[0.85em] leading-[1.3] font-normal text-callout-meta">
+            {fill(dict.backupMeta, { file, time: backupTime, count: versions })}
+          </span>
+        </span>
+        <button
+          type="button"
+          onClick={onRestore}
+          className="ml-2.5 rounded-md bg-callout-button px-2.25 py-1 text-[0.9em] text-kicker hover:underline"
         >
-          <span className="inline-flex size-6 items-center justify-center rounded-[7px] bg-callout-tile text-kicker">
-            <History className="size-3.5" strokeWidth={2.2} />
-          </span>
-          <span className="flex flex-col gap-px">
-            <span>{dict.backupTitle}</span>
-            <span className="font-mono text-[0.65625rem] leading-3.5 font-normal text-callout-meta">
-              {dict.backupMeta}
-            </span>
-          </span>
-          <span className="ml-2.5 rounded-md bg-callout-button px-2.25 py-1 text-[0.6875rem] leading-3.25 text-kicker">
-            {dict.restore}
-          </span>
-        </div>
+          {dict.restore}
+        </button>
       </div>
-    </>
+    </div>
   );
 }

@@ -86,7 +86,7 @@ const radii = [
   ["radius/sm", "6", "rounded-sm", "Chip, small command strip"],
   ["radius/md", "10", "rounded-md", "Buttons, inputs"],
   ["radius/lg", "16", "rounded-lg", "Feature cards"],
-  ["radius/xl", "24", "rounded-xl", "App screenshot frame"],
+  ["radius/xl", "24", "rounded-xl", "App playground frame"],
   ["radius/full", "999", "rounded-full", "Status badge"],
 ];
 
@@ -94,7 +94,7 @@ const shadows = [
   ["shadow/sm", "0 1 2 · 8%", "shadow-sm", "Resting card"],
   ["shadow/md", "0 4 12 · 10%", "shadow-md", "Hover, menu"],
   ["shadow/lg", "0 16 40 · 14%", "shadow-lg", "Dropdown menu"],
-  ["shadow/window", "0 24 64 · 22%", "shadow-window", "App window screenshot"],
+  ["shadow/window", "0 24 64 · 22%", "shadow-window", "App playground window"],
 ];
 
 function Block({

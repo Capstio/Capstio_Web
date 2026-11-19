@@ -80,7 +80,7 @@ export function PageMotion() {
         });
       }
 
-      // Single elements, such as the app screenshots.
+      // Single elements, such as the app playground.
       for (const element of document.querySelectorAll<HTMLElement>("[data-reveal-self]")) {
         onScroll({
           target: element,

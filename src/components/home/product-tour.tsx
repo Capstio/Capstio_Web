@@ -9,11 +9,11 @@ import { cn } from "@/lib/cn";
 import type { Dictionary, PageCopy } from "@/lib/dictionaries";
 import { hasLocale, localizePath } from "@/lib/i18n";
 import { allFeaturesHref, featureHref } from "@/lib/site-nav";
-import { FleetScreenshot } from "./fleet-screenshot";
+import { AppPlayground, PlaygroundFrame, type Screen } from "@/components/playground/app-playground";
 import { withCode } from "./inline-code";
-import { ConfigScreenshot, configPointIcons } from "./safe-config";
+import { configPointIcons } from "./safe-config";
 import { SectionHeading } from "./section-heading";
-import { AppsScreenshot, appsPointIcons } from "./unified-apps";
+import { appsPointIcons } from "./unified-apps";
 import { withArrow } from "./with-arrow";
 
 type TourDict = Dictionary["home"]["tour"];
@@ -27,16 +27,16 @@ const views: { id: ViewId; icon: LucideIcon }[] = [
   { id: "fleet", icon: Server },
 ];
 
-// The screen frame is the container width minus the stage padding: 1152px on
-// a wide desktop, the viewport minus gutters and padding below that.
-const screenSizes = "(min-width: 1264px) 1152px, calc(100vw - 48px)";
+// Each tour view opens one screen of the playground, and the playground
+// moving to one of these screens selects its view.
+const viewScreen: Record<ViewId, Screen> = { apps: "apps", config: "files", fleet: "fleet" };
 
 const chip =
   "rounded-md bg-chip-solid px-1.5 py-0.5 font-mono text-sm whitespace-nowrap text-chip-text";
 
-// Every view is rendered at once and stacked in one grid cell, so the box
-// keeps the size of the largest view and nothing below moves when the view
-// changes. Only opacity (and visibility, which hides the inactive views from
+// The copy of every view is rendered at once and stacked in one grid cell,
+// so the box keeps the size of the largest view and nothing below moves when
+// the view changes. Only opacity (and visibility, which hides the inactive views from
 // the keyboard and assistive tech) changes; reduced motion switches at once.
 const layer =
   "[grid-area:1/1] transition-[opacity,visibility] duration-300 ease-out motion-reduce:transition-none";
@@ -50,12 +50,11 @@ type View = {
   points: { title: string; body: string }[];
   icons: LucideIcon[];
   link: { href: string; text: string };
-  screen: ReactNode;
 };
 
-// Leg "Product tour": Apps, Safe config and Fleet, each with its real
-// screenshot, in one tabbed view. The heading, then the tabs, then the wide
-// screenshot on a glow stage, then that view's copy and points under it.
+// Leg "Product tour": Apps, Safe config and Fleet in one tabbed view over one
+// interactive app playground. The heading, then the tabs, then the window on
+// a glow stage, then that view's copy and points under it.
 // Each view links on to its feature page (Fleet, which has none, to all
 // features).
 export function ProductTour({
@@ -63,12 +62,14 @@ export function ProductTour({
   dict,
   apps,
   config,
+  playground,
   links,
 }: {
   leg: string;
   dict: TourDict;
   apps: Dictionary["home"]["unifiedApps"];
   config: Dictionary["home"]["safeConfig"];
+  playground: Dictionary["home"]["playground"];
   links: PageCopy<"home-links">["tour"];
 }) {
   const [active, setActive] = useState<ViewId>("apps");
@@ -89,7 +90,6 @@ export function ProductTour({
       points: apps.points,
       icons: appsPointIcons,
       link: { href: href(featureHref.apps), text: links.apps },
-      screen: <AppsScreenshot alt={apps.imageAlt} sizes={screenSizes} />,
     },
     config: {
       overline: config.overline,
@@ -98,7 +98,6 @@ export function ProductTour({
       points: config.points,
       icons: configPointIcons,
       link: { href: href(featureHref.safeConfig), text: links.config },
-      screen: <ConfigScreenshot dict={config} sizes={screenSizes} />,
     },
     fleet: {
       overline: dict.fleet.overline,
@@ -107,7 +106,6 @@ export function ProductTour({
       points: [],
       icons: [],
       link: { href: href(allFeaturesHref), text: dict.fleet.link },
-      screen: <FleetScreenshot alt={dict.fleet.imageAlt} sizes={screenSizes} />,
     },
   };
 
@@ -190,24 +188,16 @@ export function ProductTour({
           data-reveal-self
           className="flex flex-col gap-6 lg:gap-8"
         >
-          <div className="rounded-lg border border-stage-line bg-(image:--sp-stage) p-2 md:p-4 lg:rounded-xl lg:p-6">
-            {/* The frame has the ratio of the widest screenshot (Apps,
-                3000x1810); the others are fitted whole inside it. */}
-            <div className="grid">
-              {views.map(({ id: view }) => (
-                <div
-                  key={view}
-                  className={cn(
-                    layer,
-                    "relative aspect-[3000/1810]",
-                    view === active ? shown : hiddenLayer,
-                  )}
-                >
-                  {content[view].screen}
-                </div>
-              ))}
-            </div>
-          </div>
+          <PlaygroundFrame>
+            <AppPlayground
+              dict={{ ...playground, config }}
+              screen={viewScreen[active]}
+              onScreenChange={(next) => {
+                const view = views.find(({ id: item }) => viewScreen[item] === next);
+                if (view) setActive(view.id);
+              }}
+            />
+          </PlaygroundFrame>
 
           <div className="grid">
             {views.map(({ id: view }) => (
