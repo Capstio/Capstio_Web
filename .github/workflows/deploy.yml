@@ -57,7 +57,9 @@ jobs:
         run: |
           # The CLI prints a multi-line JSON report when stdout is not a TTY, so read
           # the URL from it instead of writing the whole report into GITHUB_OUTPUT.
-          url=$(vercel deploy --prebuilt $VERCEL_PROD_FLAG --json | jq -r '.deployment.url')
-          test -n "$url" && test "$url" != "null"
+          vercel deploy --prebuilt $VERCEL_PROD_FLAG --json > deploy.json
+          cat deploy.json
+          url=$(jq -r '.deployment.url // .url // empty' deploy.json)
+          test -n "$url"
           echo "url=$url" >> "$GITHUB_OUTPUT"
           echo "Deployed ($VERCEL_ENV): $url" >> "$GITHUB_STEP_SUMMARY"
