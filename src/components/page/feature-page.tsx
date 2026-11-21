@@ -98,7 +98,7 @@ export async function featureMetadata(lang: Locale, key: FeatureKey): Promise<Me
   return pageMetadata(lang, featureHref[key], page.meta);
 }
 
-// The app playground opened on one screen, in the product tour's frame.
+// The app playground opened on one screen, in the same frame as on the home hero.
 export function PlaygroundVisual({ home, screen }: { home: Dictionary["home"]; screen: Screen }) {
   return (
     <PlaygroundFrame>

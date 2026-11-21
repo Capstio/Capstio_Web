@@ -6,9 +6,7 @@ import { PageCapstan } from "@/components/home/page-capstan";
 import { Hero } from "@/components/home/hero";
 import { ToolKeys } from "@/components/home/tool-keys";
 import { Problem } from "@/components/home/problem";
-import { ProductTour } from "@/components/home/product-tour";
 import { Trust } from "@/components/home/trust";
-import { TryIt } from "@/components/home/try-it";
 import { PageMotion } from "@/components/motion/page-motion";
 import { getDictionary, getPageCopy } from "@/lib/dictionaries";
 import { hasLocale, localizePath } from "@/lib/i18n";
@@ -39,17 +37,13 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       {/* The home page explains Capstio in a few screens; pricing, getting
           started, release notes, the comparison and the security details
           live on their own pages, linked from the sections below. */}
-      <Hero lang={lang} dict={home.hero} guide={links.hero.guide} />
-      <Problem lang={lang} leg={leg("problem")} dict={home.problem} />
-      <TryIt leg={leg("try")} dict={home.try} command={home.command} danger={home.danger} />
-      <ProductTour
-        leg={leg("tour")}
-        dict={home.tour}
-        apps={home.unifiedApps}
-        config={home.safeConfig}
-        playground={home.playground}
-        links={links.tour}
+      <Hero
+        lang={lang}
+        dict={home.hero}
+        playground={{ ...home.playground, config: home.safeConfig }}
+        guide={links.hero.guide}
       />
+      <Problem lang={lang} leg={leg("problem")} dict={home.problem} />
       <ToolKeys
         leg={leg("features")}
         tools={featureKeys.map((key) => ({

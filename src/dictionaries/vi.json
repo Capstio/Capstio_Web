@@ -86,8 +86,6 @@
     "copyFailed": "Trình duyệt chặn copy. Hãy bôi đen lệnh trên trang để copy.",
     "sections": {
       "problem": "Vấn đề",
-      "try": "Thử ngay",
-      "tour": "Tham quan app",
       "features": "Tất cả tính năng",
       "trust": "Nhóm, bảo mật và quyền riêng tư",
       "start": "Bắt đầu",
@@ -114,20 +112,18 @@
       "titleAccent": "không cần nhớ lệnh.",
       "cta": "Tải về cho macOS",
       "requirement": "macOS 15+ · Không cài agent",
-      "modesLabel": "Capstio quản lý những gì",
-      "modes": {
-        "apps": { "label": "Apps", "subtitle": "Docker, PM2, systemd, file config và terminal trong một app native. Chỉ cần SSH, không cài agent." },
-        "docker": { "label": "Docker", "subtitle": "Container, image, volume và network trong một app native. Xem trước dung lượng thu hồi được trước khi dọn Docker." },
-        "terminal": { "label": "Terminal", "subtitle": "Terminal nhiều tab, chia đôi và thanh lệnh nhanh ngay trong app. Cảnh báo khi bạn gõ hoặc dán lệnh nguy hiểm." }
-      },
+      "subtitle": "Docker, PM2, systemd, file config và terminal trong một app native. Chỉ cần SSH, không cài agent.",
+      "watch": "Xem video",
+      "closeFilm": "Đóng video",
+      "filmTitle": "Video giới thiệu Capstio",
+      "tabsLabel": "Dùng thử app",
+      "tabs": { "apps": "Apps", "config": "Sửa config an toàn", "fleet": "Toàn bộ VPS" },
       "announcement": {
         "label": "Đã có bảng giá: {price} USD một năm, dùng thử miễn phí {days} ngày",
         "command": "capstio pricing",
         "output": "{price}$/năm · thử {days} ngày"
       },
-      "videoAlt": "Capstio trên Mac: các app Docker Compose, PM2 và systemd của một server trong cùng một danh sách",
-      "unmute": "Bật âm thanh",
-      "mute": "Tắt âm thanh"
+      "videoAlt": "Capstio trên Mac: các app Docker Compose, PM2 và systemd của một server trong cùng một danh sách"
     },
     "problem": {
       "overline": "Vùng nước xoáy",
@@ -172,27 +168,6 @@
         ]
       }
     },
-    "try": {
-      "overline": "Thử ngay",
-      "title": "Thấy lệnh Capstio chạy trước khi nó chạy.",
-      "subtitle": "Mỗi nút bấm đều hiện lệnh shell thật, và lệnh rủi ro luôn hỏi trước. Thử cả hai ngay tại đây, trong trình duyệt.",
-      "tabs": {
-        "command": { "label": "Mỗi nút đều hiện lệnh", "body": "Chọn cách app đang chạy và một thao tác, rồi copy lệnh thật." },
-        "danger": { "label": "Lệnh rủi ro luôn hỏi trước", "body": "Gõ một lệnh và xem Capstio xếp nó theo mức rủi ro." }
-      }
-    },
-    "tour": {
-      "overline": "Tham quan app",
-      "title": "App, file config và cả đội VPS của bạn.",
-      "subtitle": "Dùng thử Capstio ngay tại đây. Cứ bấm thoải mái, không đụng tới server thật.",
-      "tabs": { "apps": "Apps", "config": "Sửa config an toàn", "fleet": "Toàn bộ VPS" },
-      "fleet": {
-        "overline": "Toàn bộ VPS",
-        "title": "Mọi server, một cửa sổ.",
-        "body": "CPU, RAM, disk và container của từng host.",
-        "link": "Xem tất cả tính năng"
-      }
-    },
     "playground": {
       "label": "Bản demo tương tác của app Capstio với server mẫu",
       "demoNote": "Bản demo tương tác · dữ liệu mẫu",
@@ -225,25 +200,7 @@
       },
       "inertCta": "Tải Capstio"
     },
-    "unifiedApps": {
-      "overline": "Quản lý theo ứng dụng",
-      "title": "Docker, PM2, systemd.\nGom về một danh sách duy nhất.",
-      "subtitle": "Không còn phải liên tục gõ {docker ps}, {pm2 status} hay {systemctl}. Capstio tự động quét qua SSH và quản lý mọi tiến trình đang chạy trên server, ngay từ máy Mac của bạn.",
-      "points": [
-        { "title": "Tự động nhận diện", "body": "Tự quét và nhận diện app đang chạy bằng Docker Compose, PM2 hay systemd. Chỉ dùng SSH chuẩn, không cài agent." },
-        { "title": "Thao tác chuẩn hóa", "body": "Khởi động lại hoặc dừng dịch vụ bằng cùng một nút bấm, luôn thấy lệnh shell thật đang chạy." },
-        { "title": "Xem log tập trung", "body": "Xem log trực tiếp của từng app theo thời gian thực. Lọc nhanh dòng ERROR, WARN và tô sáng từ khóa quan trọng." }
-      ]
-    },
     "safeConfig": {
-      "overline": "Sửa config an toàn",
-      "title": "Sửa Nginx, YAML và .env mà không làm sập production.",
-      "subtitle": "Thôi sửa mò bằng nano. Capstio kiểm tra cú pháp ngay khi gõ, tự sao lưu trên server trước mỗi lần lưu và cho khôi phục một chạm.",
-      "points": [
-        { "title": "Kiểm tra cú pháp khi gõ", "body": "Báo lỗi cú pháp theo số dòng ngay khi gõ, cho YAML, .env, Nginx, JSON và Caddyfile." },
-        { "title": "Tự sao lưu & so sánh diff", "body": "Mỗi lần lưu đều tạo bản sao lưu trên server. Xem diff song song và khôi phục một chạm." },
-        { "title": "Che giá trị bí mật", "body": "Tự che giá trị bí mật trong file .env, chia sẻ màn hình khi sửa config an toàn hơn." }
-      ],
       "syntaxValid": "Cú pháp hợp lệ · .env",
       "syntaxError": "Lỗi cú pháp ở dòng {line}",
       "backupTitle": "Đã sao lưu trên server",

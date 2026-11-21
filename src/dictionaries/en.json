@@ -86,8 +86,6 @@
     "copyFailed": "The browser blocked copying. Select the command on the page instead.",
     "sections": {
       "problem": "The problem",
-      "try": "Try it",
-      "tour": "Product tour",
       "features": "All features",
       "trust": "Teams, security & privacy",
       "start": "Get started",
@@ -114,20 +112,18 @@
       "titleAccent": "from one Mac.",
       "cta": "Download for macOS",
       "requirement": "macOS 15+ · No server agent",
-      "modesLabel": "What Capstio manages",
-      "modes": {
-        "apps": { "label": "Apps", "subtitle": "Docker, PM2, systemd, config files, and terminal in one native app. Direct SSH only, zero server agent." },
-        "docker": { "label": "Docker", "subtitle": "Containers, images, volumes and networks in one native app. See what a cleanup reclaims before you run it." },
-        "terminal": { "label": "Terminal", "subtitle": "A terminal with tabs, split view and a quick command bar, right inside the app. It warns you when you type or paste a dangerous command." }
-      },
+      "subtitle": "Docker, PM2, systemd, config files, and terminal in one native app. Direct SSH only, zero server agent.",
+      "watch": "Watch the film",
+      "closeFilm": "Close the film",
+      "filmTitle": "Capstio product film",
+      "tabsLabel": "Try the app",
+      "tabs": { "apps": "Apps", "config": "Safe config", "fleet": "Fleet" },
       "announcement": {
         "label": "Pricing is out: ${price} a year, with a {days}-day free trial",
         "command": "capstio pricing",
         "output": "${price}/yr · {days}-day trial"
       },
-      "videoAlt": "Capstio on a Mac: the Docker Compose, PM2 and systemd apps of a server in one list",
-      "unmute": "Turn sound on",
-      "mute": "Turn sound off"
+      "videoAlt": "Capstio on a Mac: the Docker Compose, PM2 and systemd apps of a server in one list"
     },
     "problem": {
       "overline": "Rough waters",
@@ -172,27 +168,6 @@
         ]
       }
     },
-    "try": {
-      "overline": "Try it",
-      "title": "See what Capstio runs before it runs.",
-      "subtitle": "Every button shows the real shell command, and risky commands always ask first. Try both here, in your browser.",
-      "tabs": {
-        "command": { "label": "Every button shows its command", "body": "Pick how an app runs and an action, then copy the real command." },
-        "danger": { "label": "Risky commands ask first", "body": "Type a command and see how Capstio sorts it by risk." }
-      }
-    },
-    "tour": {
-      "overline": "Product tour",
-      "title": "Your apps, your configs, your whole fleet.",
-      "subtitle": "Try Capstio right here. Click around, nothing touches a real server.",
-      "tabs": { "apps": "Apps", "config": "Safe config", "fleet": "Fleet" },
-      "fleet": {
-        "overline": "Fleet",
-        "title": "Every server, one window.",
-        "body": "CPU, RAM, disk and containers for every host.",
-        "link": "See all features"
-      }
-    },
     "playground": {
       "label": "Interactive demo of the Capstio app with sample servers",
       "demoNote": "Interactive demo · sample data",
@@ -225,25 +200,7 @@
       },
       "inertCta": "Download Capstio"
     },
-    "unifiedApps": {
-      "overline": "Unified apps view",
-      "title": "Docker, PM2, systemd and more. Together at last.",
-      "subtitle": "Stop switching between {docker ps}, {pm2 status}, and {systemctl}. Capstio detects and organizes every running service into one native control center.",
-      "points": [
-        { "title": "Auto-Discovery", "body": "Finds apps whether they run on Docker Compose, PM2, or systemd. Standard SSH only, no agent." },
-        { "title": "Standardized Controls", "body": "Restart or stop any app with the same buttons, and see the equivalent command." },
-        { "title": "Instant Logs", "body": "Open logs for any app. Filter by ERROR, WARN, or INFO and highlight keywords." }
-      ]
-    },
     "safeConfig": {
-      "overline": "Safe config editor",
-      "title": "Edit Nginx, YAML, and .env without breaking production.",
-      "subtitle": "No more blind edits in nano. Capstio checks syntax as you type, creates a backup on the server before every save, and lets you roll back with one click.",
-      "points": [
-        { "title": "Live Syntax Guard", "body": "Flags syntax errors by line number as you type, for YAML, .env, Nginx, JSON and Caddyfile." },
-        { "title": "Auto-Backup & Instant Diff", "body": "Every save creates a backup on the server. Compare versions side by side and restore in one click." },
-        { "title": "Secret Masking", "body": "Masks secret values in .env files, so screen-sharing a config is safer." }
-      ],
       "syntaxValid": "Syntax valid · .env",
       "syntaxError": "Syntax error on line {line}",
       "backupTitle": "Backup saved on server",

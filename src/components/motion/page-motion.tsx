@@ -256,31 +256,22 @@ type Rider = {
   fromRight: boolean; // the swell's tiles are laid from the sea's right edge
   // Where the boat should be, in px from the sea's left edge, for this frame.
   aim: (sea: DOMRect, across: number) => number;
-  // Extra drawing once the boat is placed: the hero window's bob, the rope.
+  // Extra drawing once the boat is placed: the harbor's rope.
   follow?: (pose: BoatPose) => void;
   x: number; // the boat's current centre; eases towards its aim
   visible: boolean;
 };
 
-// The boat's waterline centre in viewport pixels, its size and tilt, and the
-// front swell's current lift and the sea's height.
+// The boat's waterline centre in viewport pixels, its size and tilt.
 type BoatPose = {
   left: number;
   top: number;
   across: number;
   tall: number;
   tilt: number;
-  lifted: number;
-  height: number;
 };
 
-const clamp01 = (value: number) => Math.min(Math.max(value, 0), 1);
 const transformOf = (element: Element) => new DOMMatrixReadOnly(getComputedStyle(element).transform);
-
-// How far the hero window bobs (px) at the front swell's highest and lowest.
-// The swell's wrapper moves 7% of the sea's height each way (.wave-bob).
-const windowBob = 2.5;
-const swellBob = 0.07;
 
 // Builds the riders from the markup ([data-voyage] scenes, each with a
 // [data-sea] box holding a [data-boat] and the front swell) and moves them
@@ -302,34 +293,25 @@ function startVoyage(cleanups: Array<() => void>) {
     const base = { sea, boat, bob, roll, fromRight: roll.dataset.anchor === "right", x: -1, visible: false };
 
     if (scene.dataset.voyage === "hero") {
-      const heroScroll = scrollOutHero(scene, sea, cleanups);
       // It leaves from where it rests without motion (by the pier), or from
-      // the left edge on phones, where the pier is hidden, once the sea has
-      // risen under the window, and sails to the right edge while the hero
-      // scrolls away: done when the sea's top reaches the top of the viewport.
+      // the left edge on phones, where the pier is hidden, once the sea's top
+      // is on screen (from the first pixel of scroll if it already is), and
+      // sails to the right edge while the hero scrolls away: done when the
+      // sea's top reaches the top of the viewport.
       const seaBox = sea.getBoundingClientRect();
       const boatBox = boat.getBoundingClientRect();
       const rest = boatBox.left + boatBox.width / 2 - seaBox.left;
-      const float = scene.querySelector<HTMLElement>("[data-float]");
       riders.push({
         ...base,
         aim: (box, across) => {
-          const sailed = Math.max(window.scrollY - heroScroll.length(), 0);
-          const progress = box.top <= 0 ? 1 : sailed / (sailed + box.top);
+          const seaTop = box.top + window.scrollY;
+          const from = Math.max(seaTop - window.innerHeight, 0);
+          const progress = Math.min(Math.max((window.scrollY - from) / Math.max(seaTop - from, 1), 0), 1);
           const start = window.innerWidth < 640 ? across / 2 + 8 : rest;
           const end = document.documentElement.clientWidth - box.left - across / 2 - 16;
           return start + (end - start) * progress;
         },
-        // The window bobs with the near swell only once the water is under
-        // it, easing in over the last quarter of the rise.
-        follow: float
-          ? ({ lifted, height }) => {
-              const moored = clamp01((heroScroll.progress() - 0.75) / 0.25);
-              float.style.transform = `translateY(${((lifted / (height * swellBob)) * windowBob * moored).toFixed(2)}px)`;
-            }
-          : undefined,
       });
-      cleanups.push(() => float?.style.removeProperty("transform"));
     } else if (scene.dataset.voyage === "harbor") {
       const drum = scene.querySelector("[data-drum]");
       const pier = scene.querySelector("[data-pier]");
@@ -429,7 +411,7 @@ function startVoyage(cleanups: Array<() => void>) {
     const dx = rider.x - across / 2 - parseFloat(style.left);
     const dy = y - tall * boatWaterline - parseFloat(style.top);
     boat.style.transform = `translate(${dx.toFixed(2)}px, ${dy.toFixed(2)}px) rotate(${tilt.toFixed(2)}deg)`;
-    rider.follow?.({ left: box.left + rider.x, top: box.top + y, across, tall, tilt, lifted, height: box.height });
+    rider.follow?.({ left: box.left + rider.x, top: box.top + y, across, tall, tilt });
   };
   const tick = () => {
     for (const rider of riders) if (rider.visible) place(rider);
@@ -452,75 +434,4 @@ function startVoyage(cleanups: Array<() => void>) {
     seen.disconnect();
     cancelAnimationFrame(frame);
   });
-}
-
-// The hero's scroll-out: over the first half viewport of scroll the window
-// scales to 84% and, when pinned, rises (its top staying under the headline)
-// while the sea climbs into the space it leaves. The transforms are in
-// globals.css; this sets their progress on every scroll and their distances
-// on every resize, as custom properties on the hero section. The sea's travel equals the window
-// bottom's travel plus the starting gap, both linear in the progress, so the
-// water's top never passes the window's bottom. Returns the scroll length of
-// the effect and its current progress for the hero's boat.
-const heroScale = 0.16; // matches scale(1 - 0.16 * p) in globals.css
-const heroHeadingGap = 24; // px kept between the headline and the risen window
-const heroStrip = 24; // px of swell left in view at rest, when the window fits
-const heroBobRoom = 4; // px the window's bob may dip without touching the water
-
-function scrollOutHero(scene: HTMLElement, sea: HTMLElement, cleanups: Array<() => void>) {
-  const frame = scene.querySelector<HTMLElement>("[data-hero-window]");
-  const section = scene.closest("section");
-  const pin = scene.closest<HTMLElement>("[data-hero-pin]");
-  const heading = section?.querySelector("h1");
-  let length = window.innerHeight / 2;
-  let progress = 0;
-  if (!frame || !section || !pin || !heading) {
-    return { length: () => 0, progress: () => 1 };
-  }
-
-  const update = () => {
-    progress = clamp01(window.scrollY / Math.max(length, 1));
-    section.style.setProperty("--hero-p", progress.toFixed(4));
-    // Once the fade is done, the faded parts stop taking clicks.
-    section.toggleAttribute("data-hero-faded", progress >= 0.45);
-  };
-
-  const measure = () => {
-    length = window.innerHeight / 2;
-    // Differences of boxes inside the pinned block do not change while it
-    // sticks; offsetTop and offsetHeight ignore the transforms.
-    const sceneTop = scene.getBoundingClientRect().top;
-    // Only the pinned hero (from 1024px) lifts the window, up to just under
-    // the headline: the subtitle, the download button and the tabs have faded
-    // out by then (globals.css). Narrower screens have no pin; the hero scrolls
-    // away by itself and a lift would cover the button while it is in view.
-    const pinned = getComputedStyle(pin).position === "sticky";
-    const lift = pinned ? Math.max(sceneTop - heading.getBoundingClientRect().bottom - heroHeadingGap, 0) : 0;
-    const rise = Math.max(heroScale * frame.offsetHeight + lift - heroBobRoom, 0);
-    // Where the visible water starts at scroll 0: the far swell's mean crest
-    // is 18/96 down the sea box, or 32/96 on phones, where that layer is
-    // hidden (wave-divider.tsx).
-    const crest = (window.innerWidth < 640 ? 32 : 18) / 96;
-    const pinTop = section.getBoundingClientRect().top + window.scrollY;
-    const waterTop = pinTop + (sceneTop - pin.getBoundingClientRect().top) + sea.offsetTop + sea.offsetHeight * crest;
-    const rest = Math.max(window.innerHeight - heroStrip - waterTop, 0);
-    section.style.setProperty("--hero-lift", `${lift.toFixed(1)}px`);
-    section.style.setProperty("--hero-rise", `${rise.toFixed(1)}px`);
-    section.style.setProperty("--hero-rest", `${rest.toFixed(1)}px`);
-    update();
-  };
-
-  measure();
-  const resizes = new ResizeObserver(measure);
-  resizes.observe(scene);
-  window.addEventListener("resize", measure);
-  window.addEventListener("scroll", update, { passive: true });
-  cleanups.push(() => {
-    resizes.disconnect();
-    window.removeEventListener("resize", measure);
-    window.removeEventListener("scroll", update);
-    for (const name of ["--hero-p", "--hero-lift", "--hero-rise", "--hero-rest"]) section.style.removeProperty(name);
-    section.removeAttribute("data-hero-faded");
-  });
-  return { length: () => length, progress: () => progress };
 }

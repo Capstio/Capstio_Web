@@ -1,21 +1,16 @@
-import { Check, EyeOff, History, ShieldCheck, TriangleAlert, type LucideIcon } from "lucide-react";
+import { Check, History, TriangleAlert } from "lucide-react";
 import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/lib/dictionaries";
 import { fill } from "@/lib/i18n";
 
-// The "Safe config" view of the product tour: the icons of its three points
-// (home.safeConfig) and the two callouts that float over the playground's
-// .env editor and repeat what it does, live.
+// The two callouts that float over the playground's .env editor and repeat
+// what it does, live (copy in home.safeConfig).
 
 type SafeConfigDict = Dictionary["home"]["safeConfig"];
 export type ConfigCalloutsDict = Pick<
   SafeConfigDict,
   "syntaxValid" | "syntaxError" | "backupTitle" | "backupMeta" | "restore"
 >;
-
-// Icons of the three points, in dictionary order (Figma "icon/syntax-guard",
-// "icon/backup-history", "icon/secret-mask").
-export const configPointIcons: LucideIcon[] = [ShieldCheck, History, EyeOff];
 
 const callout =
   "flex w-fit items-center rounded-lg border bg-callout text-xs leading-[1.36] font-semibold text-callout-text";

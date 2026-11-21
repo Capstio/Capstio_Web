@@ -11,6 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import type { ConfigCalloutsDict } from "@/components/home/safe-config";
+import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/lib/dictionaries";
 import { fill, hasLocale, localizePath } from "@/lib/i18n";
 import { downloadGuideHref } from "@/lib/site-nav";
@@ -45,7 +46,7 @@ function controlName(element: HTMLElement): string {
 
 // The Capstio window as an interactive demo, in place of the product
 // screenshots: hosts, Apps, the Files .env editor and All VPS work on sample
-// data in the browser; nothing is sent anywhere. The home tour controls the
+// data in the browser; nothing is sent anywhere. The home hero's tabs control the
 // screen (`screen` + `onScreenChange`, kept in sync both ways); other pages
 // just pick the first one (`initialScreen`).
 export function AppPlayground({
@@ -74,14 +75,14 @@ export function AppPlayground({
   const downloadHref =
     typeof lang === "string" && hasLocale(lang) ? localizePath(lang, downloadGuideHref) : downloadGuideHref;
 
-  // Follow the tour tabs: a new `screen` from outside moves the window.
+  // Follow the hero tabs: a new `screen` from outside moves the window.
   const [followed, setFollowed] = useState(screen);
   if (screen !== followed) {
     setFollowed(screen);
     if (screen && screen !== state.screen) send({ type: "screen", screen });
   }
 
-  // And tell the tour when the window moves itself.
+  // And tell the hero tabs when the window moves itself.
   const reportScreen = useEffectEvent((next: Screen) => {
     if (next !== screen) onScreenChange?.(next);
   });
@@ -238,11 +239,24 @@ export function AppPlayground({
 }
 
 // The glow stage that frames the playground wherever a screenshot used to
-// be: the wide window on desktop, a taller compact one on phones.
-export function PlaygroundFrame({ children }: { children: ReactNode }) {
+// be: the wide window on desktop, a taller compact one on phones. Without
+// `stage` (the home hero, where the window floats on the sea) the box hugs
+// the window from tablets up, so the water starts right at its bottom.
+export function PlaygroundFrame({ children, stage = true }: { children: ReactNode; stage?: boolean }) {
+  const box = (
+    <div
+      className={cn(
+        "flex aspect-[4/5] items-center justify-center",
+        stage ? "md:aspect-[3000/1810]" : "md:aspect-auto",
+      )}
+    >
+      {children}
+    </div>
+  );
+  if (!stage) return box;
   return (
     <div className="rounded-lg border border-stage-line bg-(image:--sp-stage) p-2 md:p-4 lg:rounded-xl lg:p-6">
-      <div className="flex aspect-[4/5] items-center justify-center md:aspect-[3000/1810]">{children}</div>
+      {box}
     </div>
   );
 }
