@@ -7,8 +7,6 @@
 // dictionaries (palette.sections), `id` is its anchor on the page.
 export const voyage = [
   { id: "problem", key: "problem" },
-  { id: "try", key: "try" },
-  { id: "tour", key: "tour" },
   { id: "features", key: "features" },
   { id: "trust", key: "trust" },
   { id: "faq", key: "faq" },

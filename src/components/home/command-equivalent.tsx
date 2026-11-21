@@ -18,7 +18,7 @@ import type { Dictionary } from "@/lib/dictionaries";
 
 type CommandDict = Dictionary["home"]["command"];
 
-// The "equivalent command" console of the home Try it section: pick how the
+// The "equivalent command" console of the feature pages: pick how the
 // example app runs and an action, and see the real shell command Capstio runs
 // for it, typed out, with a copy button. Server-rendered on Docker Compose +
 // Restart, so it reads correctly before (or without) JavaScript. The caller

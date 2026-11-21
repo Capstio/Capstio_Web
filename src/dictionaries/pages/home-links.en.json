@@ -2,10 +2,6 @@
   "hero": {
     "guide": "Installation guide"
   },
-  "tour": {
-    "apps": "More about Apps",
-    "config": "More about Safe config"
-  },
   "trust": {
     "facts": [
       {

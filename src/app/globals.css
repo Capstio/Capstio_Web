@@ -160,6 +160,10 @@
   --color-terminal: var(--bg-terminal);
   --color-control: var(--bg-control);
   --color-media: var(--bg-media);
+  /* Dim layer under a film or image overlay and what sits on it; the same in
+     both themes, since the film behind it is dark either way. */
+  --color-scrim: var(--color-neutral-1000);
+  --color-on-scrim: var(--color-slate-0);
   --color-heading: var(--text-heading);
   --color-body: var(--text-body);
   --color-muted: var(--text-muted);
@@ -928,67 +932,6 @@
     }
     to {
       transform: translateY(7%);
-    }
-  }
-}
-
-/*
- * Hero scroll-out (components/home/hero.tsx, hero-video.tsx). Over the first
- * half viewport of scroll page motion sets --hero-p from 0 to 1 on the hero
- * section, and measures --hero-lift (how far the window rises, its top staying
- * under the headline, over the subtitle, button and tabs that fade away), --hero-rise (how far the sea climbs: the window's lift
- * plus the height its scale gives up) and --hero-rest (how far the sea starts
- * lower, leaving a thin strip in view when the window fits on the first
- * screen). Both move linearly with --hero-p, so the gap between the window's
- * bottom and the water only shrinks to zero at the end and never goes below
- * it. Without the variables (no JS, reduced motion) every transform is the
- * identity: the static layout, window full size and the sea below it.
- * From 1024px the hero's content sticks under the fixed header for the length
- * of the spacer, which is reserved here before first paint (no layout shift).
- * The section's negative bottom margin takes back the room the sea leaves
- * when it rises, so the next section follows the water instead of a blank
- * band; it is set after load, while the section's end is still off screen.
- */
-@layer components {
-  html.motion [data-voyage="hero"] [data-hero-window] {
-    transform: translateY(calc(var(--hero-p, 0) * var(--hero-lift, 0px) * -1))
-      scale(calc(1 - 0.16 * var(--hero-p, 0)));
-  }
-
-  html.motion [data-voyage="hero"] > [data-sea] {
-    transform: translateY(
-      calc(var(--hero-rest, 0px) * (1 - var(--hero-p, 0)) - var(--hero-rise, 0px) * var(--hero-p, 0))
-    );
-  }
-
-  [data-hero-pin-spacer] {
-    display: none;
-  }
-
-  @media (width >= 64rem) {
-    html.motion [data-hero-pin] {
-      position: sticky;
-      top: 4.5rem;
-    }
-
-    html.motion [data-hero-pin-spacer] {
-      display: block;
-      height: 50svh;
-    }
-
-    html.motion [data-hero-scroll] {
-      margin-bottom: calc(var(--hero-rise, 0px) * -1);
-    }
-
-    /* While the window rises over them, the subtitle, the download button and
-       the tabs fade out (the headline and the header's button stay), and are
-       taken out of the way once gone so the window gets the clicks. */
-    html.motion [data-hero-fade] {
-      opacity: calc(1 - min(var(--hero-p, 0) * 2.4, 1));
-    }
-
-    html.motion [data-hero-scroll][data-hero-faded] [data-hero-fade] {
-      visibility: hidden;
     }
   }
 }

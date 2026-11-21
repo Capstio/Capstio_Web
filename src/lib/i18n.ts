@@ -1,9 +1,9 @@
 export const locales = ["vi", "en"] as const;
 export type Locale = (typeof locales)[number];
 
-// Vietnamese is the primary language of the product. Its pages live at the
-// root (/, /features); the other languages under their prefix (/en, /en/features).
-export const defaultLocale: Locale = "vi";
+// English is the default language. Its pages live at the root (/, /features);
+// the other languages under their prefix (/vi, /vi/features).
+export const defaultLocale: Locale = "en";
 
 export function hasLocale(value: string): value is Locale {
   return (locales as readonly string[]).includes(value);
@@ -16,7 +16,7 @@ export function localizePath(lang: Locale, path: string): string {
   return path === "/" ? `/${lang}` : `/${lang}${path}`;
 }
 
-// The same page without its language prefix, for example /en/features → /features.
+// The same page without its language prefix, for example /vi/features → /features.
 export function stripLocale(pathname: string): string {
   const [, first = "", ...rest] = pathname.split("/");
   return hasLocale(first) ? `/${rest.join("/")}` : pathname;

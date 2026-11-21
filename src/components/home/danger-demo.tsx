@@ -17,7 +17,7 @@ const levelStyle: Record<RiskLevel, { icon: LucideIcon; tone: string; line: stri
 
 type Outcome = "pending" | "ran" | "confirmed" | "cancelled";
 
-// The "dangerous commands" console of the home Try it section: a
+// The "dangerous commands" console of the feature pages: a
 // terminal-style input. Enter sorts the command by risk (lib/command-risk);
 // commands that need confirmation get Run / Cancel, dangerous ones ask for the
 // host name typed back. A browser simulation only: nothing is sent or run, and

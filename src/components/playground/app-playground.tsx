@@ -45,7 +45,7 @@ function controlName(element: HTMLElement): string {
 
 // The Capstio window as an interactive demo, in place of the product
 // screenshots: hosts, Apps, the Files .env editor and All VPS work on sample
-// data in the browser; nothing is sent anywhere. The home tour controls the
+// data in the browser; nothing is sent anywhere. The home hero's tabs control the
 // screen (`screen` + `onScreenChange`, kept in sync both ways); other pages
 // just pick the first one (`initialScreen`).
 export function AppPlayground({
@@ -74,14 +74,14 @@ export function AppPlayground({
   const downloadHref =
     typeof lang === "string" && hasLocale(lang) ? localizePath(lang, downloadGuideHref) : downloadGuideHref;
 
-  // Follow the tour tabs: a new `screen` from outside moves the window.
+  // Follow the hero tabs: a new `screen` from outside moves the window.
   const [followed, setFollowed] = useState(screen);
   if (screen !== followed) {
     setFollowed(screen);
     if (screen && screen !== state.screen) send({ type: "screen", screen });
   }
 
-  // And tell the tour when the window moves itself.
+  // And tell the hero tabs when the window moves itself.
   const reportScreen = useEffectEvent((next: Screen) => {
     if (next !== screen) onScreenChange?.(next);
   });

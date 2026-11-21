@@ -36,13 +36,13 @@ Key facts:
 
 ## Links
 
-- [Home (English)](https://capstio.app/en): product overview with interactive demos and a product tour.
-- [Trang chủ (Tiếng Việt)](https://capstio.app/): the same page in Vietnamese.
-- [Features](https://capstio.app/en/features): overview and one page per feature (Apps, Docker, Safe config, Terminal, Recipes, Alerts, SSH security, Tunnels, AI, Teams) at /en/features/<feature>.
-- [Pricing](https://capstio.app/en/pricing): Personal and Team plans and the 14-day trial.
-- [Security](https://capstio.app/en/security): design principles, what leaves your Mac, and the team vault.
-- [Compare](https://capstio.app/en/compare): Capstio next to a plain terminal and web dashboards.
-- [FAQ](https://capstio.app/en/faq): setup, servers, alerts, AI, privacy and teams.
-- [Release notes](https://capstio.app/en/release-notes): the latest release.
-- [Get started](https://capstio.app/en/download): requirements, supported distributions and first steps.
+- [Home (English)](https://capstio.app/): product overview with an interactive demo of the app and the product film.
+- [Trang chủ (Tiếng Việt)](https://capstio.app/vi): the same page in Vietnamese.
+- [Features](https://capstio.app/features): overview and one page per feature (Apps, Docker, Safe config, Terminal, Recipes, Alerts, SSH security, Tunnels, AI, Teams) at /features/<feature>.
+- [Pricing](https://capstio.app/pricing): Personal and Team plans and the 14-day trial.
+- [Security](https://capstio.app/security): design principles, what leaves your Mac, and the team vault.
+- [Compare](https://capstio.app/compare): Capstio next to a plain terminal and web dashboards.
+- [FAQ](https://capstio.app/faq): setup, servers, alerts, AI, privacy and teams.
+- [Release notes](https://capstio.app/release-notes): the latest release.
+- [Get started](https://capstio.app/download): requirements, supported distributions and first steps.
 - [Download](https://github.com/Capstio/Capstio_Release/releases/latest): the latest DMG on GitHub Releases.

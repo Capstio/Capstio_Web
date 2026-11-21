@@ -3,12 +3,14 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { Container, DownloadButton, Section } from "@/components/ui";
 import { cn } from "@/lib/cn";
+import type { PlaygroundDict } from "@/components/playground/app-playground";
 import type { Dictionary } from "@/lib/dictionaries";
 import { fill, localizePath, type Locale } from "@/lib/i18n";
 import { plans, trialDays } from "@/lib/pricing";
 import { downloadHref } from "@/lib/site-nav";
-import { HeroModes } from "./hero-modes";
-import { HeroPoster } from "./hero-poster";
+import { HeroFilm } from "./hero-film";
+import { HeroPlayground } from "./hero-playground";
+import { HeroSea } from "./hero-sea";
 
 // Wraps each word of the headline in its own span, rendered by the server, so
 // the page motion can bring the words in one by one without touching the text
@@ -29,24 +31,26 @@ const headingId = "hero-heading";
 // Values for the announcement copy, from the one place prices are set.
 const announcementValues = { price: plans.personal.price, days: trialDays };
 
-// Home hero (Figma "Hero / Desktop" and "Hero / Mobile"): headline, subtitle
-// that follows the Apps / Docker / Terminal switch, download button and the
-// product film, whose window floats on the open sea where the voyage's boat
-// leaves its pier (hero-video.tsx). The announcement opens /pricing; the
-// requirement line links to the installation guide on /download, while the
-// button itself downloads the newest release. Colors follow the active theme. The
-// section isolates the sea's layers and clips the full-bleed water with
-// overflow: clip, not hidden, so it is not a scroll container and the content
-// can stick to the viewport while the window shrinks and the sea rises
-// ([data-hero-pin] and the spacer after it, globals.css). It ends where the
-// sea fades out.
+// Home hero (Figma "Hero / Desktop" and "Hero / Mobile"): announcement,
+// headline, subtitle, the download button beside the "Watch the film" button
+// (which opens the product film in an overlay player, hero-film.tsx), and the
+// open sea where the voyage's boat leaves its pier (hero-sea.tsx). The
+// announcement opens /pricing; the requirement line links to the installation
+// guide on /download, while the download button itself downloads the newest
+// release. Under them, in the place the film used to play, the Apps / Safe
+// config / Fleet tabs over the interactive app playground (hero-playground.tsx)
+// float on the sea. Colors follow the active theme. The section isolates the
+// sea's layers and clips the full-bleed water with overflow: clip; it ends
+// where the sea fades out.
 export function Hero({
   lang,
   dict,
+  playground,
   guide,
 }: {
   lang: Locale;
   dict: Dictionary["home"]["hero"];
+  playground: PlaygroundDict;
   // Label of the link to the installation guide.
   guide: string;
 }) {
@@ -54,7 +58,6 @@ export function Hero({
     <Section
       surface="light"
       aria-labelledby={headingId}
-      data-hero-scroll
       spacing="pb-6"
       className="relative isolate overflow-clip"
     >
@@ -63,14 +66,8 @@ export function Hero({
         className="hero-dots pointer-events-none absolute inset-x-0 top-0 hidden h-130 md:block"
       />
 
-      {/* The top padding lives in the pinned block so it sticks from the first
-          pixel of scroll, right under the fixed header. */}
-      <div data-hero-pin className="pt-16 md:pt-20 lg:pt-10">
+      <div className="pt-16 md:pt-20 lg:pt-10">
         <Container className="relative flex flex-col items-center gap-8 md:gap-10 lg:gap-6">
-          {/* Display size from Figma: 64/72 from tablet up, 40/48 on mobile; the
-              longer Vietnamese headline uses 34/42 on mobile (the H1 size). Each
-              Figma line is its own block and wraps, balanced, only when the
-              screen is too narrow for it at full size. */}
           {/* One-line announcement (brief 8.4, block 1), written as a terminal
               command and its output: page motion types the command, then the
               answer appears ([data-pill]). It sits in the hero because the bar
@@ -96,6 +93,10 @@ export function Hero({
             </span>
           </Link>
 
+          {/* Display size from Figma: 64/72 from tablet up, 40/48 on mobile; the
+              longer Vietnamese headline uses 34/42 on mobile (the H1 size). Each
+              Figma line is its own block and wraps, balanced, only when the
+              screen is too narrow for it at full size. */}
           <h1
             id={headingId}
             data-split
@@ -108,32 +109,31 @@ export function Hero({
             <span className="block text-link">{words(dict.titleAccent)}</span>
           </h1>
 
-          <HeroModes dict={dict} poster={<HeroPoster alt={dict.videoAlt} />}>
-            {/* Side by side from 1024px, to keep the window and the boat above
-                the fold. */}
-            <div data-hero-fade className="flex w-full flex-col items-center gap-4 lg:flex-row lg:justify-center lg:gap-5">
-              <DownloadButton
-                href={downloadHref}
-                size="lg"
-                className="h-13 w-full md:w-60"
-              >
+          <p className="type-body-l max-w-155 text-center text-balance text-body">{dict.subtitle}</p>
+
+          <div className="flex w-full flex-col items-center gap-4">
+            <div className="flex w-full flex-col items-center gap-3 md:w-auto md:flex-row">
+              <DownloadButton href={downloadHref} size="lg" className="h-13 w-full md:w-60">
                 {dict.cta}
               </DownloadButton>
-              <p className="type-caption text-center text-muted">
-                {dict.requirement} ·{" "}
-                <Link
-                  href={localizePath(lang, "/download")}
-                  className="whitespace-nowrap text-link underline-offset-4 hover:underline"
-                >
-                  {guide}
-                </Link>
-              </p>
+              <HeroFilm labels={{ watch: dict.watch, close: dict.closeFilm, title: dict.filmTitle }} />
             </div>
-          </HeroModes>
+            <p className="type-caption text-center text-muted">
+              {dict.requirement} ·{" "}
+              <Link
+                href={localizePath(lang, "/download")}
+                className="whitespace-nowrap text-link underline-offset-4 hover:underline"
+              >
+                {guide}
+              </Link>
+            </p>
+          </div>
+
+          <HeroSea>
+            <HeroPlayground dict={playground} labels={{ tabs: dict.tabs, tabsLabel: dict.tabsLabel }} />
+          </HeroSea>
         </Container>
       </div>
-      {/* Scroll length of the pin, reserved by CSS before first paint. */}
-      <div data-hero-pin-spacer aria-hidden="true" />
     </Section>
   );
 }
