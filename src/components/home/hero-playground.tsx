@@ -97,7 +97,7 @@ export function HeroPlayground({
       </div>
 
       <div id={panelId} role="tabpanel" aria-labelledby={`${id}-${active}`} className="w-full">
-        <PlaygroundFrame>
+        <PlaygroundFrame stage={false}>
           <AppPlayground
             dict={dict}
             screen={tabScreen[active]}
